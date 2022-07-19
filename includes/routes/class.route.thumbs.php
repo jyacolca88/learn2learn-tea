@@ -30,17 +30,26 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_thumb_for_page'),
+                'permissions_callback'  => array ( $this, 'get_thumb_for_page_permissions_check' )
+            )
+
+        ));
+
     }
 
     public function get_thumbs( $request ){
 
-        // $L2l_Content_Items = new Learn2Learn_Content_Items("85daa4da50ba3931755b1960bf8f1083");
-        // $lessons = $L2l_Content_Items->get_map_items();
-
         $L2l_Thumbs = new Learn2Learn_Thumbs("85daa4da50ba3931755b1960bf8f1083");
-        return $L2l_Thumbs->get_thumb_for_page();
+        $thumbs = $L2l_Thumbs->get_all_thumbs();
+        // return $L2l_Thumbs->get_thumb_by_id(5);
+        // return $L2l_Thumbs->get_user_thumb_by_page_id(31);
 
-        // return new WP_REST_Response( $lessons, 200 );
+        return new WP_REST_Response( $thumbs, 200 );
 
     }
 
@@ -52,16 +61,33 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_thumb( $request ){
 
-        $lesson_id = (int) $request['id'];
+        $thumb_id = (int) $request['id'];
 
-        $L2L_Lessons = new Learn2Learn_Lessons( $lesson_id, "85daa4da50ba3931755b1960bf8f1083" );
-        $lesson_data = $L2L_Lessons->get_thumb_data( $lesson_id );
+        $L2l_Thumbs = new Learn2Learn_Thumbs("85daa4da50ba3931755b1960bf8f1083");
+        $thumb_data = $L2l_Thumbs->get_thumb_by_id($thumb_id);
 
-        return new WP_REST_Response( $lesson_data, 200 );
+        return new WP_REST_Response( $thumb_data, 200 );
 
     }
 
     public function get_thumb_permissions_check( $request ){
+
+        return '__return_true';
+
+    }
+
+    public function get_thumb_for_page( $request ){
+
+        $page_id = (int) $request['page_id'];
+
+        $L2l_Thumbs = new Learn2Learn_Thumbs("85daa4da50ba3931755b1960bf8f1083");
+        $thumb_data = $L2l_Thumbs->get_user_thumb_by_page_id($page_id);
+
+        return new WP_REST_Response( $thumb_data, 200 );
+
+    }
+
+    public function get_thumb_for_page_permissions_check( $request ){
 
         return '__return_true';
 
