@@ -58,7 +58,8 @@ class Learn2Learn_Lessons {
     private function get_lesson_data_array(){
 
         $lesson_completion_record = $this->db_user_progress->select_user_progress_record($this->user_id, $this->lesson->ID);
-        $lesson_completion = (is_object($lesson_completion_record) ? $lesson_completion_record->progress : null);
+        $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : null);
+        $lesson_interactive = $this->get_lesson_interactive();
 
         return array(
             'lesson_id' => $this->lesson->ID,
@@ -66,8 +67,31 @@ class Learn2Learn_Lessons {
             'lesson_title' => apply_filters ( 'the_title', $this->lesson->post_title ),
             'lesson_content' => apply_filters( 'the_content', $this->lesson->post_content ),
             "lesson_reading_time" => esc_html(get_field( "reading_time", $this->lesson->ID) ),
-            'lesson_completion' => $lesson_completion
+            'lesson_completion' => $lesson_completion,
+            'lesson_interactive' => $lesson_interactive
         );
+
+    }
+
+    private function get_lesson_interactive(){
+
+        $filters = get_the_terms( $this->lesson->ID, 'filter' );
+        if (!$filters || empty($filters)) return false;
+
+        $is_interactive = false;
+        $possible_interactive_array = [];
+
+        foreach($filters as $filter){
+
+            if ($filter->slug == "interactive"){
+                $is_interactive = true;
+            } else {
+                array_push($possible_interactive_array, $filter->slug);
+            }
+
+        }
+
+        return ($is_interactive ? $possible_interactive_array[0] : false);
 
     }
 
@@ -91,14 +115,18 @@ class Learn2Learn_Lessons {
 
         }
 
-        $pages_progress_records = $this->db_user_progress->select_user_progress_records_in($this->user_id, $page_ids);
+        if (!empty($page_ids)) {
 
-        foreach($pages_array as $key => $page){
+            $pages_progress_records = $this->db_user_progress->select_user_progress_records_in($this->user_id, $page_ids);
 
-            for($i=0; $i < count($pages_progress_records); $i++){
+            foreach($pages_array as $key => $page){
 
-                if ($pages_progress_records[$i]->content_id == $page["page_id"]){
-                    $pages_array[$key]["page_completion"] = $pages_progress_records[$i]->progress;
+                for($i=0; $i < count($pages_progress_records); $i++){
+
+                    if ($pages_progress_records[$i]->content_id == $page["page_id"]){
+                        $pages_array[$key]["page_completion"] = intval($pages_progress_records[$i]->progress);
+                    }
+
                 }
 
             }
