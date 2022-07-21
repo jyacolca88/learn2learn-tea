@@ -164,7 +164,8 @@ class Learn2Learn_Content_Items {
                     "url" => $this->base_url . "?p=" . $child_item->object_id,
                     "order" => $order,
                     "slug" => get_post_field( "post_name", $child_item->object_id ),
-                    "reading_time" => get_field( "reading_time", $child_item->object_id)
+                    "reading_time" => get_field( "reading_time", $child_item->object_id),
+                    "is_interactive" => $this->get_lesson_interactive($child_item->object_id)
                 );
 
                 if (isset($user_progress) && ($user_progress_key = array_search($child_item->object_id, array_column($user_progress, 'content_id'))) > -1){
@@ -196,6 +197,28 @@ class Learn2Learn_Content_Items {
         $this->map_items = $map_items;
         $this->content_items = $content_items;
         $this->overall_progress = floor(($overall_progress / $overall_number_of_items) * 100);
+
+    }
+
+    private function get_lesson_interactive($content_item_id){
+
+        $filters = get_the_terms( $content_item_id, 'filter' );
+        if (!$filters || empty($filters)) return false;
+
+        $is_interactive = false;
+        $possible_interactive_array = [];
+
+        foreach($filters as $filter){
+
+            if ($filter->slug == "interactive"){
+                $is_interactive = true;
+            } else {
+                array_push($possible_interactive_array, $filter->slug);
+            }
+
+        }
+
+        return ($is_interactive ? $possible_interactive_array[0] : false);
 
     }
 
