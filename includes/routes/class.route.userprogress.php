@@ -38,6 +38,7 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
         // $thumb_data = $L2l_Thumbs->get_thumb_by_id($thumb_id);
 
         // return new WP_REST_Response( $thumb_data, 200 );
+        return new WP_REST_Response( "Hello World! Testing WP Pusher", 200 );
 
     }
 
