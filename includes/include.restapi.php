@@ -9,6 +9,7 @@ require_once get_template_directory() . '/includes/routes/class.route.categories
 require_once get_template_directory() . '/includes/routes/class.route.lessons.php';
 require_once get_template_directory() . '/includes/routes/class.route.questionnaire.php';
 require_once get_template_directory() . '/includes/routes/class.route.thumbs.php';
+require_once get_template_directory() . '/includes/routes/class.route.userprogress.php';
 
 
 function lf_l2l_register_rest_routes(){
@@ -27,6 +28,9 @@ function lf_l2l_register_rest_routes(){
 
     $thumbs_route = new Thumbs_Learn2Learn_Custom_Route();
     $thumbs_route->register_routes();
+
+    $userprogress_route = new Userprogress_Learn2Learn_Custom_Route();
+    $userprogress_route->register_routes();
 
 }
 
