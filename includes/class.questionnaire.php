@@ -60,7 +60,8 @@ class Learn2Learn_Questionnaire {
                     array_push($questions_array, [
                         "question_id" => intval($menu_object->object_id),
                         "question_title" => $menu_object->title,
-                        "question_order" => $question_order
+                        "question_order" => $question_order,
+                        'menu_item_id' => intval($menu_object->ID)
                     ]);
     
                     $question_order++;
@@ -69,7 +70,7 @@ class Learn2Learn_Questionnaire {
                     break;
 
                 case "option";
-
+                    
                     $options_array[$menu_object->menu_item_parent][] = [
                         "option_id" => intval($menu_object->object_id),
                         "option_title" => $menu_object->title,
@@ -92,8 +93,8 @@ class Learn2Learn_Questionnaire {
 
         foreach($questions_array as $key => $question){
 
-            $question_id = intval($question["question_id"]);
-            $question_options = $options_array[$question_id] ?? false;
+            $menu_item_id = intval($question["menu_item_id"]);
+            $question_options = $options_array[$menu_item_id] ?? false;
 
             if(!$question_options)
                 continue;
