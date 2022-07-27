@@ -40,6 +40,16 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route ( $namespace, $resource_name . '/topic/(?P<topic_ids>)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_topics' ),
+                'permissions_callcback' => array ( $this, 'get_topics_permissions_check' )
+            )
+
+        ));
+
     }
 
     public function get_questionnaires( $request ){
@@ -89,6 +99,21 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
     }
 
     public function get_topic_permissions_check( $request ){
+
+        return '__return_true';
+
+    }
+
+    public function get_topics( $request ){
+
+        $topic_ids = sanitize_text_field($request['topic_ids']);
+
+        $topics = Learn2Learn_Topics::get_topics_by_ids($topic_ids);
+        return new WP_REST_Response( $topics, 200 );
+
+    }
+
+    public function get_topics_permissions_check( $request ){
 
         return '__return_true';
 
