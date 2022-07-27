@@ -48,7 +48,7 @@ class Learn2Learn_Questionnaire {
         if(!$this->questionnaire_menu || empty($this->questionnaire_menu))
             return;
 
-        $questions_array = $options_array = $content_items_array = $topics_array = [];
+        $questions_array = $options_array = $topics_array = [];
         $question_order = $option_order = 0;
 
         foreach($this->questionnaire_menu as $menu_object){
@@ -81,12 +81,6 @@ class Learn2Learn_Questionnaire {
 
                     break;
 
-                case "content-item":
-
-                    $content_items_array[$menu_object->menu_item_parent][] = $menu_object->object_id;
-
-                    break;
-
             }
 
         }
@@ -110,7 +104,6 @@ class Learn2Learn_Questionnaire {
                     }
                 }
 
-                $question_options[$k]["content_items"] = isset($content_items_array[$option["option_id"]]) ? implode(",", $content_items_array[$option["option_id"]]) : false;
                 $question_options[$k]["topic_ids"] = !empty($topic_ids) ? implode(",", $topic_ids) : false;
             }
 
