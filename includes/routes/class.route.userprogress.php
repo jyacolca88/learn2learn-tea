@@ -39,7 +39,7 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         // return new WP_REST_Response( $thumb_data, 200 );
 
-        $tags = get_the_terms(838, "topics");
+        $tags = get_the_terms(838, "topic");
 
         return new WP_REST_Response( $tags, 200 );
 
