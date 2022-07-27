@@ -39,9 +39,13 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         // return new WP_REST_Response( $thumb_data, 200 );
 
-        $tags = get_the_terms(838, "topic");
+        // $tags = get_the_terms(838, "topic");
 
-        return new WP_REST_Response( $tags, 200 );
+        $locations = get_nav_menu_locations();
+        $object = wp_get_nav_menu_object( $locations["journey-map-questions"] );
+        $menu = wp_get_nav_menu_items( $object->name );
+
+        return new WP_REST_Response( $menu, 200 );
 
     }
 
