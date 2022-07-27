@@ -52,6 +52,13 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     }
 
+    /*
+        (?P[a-zA-Z0-9-]+) for slug (you can change slug for your custom name)
+        (?P\d+) for id
+        (?P[a-z0-9 .\-]+) for longitude or latitude
+        https://developer.wordpress.org/reference/functions/register_rest_route/
+    */
+
     public function get_questionnaires( $request ){
 
         // return "List all questionnaires here... Menus with menu location Journey Map Questions";
