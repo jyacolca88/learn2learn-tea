@@ -40,7 +40,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route ( $namespace, $resource_name . '/topics/(?P<topic_ids>+)', array(
+        register_rest_route ( $namespace, $resource_name . '/topics/(?P<topic_ids>[\w\-],?)+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
