@@ -58,7 +58,7 @@ class Learn2Learn_Questionnaire {
                 case "question":
 
                     array_push($questions_array, [
-                        "question_id" => intval($menu_object->ID),
+                        "question_id" => intval($menu_object->object_id),
                         "question_title" => $menu_object->title,
                         "question_order" => $question_order
                     ]);
@@ -71,7 +71,7 @@ class Learn2Learn_Questionnaire {
                 case "option";
 
                     $options_array[$menu_object->menu_item_parent][] = [
-                        "option_id" => intval($menu_object->ID),
+                        "option_id" => intval($menu_object->object_id),
                         "option_title" => $menu_object->title,
                         "option_order" => $option_order
                     ];
