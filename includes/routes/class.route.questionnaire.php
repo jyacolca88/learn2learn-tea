@@ -82,8 +82,9 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         $topic_id = (int) $request['topic_id'];
 
-        $topic = Learn2Learn_Topics::get_topic_by_id($topic_id);
-        return new WP_REST_Response( $topic, 200 );
+        // $topic = Learn2Learn_Topics::get_topic_by_id($topic_id);
+        // return new WP_REST_Response( $topic, 200 );
+        return new WP_REST_Response( "hello world!", 200 );
 
     }
 
