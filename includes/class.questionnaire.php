@@ -116,6 +116,8 @@ class Learn2Learn_Questionnaire {
 
             $questions_array[$key]["question_options"] = $question_options;
 
+            unset($questions_array[$key]["menu_item_id"]);
+
         }
 
         $this->questionnaire_array = $questions_array;
