@@ -115,12 +115,19 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_topics( $request ){
 
-        // return new WP_REST_Response( "topics route test 3", 200 );
+        $topic_ids = $request['topic_ids'];
 
-        $topic_ids = urldecode($request['topic_ids']);
-        $topic_ids = sanitize_text_field($topic_ids);
+        if ($topic_ids){
 
-        $topics = Learn2Learn_Topics::get_topics_by_ids($topic_ids);
+            $topic_ids = sanitize_text_field(urldecode($topic_ids));
+            $topics = Learn2Learn_Topics::get_topics_by_ids($topic_ids);
+
+        } else {
+
+            $topics = Learn2Learn_Topics::get_all_topics();
+
+        }
+
         return new WP_REST_Response( $topics, 200 );
 
     }
