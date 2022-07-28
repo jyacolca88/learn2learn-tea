@@ -4,7 +4,10 @@ class Learn2Learn_Topics {
     // TODO: Get all topics that are associated to a Content Item
     public static function get_all_topics(){
 
-        return wp_get_post_terms( 0, 'topic', array( 'fields' => 'all' ) );
+        return get_terms( array(
+            'taxonomy' => 'topic',
+            'hide_empty' => true,
+        ) );
 
     }
 

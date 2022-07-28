@@ -135,7 +135,6 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
         } else {
 
             $topics = Learn2Learn_Topics::get_all_topics();
-            $topics = "is this working?";
 
         }
 
