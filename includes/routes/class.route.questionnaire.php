@@ -40,7 +40,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route ( $namespace, $resource_name . '/topics/(?P<topic_ids>[\d]+)', array(
+        register_rest_route ( $namespace, $resource_name . '/topics/(?P<topic_ids>[^,]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -58,6 +58,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
         (?P[a-z0-9 .\-]+) for longitude or latitude
         https://developer.wordpress.org/reference/functions/register_rest_route/
         // /topics/(?P<topic_ids>[\w\-],?)+)
+        // /topics/(?P<topic_ids>[^,]+)
     */
 
     public function get_questionnaires( $request ){
