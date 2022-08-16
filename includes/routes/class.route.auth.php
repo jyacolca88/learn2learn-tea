@@ -27,6 +27,8 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         // $L2l_Content_Items = new Learn2Learn_Content_Items("85daa4da50ba3931755b1960bf8f1083");
         // $content_items = $L2l_Content_Items->get_content_items();
 
+        
+
         return new WP_REST_Response( "Auth REST END POINT", 200 );
 
 
