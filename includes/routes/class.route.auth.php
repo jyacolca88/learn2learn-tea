@@ -42,7 +42,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         curl_close($ch);
 
-        $data = json_decode($response);
+        $data = json_decode($response, true);
 
         var_dump($data);
 
