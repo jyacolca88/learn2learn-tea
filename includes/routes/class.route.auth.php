@@ -29,7 +29,13 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $rest_url = get_rest_url(null, "/jwt-auth/v1");
         $message = "Auth Route. JWT EndPoint: " . $rest_url;
 
-        return new WP_REST_Response( $message, 200 );
+        $ch = curl_init($rest_url);
+
+        curl_exec($ch);
+
+        curl_close($ch);
+
+        // return new WP_REST_Response( $message, 200 );
 
     }
 
