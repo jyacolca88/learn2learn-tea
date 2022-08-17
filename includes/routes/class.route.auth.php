@@ -30,10 +30,11 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $message = "Auth Route. JWT EndPoint: " . $rest_url;
 
         $headers = [
-            
+            "Content-type: application/json; charset=UTF-8",
+            "Accept-language: en"
         ];
 
-        $ch = curl_init($rest_url);
+        $ch = curl_init();
 
         // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
