@@ -8,6 +8,7 @@ class Learn2Learn_Auth{
     private $key;
     private $jwt_auth_rest_url;
     private $jwt_auth_response;
+    private $error_response;
     
     function __construct($lms_user_id = null, $password = null, $key = null){
 
@@ -103,6 +104,10 @@ class Learn2Learn_Auth{
             $this->username = null;
             $this->password = null;
             $this->key = null;
+
+            $this->error_response = [
+                "error_message" => "Session has expired"
+            ];
 
         }
 
