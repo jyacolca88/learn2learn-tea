@@ -125,7 +125,7 @@ function lf_l2l_get_category_ids(){
 
 function mod_jwt_auth_token_before_dispatch( $data, $user ) {
 
-    $user_info = get_user_by( 'username',  $user->data->user_login );
+    $user_info = get_user_by( 'login',  $user->data->user_login );
     $profile = array (
         'id' => $user_info->id,
         'user_first_name' => $user_info->first_name,
