@@ -14,7 +14,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_thumbs'),
-                'permissions_callback'  => array ( $this, 'get_thumbs_permissions_check' ),
+                'permission_callback'  => array ( $this, 'get_thumbs_permissions_check' ),
                 'args'                  => array ()
             )
 
@@ -25,7 +25,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_thumb'),
-                'permissions_callback'  => array ( $this, 'get_thumb_permissions_check' )
+                'permission_callback'  => array ( $this, 'get_thumb_permissions_check' )
             )
 
         ));
@@ -35,7 +35,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_thumb_for_page'),
-                'permissions_callback'  => array ( $this, 'get_thumb_for_page_permissions_check' )
+                'permission_callback'  => array ( $this, 'get_thumb_for_page_permissions_check' )
             )
 
         ));

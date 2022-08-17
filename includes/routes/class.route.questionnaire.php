@@ -14,7 +14,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_questionnaires'),
-                'permissions_callback'  => array ( $this, 'get_questionnaires_permissions_check' ),
+                'permission_callback'  => array ( $this, 'get_questionnaires_permissions_check' ),
                 'args'                  => array ()
             )
 
@@ -25,7 +25,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_questionnaire'),
-                'permissions_callback'  => array ( $this, 'get_questionnaire_permissions_check' )
+                'permission_callback'  => array ( $this, 'get_questionnaire_permissions_check' )
             )
 
         ));
@@ -35,7 +35,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_topic'),
-                'permissions_callback'  => array ( $this, 'get_topic_permissions_check' )
+                'permission_callback'  => array ( $this, 'get_topic_permissions_check' )
             )
 
         ));

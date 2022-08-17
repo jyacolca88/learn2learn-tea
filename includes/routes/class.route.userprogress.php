@@ -13,7 +13,7 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_userprogress'),
-                'permissions_callback'  => array ( $this, 'get_userprogress_permissions_check' )
+                'permission_callback'  => array ( $this, 'get_userprogress_permissions_check' )
             )
 
         ));
@@ -23,7 +23,7 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_userprogress_for_page'),
-                'permissions_callback'  => array ( $this, 'get_userprogress_for_page_permissions_check' )
+                'permission_callback'  => array ( $this, 'get_userprogress_for_page_permissions_check' )
             )
 
         ));
