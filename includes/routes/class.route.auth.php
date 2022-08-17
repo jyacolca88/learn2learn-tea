@@ -39,7 +39,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $postData = [
+        $payload = [
             "username" => "Johnny",
             "password" => "mT4knYdHbPDOPcbXXDYQLok"
         ];
@@ -50,12 +50,12 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($postData)
+            CURLOPT_POSTFIELDS => json_encode($payload)
         ]);
         // curl_setopt($ch, CURLOPT_URL, $rest_url . "/token");
         // curl_setopt($ch, CURLOPT_POST, true);
         // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
         $response = curl_exec($ch);
 
@@ -74,7 +74,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         if ($status_code !== 200){
             echo "Unexpected status code: $status_code<br />";
             print_r($data);
-            exit;    
+            exit;
         }
 
         return new WP_REST_Response( $data, 200 );

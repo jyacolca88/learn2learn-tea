@@ -6,6 +6,8 @@ class Learn2Learn_Auth{
     private $username;
     private $password;
     private $key;
+    private $jwt_auth_rest_url;
+    private $jwt_auth_response;
     
     function __construct($lms_user_id = null, $password = null, $key = null){
 
@@ -13,8 +15,31 @@ class Learn2Learn_Auth{
         $this->password = (is_null($password) ? $this->fetch_password() : $password);
         $this->key = (is_null($key) ? $this->fetch_key() : $key);
 
+        $this->jwt_auth_rest_url = get_rest_url(null, "/jwt-auth/v1");
+
         $this->validate_key();
         $this->generate_username();
+
+    }
+
+    public function authenticate(){
+
+        // If username or password is not set, exit
+        if (!$this->username || !$this->password) return;
+
+        // If username does NOT exist
+        if (!username_exists($this->username)){
+
+            // Create user and set password
+            $user_id =  wp_create_user($this->username, $this->password);
+
+        }
+
+        // Use JWT Authentication with cURL
+        $this->curl_jwt_authentication();
+
+        // Return JWT Auth Response
+        return $this->jwt_auth_response;
 
     }
 
@@ -89,15 +114,67 @@ class Learn2Learn_Auth{
 
     }
 
-    public function get_username(){
+    private function curl_jwt_authentication(){
 
-        return $this->username;
-        // Check if username exists
-        // If exists, check password, and login
-        // If username does NOT exist
-        // Create user, set password, and login
+        // If username or password is not set, exit
+        if (!$this->username || !$this->password) return;
+
+        // Set up token URL (JWT Authentication for WP REST API)
+        $token_url = $this->jwt_auth_rest_url . "/token";
+
+        // Set up headers
+        $headers = [
+            "Content-type: application/json; charset=UTF-8",
+            "Accept-language: en"
+        ];
+
+        // Set up payload
+        $payload = [
+            "username" => $this->username,
+            "password" => $this->password
+        ];
+
+        // Initialise cURL
+        $ch = curl_init();
+
+        // Set up cURL options
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $token_url,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($payload)
+        ]);
+
+        // Store response from cURL
+        $response = curl_exec($ch);
+
+        // Get status code response
+        $status_code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+
+        // Close cURL
+        curl_close($ch);
+
+        // Store JSON decoded response
+        $data = json_decode($response, true);
+
+        // If status code is invalid, print errors
+        if ($status_code === 422){
+            echo "Invalid data<br/>";
+            print_r($data["errors"]);
+            exit;
+        }
+
+        // If status code does not return fine, print data
+        if ($status_code !== 200){
+            echo "Unexpected status code: $status_code<br />";
+            print_r($data);
+            exit;
+        }
+
+        // Set array data of cURL response
+        $this->jwt_auth_response = $data;
 
     }
-
 
 }
