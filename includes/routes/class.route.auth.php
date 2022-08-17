@@ -55,13 +55,25 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         $response = curl_exec($ch);
 
+        $status_code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+
         curl_close($ch);
 
         $data = json_decode($response, true);
 
-        var_dump($data);
+        if ($status_code === 422){
+            echo "Invalid data: ";
+            print_r($data["errors"]);
+            exit;
+        }
 
-        // return new WP_REST_Response( $message, 200 );
+        if ($status_code !== 201){
+            echo "Unexpected status code: $status_code";
+            var_dump($data);
+            exit;    
+        }
+
+        return new WP_REST_Response( $data, 200 );
 
     }
 
