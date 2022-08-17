@@ -25,8 +25,7 @@ class Learn2Learn_Auth{
 
     public function authenticate(){
 
-        // if (!function_exists("jwt_auth_token_before_dispatch")) throw new Exception("JWT Authentication for WP REST API not configured");
-        if (true) throw new Exception("JWT Authentication for WP REST API not configured");
+        if (!function_exists("jwt_auth_token_before_dispatch")) throw new Exception("JWT Authentication for WP REST API not configured");
 
         if ($this->error_response) return $this->error_response;
 
