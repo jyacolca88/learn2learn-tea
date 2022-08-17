@@ -25,6 +25,8 @@ class Learn2Learn_Auth{
 
     public function authenticate(){
 
+        if ($this->error_response) return $this->error_response;
+
         // If username or password is not set, exit
         if (!$this->username || !$this->password) return;
 
