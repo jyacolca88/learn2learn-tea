@@ -62,14 +62,14 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $data = json_decode($response, true);
 
         if ($status_code === 422){
-            echo "Invalid data: ";
+            echo "<p style='color:red;'>Invalid data: </p>";
             print_r($data["errors"]);
             exit;
         }
 
         if ($status_code !== 201){
-            echo "Unexpected status code: $status_code";
-            var_dump($data);
+            echo "<p style='color:red;'>Unexpected status code: <strong>$status_code</strong></p>";
+            echo "<pre>" . print_r($data, true) . "</pre>";
             exit;    
         }
 
