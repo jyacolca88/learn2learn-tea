@@ -14,7 +14,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'authorise'),
-                'permissions_callback'  => array ( $this, 'authorise_permissions_check' ),
+                'permission_callback'  => array ( $this, 'authorise_permissions_check' ),
                 'args'                  => array ()
             )
 
@@ -25,8 +25,8 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
     public function authorise( $request ){
 
         $uid = "28ba6aa6d6b8e8562dfc0fc62248ceff";
+        $key = "c3e22a934e37c0aa855df58c248d46cb";
         $pass = "eccbc87e4b5ce2fe28308fd9f2a7baf3";
-        $key = "574cde5d2a552ca933e93d3a827546e0";
 
         $L2l_Auth= new Learn2Learn_Auth($uid, $pass, $key);
         $token_data = $L2l_Auth->authenticate();
