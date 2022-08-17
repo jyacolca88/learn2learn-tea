@@ -9,7 +9,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $resource_name = 'auth';
 
 
-        register_rest_route( $namespace, '/' . $resource_name . "/(?P<uid>[a-zA-Z0-9-]+)" . "/(?P<pass>[a-zA-Z0-9-]+)" . "/(?P<key>[a-zA-Z0-9-]+)", array(
+        register_rest_route( $namespace, '/' . $resource_name . "/(?P<uid>[\w]+)" . "/(?P<pass>[\w]+)" . "/(?P<key>[\w]+)", array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
