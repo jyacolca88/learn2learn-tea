@@ -123,5 +123,25 @@ function lf_l2l_get_category_ids(){
 
 }
 
+function mod_jwt_auth_token_before_dispatch( $data, $user ) {
+    
+    $user_info = get_user_by( 'email',  $user->data->user_email );
+    $profile = array (
+        'id' => $user_info->id,
+        'user_first_name' => $user_info->first_name,
+        'user_last_name' => $user_info->last_name,
+        'user_email' => $user->data->user_email,
+        'user_nicename' => $user->data->user_nicename,
+        'user_display_name' => $user->data->display_name
+    );
+    $response = array(
+        'token' => $data['token'],
+        'profile' => $profile
+    );
+    return $response;
+}
+
+add_filter( 'jwt_auth_token_before_dispatch', 'mod_jwt_auth_token_before_dispatch', 10, 2 );
+
 require_once get_template_directory() . '/includes/include.classes.php';
 require_once get_template_directory() . '/includes/include.restapi.php';
