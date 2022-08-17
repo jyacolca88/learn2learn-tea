@@ -125,18 +125,19 @@ function lf_l2l_get_category_ids(){
 
 function mod_jwt_auth_token_before_dispatch( $data, $user ) {
 
-    $user_info = get_user_by( 'login',  $user->data->user_login );
-    $profile = array (
-        'id' => $user_info->id,
-        'user_first_name' => $user_info->first_name,
-        'user_last_name' => $user_info->last_name,
-        'user_email' => $user->data->user_email,
-        'user_nicename' => $user->data->user_nicename,
-        'user_display_name' => $user->data->display_name
-    );
+    // $user_info = get_user_by( 'login',  $user->data->user_login );
+    // $profile = array (
+    //     'id' => $user_info->id,
+    //     'user_first_name' => $user_info->first_name,
+    //     'user_last_name' => $user_info->last_name,
+    //     'user_email' => $user->data->user_email,
+    //     'user_nicename' => $user->data->user_nicename,
+    //     'user_display_name' => $user->data->display_name
+    // );
     $response = array(
         'token' => $data['token'],
-        'profile' => $profile
+        'user_id' => $user->ID,
+        'username' => $user->data->user_login
     );
     return $response;
 }
