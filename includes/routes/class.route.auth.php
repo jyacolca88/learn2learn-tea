@@ -39,20 +39,23 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        curl_setopt_array($ch, [
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_RETURNTRANSFER => true
-        ]);
-
         $postData = [
             "username" => "Johnny",
             "password" => "mT4knYdHbPDOPcbXXDYQLok"
         ];
 
-        curl_setopt($ch, CURLOPT_URL, $rest_url . "/token");
-        curl_setopt($ch, CURLOPT_POST, true);
+
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $rest_url . "/token",
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($postData)
+        ]);
+        // curl_setopt($ch, CURLOPT_URL, $rest_url . "/token");
+        // curl_setopt($ch, CURLOPT_POST, true);
         // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
 
         $response = curl_exec($ch);
 
