@@ -77,7 +77,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
             exit;    
         }
 
-        return new WP_REST_Response( $data, 200 );
+        return new WP_REST_Response( print_r($data, true), 200 );
 
     }
 
