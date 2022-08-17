@@ -45,8 +45,8 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         ]);
 
         $postData = [
-            "username" => "admin",
-            "password" => "12345"
+            "username" => "Johnny",
+            "password" => "mT4knYdHbPDOPcbXXDYQLok"
         ];
 
         curl_setopt($ch, CURLOPT_URL, $rest_url . "/token");
