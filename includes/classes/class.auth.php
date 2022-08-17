@@ -165,7 +165,7 @@ class Learn2Learn_Auth{
             exit;
         }
 
-        // If status code does not return fine, print data
+        // If status code does not return OK, print data
         if ($status_code !== 200){
             echo "Unexpected status code: $status_code<br />";
             print_r($data);
