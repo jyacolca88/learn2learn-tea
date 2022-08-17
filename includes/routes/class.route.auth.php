@@ -24,60 +24,15 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function authorise( $request ){
 
-        // $L2l_Content_Items = new Learn2Learn_Content_Items("85daa4da50ba3931755b1960bf8f1083");
-        // $content_items = $L2l_Content_Items->get_content_items();
-        $rest_url = get_rest_url(null, "/jwt-auth/v1");
-        $message = "Auth Route. JWT EndPoint: " . $rest_url;
+        $uid = "28ba6aa6d6b8e8562dfc0fc62248ceff";
+        $pass = "eccbc87e4b5ce2fe28308fd9f2a7baf3";
+        $key = "574cde5d2a552ca933e93d3a827546e0";
 
-        $headers = [
-            "Content-type: application/json; charset=UTF-8",
-            "Accept-language: en"
-        ];
+        $L2l_Auth= new Learn2Learn_Auth($uid, $pass, $key);
+        $token_data = $L2l_Auth->authenticate();
+        
 
-        $ch = curl_init();
-
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $payload = [
-            "username" => "Johnny",
-            "password" => "mT4knYdHbPDOPcbXXDYQLok"
-        ];
-
-
-        curl_setopt_array($ch, [
-            CURLOPT_URL => $rest_url . "/token",
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => json_encode($payload)
-        ]);
-        // curl_setopt($ch, CURLOPT_URL, $rest_url . "/token");
-        // curl_setopt($ch, CURLOPT_POST, true);
-        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-
-        $response = curl_exec($ch);
-
-        $status_code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-
-        curl_close($ch);
-
-        $data = json_decode($response, true);
-
-        if ($status_code === 422){
-            echo "Invalid data<br/>";
-            print_r($data["errors"]);
-            exit;
-        }
-
-        if ($status_code !== 200){
-            echo "Unexpected status code: $status_code<br />";
-            print_r($data);
-            exit;
-        }
-
-        return new WP_REST_Response( $data, 200 );
+        return new WP_REST_Response( $token_data, 200 );
 
     }
 
