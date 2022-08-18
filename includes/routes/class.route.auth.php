@@ -26,7 +26,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         // $uid = "28ba6aa6d6b8e8562dfc0fc62248ceff";
         // $pass = "eccbc87e4b5ce2fe28308fd9f2a7baf3";
-        // $key = "c3e22a934e37c0aa855df58c248d46cb";
+        // $key = "1c832d45df63812d44ceb5fb569a287a";
 
         $uid = sanitize_text_field($request["uid"]);
         $pass = sanitize_text_field($request["pass"]);
