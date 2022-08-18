@@ -16,7 +16,7 @@ function lf_l2ltea_theme_setup(){
     // Hide items under Appearance menu except WP Menus
     add_action('admin_menu', 'lf_l2ltea_hide_menu', 10);
 
-    if (function_exists("jwt_auth_token_before_dispatch")){
+    if (class_exists("Jwt_Auth")){
 
         function lf_l2l_customise_jwt_auth_token_return( $data, $user ) {
             $response = array(
