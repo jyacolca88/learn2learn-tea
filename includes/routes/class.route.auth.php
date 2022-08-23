@@ -20,6 +20,19 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        /* ==========> SECRET ROUTE, TO BE REMOVED BEFORE PRODUCTION <========== */
+
+        register_rest_route( $namespace, '/' . $resource_name . '/loginurl/(?P<staffid>[\w]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_login_url'),
+                'permission_callback'  => array ( $this, 'get_login_url_permissions_check' ),
+                'args'                  => array ()
+            )
+
+        ));
+
     }
 
     public function authorise( $request ){
@@ -42,6 +55,20 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
     }
 
     public function authorise_permissions_check( $request ){
+
+        return '__return_true';
+
+    }
+
+    public function get_login_url( $request ){
+
+        $staff_id = sanitize_text_field( $request["staffid"] );
+
+        return new WP_REST_Response( $staff_id, 200 );
+
+    }
+
+    public function get_login_url_permissions_check( $request ){
 
         return '__return_true';
 
