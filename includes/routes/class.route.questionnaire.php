@@ -70,6 +70,16 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route ( $namespace, $resource_name . '/topics/usertopicids/(?P<user_id>[\d]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_topic_ids' ),
+                'permissions_callcback' => array ( $this, 'get_topic_ids_permissions_check' )
+            )
+
+        ));
+
     }
 
     /*
@@ -168,15 +178,39 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
             $topic_ids = sanitize_text_field(urldecode($topic_ids));
 
             // call Topics Class to save Topic Ids to User Meta
+            // Returns comma separated topic_ids
             $saved_topic_ids = Learn2Learn_Topics::save_topic_ids_by_user_id($topic_ids, $user_id);
 
             return new WP_REST_Response( $saved_topic_ids, 200 );
 
+            // Do we need to return as array?
         }
 
     }
 
     public function save_topic_ids_permissions_check() {
+
+        return '__return_true';
+        // return current_user_can( 'read' );
+
+    }
+
+    public function get_topic_ids( $request ){
+
+        $user_id = intval($request['user_id']);
+
+        if ($user_id > 0){
+
+            $saved_topic_ids = Learn2Learn_Topics::get_topic_ids_by_user_id($user_id);
+
+            return new WP_REST_Response( $saved_topic_ids, 200 );
+
+            // Do we need to return as array?
+        }
+
+    }
+
+    public function get_topic_ids_permissions_check() {
 
         return '__return_true';
         // return current_user_can( 'read' );

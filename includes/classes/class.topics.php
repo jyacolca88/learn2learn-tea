@@ -59,4 +59,6 @@ class Learn2Learn_Topics {
 
     }
 
+    // Private function to convert to array?
+
 }
