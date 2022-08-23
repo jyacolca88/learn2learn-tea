@@ -47,7 +47,9 @@ class Learn2Learn_Topics {
 
         }
 
-        return get_user_meta($user_id, $meta_key, true);
+        $user_topics = self::convert_comma_separated_to_array(get_user_meta($user_id, $meta_key, true));
+
+        return $user_topics;
 
     }
 
@@ -55,10 +57,26 @@ class Learn2Learn_Topics {
 
         $meta_key = self::$meta_key_topic_ids;
         $user_topics = get_user_meta( $user_id, $meta_key, true );
+        $user_topics = self::convert_comma_separated_to_array($user_topics);
         return $user_topics;
 
     }
 
     // Private function to convert to array?
+    private static function convert_comma_separated_to_array($comma_separated){
+
+        if( strpos($comma_separated, ",") !== false ) {
+
+            $array = explode(",", $comma_separated);
+
+        } else {
+
+            $array = array($comma_separated);
+
+        }
+
+        return $array;
+
+    }
 
 }
