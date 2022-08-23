@@ -1,6 +1,8 @@
 <?php
 class Learn2Learn_Topics {
 
+    private static $meta_key_topic_ids = "topic_ids";
+
     // TODO: Get all topics that are associated to a Content Item
     public static function get_all_topics(){
 
@@ -33,23 +35,26 @@ class Learn2Learn_Topics {
 
         // TODO: get user_meta, and update if exists
         // TODO: if doesn't exist, add user_meta of topic_ids
-        if (get_user_meta($user_id, "topic_ids") !== false){
+        $meta_key = self::$meta_key_topic_ids;
 
-            update_user_meta($user_id, "topic_ids", $topic_ids);
+        if (get_user_meta($user_id, $meta_key) !== false){
+
+            update_user_meta($user_id, $meta_key, $topic_ids);
 
         } else {
 
-            add_user_meta($user_id, "topic_ids", $topic_ids, true);
+            add_user_meta($user_id, $meta_key, $topic_ids, true);
 
         }
 
-        return get_user_meta($user_id, "topic_ids", true);
+        return get_user_meta($user_id, $meta_key, true);
 
     }
 
     public static function get_topic_ids_by_user_id($user_id){
 
-        $user_topics = get_user_meta( $user_id, "topic_ids", true );
+        $meta_key = self::$meta_key_topic_ids;
+        $user_topics = get_user_meta( $user_id, $meta_key, true );
         return $user_topics;
 
     }

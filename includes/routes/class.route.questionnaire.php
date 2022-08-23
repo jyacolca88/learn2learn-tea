@@ -163,6 +163,8 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $topic_ids = $request['topic_ids'];
         $user_id = $request['user_id'];
 
+        return new WP_REST_Response( array("topic_ids" => $topic_ids, "user_id" => $user_id), 200 );
+
         if ($topic_ids && $user_id){
 
             $topic_ids = sanitize_text_field(urldecode($topic_ids));
