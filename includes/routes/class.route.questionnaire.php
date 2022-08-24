@@ -188,8 +188,8 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function save_topic_ids_permissions_check() {
 
-        return '__return_true';
-        // return current_user_can( 'read' );
+        // return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
