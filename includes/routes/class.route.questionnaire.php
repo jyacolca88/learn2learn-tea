@@ -45,7 +45,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_topics' ),
-                'permissions_callcback' => array ( $this, 'get_topics_permissions_check' )
+                'permissions_callback' => array ( $this, 'get_topics_permissions_check' )
             )
 
         ));
@@ -55,7 +55,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_topics' ),
-                'permissions_callcback' => array ( $this, 'get_topics_permissions_check' )
+                'permissions_callback' => array ( $this, 'get_topics_permissions_check' )
             )
 
         ));
@@ -65,7 +65,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::EDITABLE,
                 'callback'              => array ( $this, 'save_topic_ids' ),
-                'permissions_callcback' => array ( $this, 'save_topic_ids_permissions_check' )
+                'permissions_callback' => array ( $this, 'save_topic_ids_permissions_check' )
             )
 
         ));
@@ -75,7 +75,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_topic_ids' ),
-                'permissions_callcback' => array ( $this, 'get_topic_ids_permissions_check' )
+                'permissions_callback' => array ( $this, 'get_topic_ids_permissions_check' )
             )
 
         ));
@@ -189,7 +189,8 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
     public function save_topic_ids_permissions_check() {
 
         // return '__return_true';
-        return current_user_can( 'read' );
+        // return current_user_can( 'read' );
+        return is_user_logged_in();
 
     }
 
