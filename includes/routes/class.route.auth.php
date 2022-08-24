@@ -72,7 +72,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $last_two = substr($uid, -1, 2);
         $date_day_num = date("j");
 
-        $code = $first_two . "20210222" . $last . $date_day_num;
+        $code = $first_two . "20210222" . $last_two . $date_day_num;
         $key = md5($code);
 
         $first_char_unhashed_userid = substr($staff_id, 0, 1);
