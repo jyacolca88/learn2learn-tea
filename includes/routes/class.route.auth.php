@@ -81,17 +81,20 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         date_default_timezone_set('Australia/Sydney');
 
         $array = array(
-            "staff_id" => $staff_id,
-            "uid" => $uid,
-            "key_components" => array(
-                "first_two" => $first_two,
-                "last_two" => $last_two,
-                "date_day_num" => $date_day_num,
-                "code" => $code
+            "url_components" => array(
+                "uid" => $uid,
+                "key" => $key,
+                "pass" => $pass, 
+                "key_components" => array(
+                    "staff_id" => $staff_id,
+                    "first_two" => $first_two,
+                    "last_two" => $last_two,
+                    "date_day_num" => $date_day_num,
+                    "code" => $code,
+                    "first_char" => $first_char_unhashed_userid
+                )
             ),
-            "key" => $key,
-            "first_char" => $first_char_unhashed_userid,
-            "pass" => $pass
+            "login_url" => "/launch/$uid/$pass/$key"
         );
 
 
