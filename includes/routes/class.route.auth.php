@@ -69,7 +69,7 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
         date_default_timezone_set('UTC');
 
         $first_two = substr($uid, 0, 2);
-        $last_two = substr($uid, -1, 2);
+        $last_two = substr($uid, -2);
         $date_day_num = date("j");
 
         $code = $first_two . "20210222" . $last_two . $date_day_num;
