@@ -64,7 +64,38 @@ class Auth_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         $staff_id = sanitize_text_field( $request["staffid"] );
 
-        return new WP_REST_Response( $staff_id, 200 );
+        $uid = md5($staff_id);
+
+        date_default_timezone_set('UTC');
+
+        $first_two = substr($uid, 0, 2);
+        $last_two = substr($uid, -1, 2);
+        $date_day_num = date("j");
+
+        $code = $first_two . "20210222" . $last . $date_day_num;
+        $key = md5($code);
+
+        $first_char_unhashed_userid = substr($staff_id, 0, 1);
+        $pass = md5($first_char_unhashed_userid);
+
+        date_default_timezone_set('Australia/Sydney');
+
+        $array = array(
+            "staff_id" => $staff_id,
+            "uid" => $uid,
+            "key_components" => array(
+                "first_two" => $first_two,
+                "last_two" => $last_two,
+                "date_day_num" => $date_day_num,
+                "code" => $code
+            ),
+            "key" => $key,
+            "first_char" => $first_char_unhashed_userid,
+            "pass" => $pass
+        );
+
+
+        return new WP_REST_Response( $array, 200 );
 
     }
 
