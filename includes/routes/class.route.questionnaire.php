@@ -172,7 +172,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         $post_data = $request->get_params();
 
-        $topic_ids = sanitize_text_field($post_data["topic_ids"]);
+        $topic_ids = $post_data["topic_ids"];
         $user_id = intval($post_data["user_id"]);
 
         if ($topic_ids && $user_id){
