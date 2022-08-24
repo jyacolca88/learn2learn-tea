@@ -170,25 +170,18 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function save_topic_ids( $request ){
 
-        // $topic_ids = $request['topic_ids'];
-        // $user_id = $request['user_id'];
+        $post_data = $request->get_params();
 
-        // $body = $request->get_body();
-        $parameters = $request->get_params();
-
-        return new WP_REST_Response( $parameters, 200 );
+        $topic_ids = sanitize_text_field($post_data["topic_ids"]);
+        $user_id = intval($post_data["user_id"]);
 
         if ($topic_ids && $user_id){
 
             $topic_ids = sanitize_text_field(urldecode($topic_ids));
-
-            // call Topics Class to save Topic Ids to User Meta
-            // Returns comma separated topic_ids
             $saved_topic_ids = Learn2Learn_Topics::save_topic_ids_by_user_id($topic_ids, $user_id);
 
             return new WP_REST_Response( $saved_topic_ids, 200 );
 
-            // Do we need to return as array?
         }
 
     }
