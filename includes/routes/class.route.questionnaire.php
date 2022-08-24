@@ -60,7 +60,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route ( $namespace, $resource_name . '/usertopicids/(?P<topic_ids>[^,]+)' . '/(?P<user_id>[\d]+)', array(
+        register_rest_route ( $namespace, $resource_name . '/usertopicids/', array(
 
             array(
                 'methods'               => WP_REST_Server::EDITABLE,
@@ -170,11 +170,12 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function save_topic_ids( $request ){
 
-        $topic_ids = $request['topic_ids'];
-        $user_id = $request['user_id'];
+        // $topic_ids = $request['topic_ids'];
+        // $user_id = $request['user_id'];
 
-        $body = $request->get_body();
+        // $body = $request->get_body();
         $parameters = $request->get_params();
+
         return new WP_REST_Response( $parameters, 200 );
 
         if ($topic_ids && $user_id){
