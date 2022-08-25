@@ -128,6 +128,8 @@ class Learn2Learn_Topics {
         $new_lessons_array = array();
         $lesson_ids = array();
 
+        $db_user_progress = new Learn2Learn_Database();
+
         foreach($lessons as $lesson){
 
             $lesson_array = array(
@@ -143,9 +145,12 @@ class Learn2Learn_Topics {
 
         }
 
+        $user_progress_records = $db_user_progress->select_user_progress_records_in($user_id, $lesson_ids);
+
         $testing = array(
             "lessons_array" => $new_lessons_array,
-            "lesson_ids" => $lesson_ids
+            "lesson_ids" => $lesson_ids,
+            "user_progress_records" => $user_progress_records
         );
 
         return $testing;
