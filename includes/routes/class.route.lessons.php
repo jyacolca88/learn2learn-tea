@@ -78,13 +78,18 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         // Get username
         $username = sanitize_text_field($request["username"]);
+
+        if (!$username) return new WP_REST_Response( "No username provided", 200 );
         
         // Find user by username
         $user = get_user_by("login", $username);
+        if (!$user) return new WP_REST_Response( "No user found with that username", 200 );
 
         // Get user_meta topic_ids
+        $user_id = intval($user->ID);
+        $topic_ids = get_user_meta($user_id, "topic_ids", true);
 
-        return new WP_REST_Response( $user, 200 );
+        return new WP_REST_Response( $topic_ids, 200 );
         
     }
 
