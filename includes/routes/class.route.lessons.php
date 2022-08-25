@@ -30,7 +30,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/personalisedlessons' . '/(?P<username>[\w]+)', array(
+        register_rest_route( $namespace, $resource_name . '/personalisedlessons' . '/(?P<user_id>[\d]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -75,6 +75,15 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
     }
 
     public function get_personal_lessons( $request ){
+
+        $user_id = sanitize_text_field($request["user_id"]);
+        $lessons = Learn2Learn_Topics::get_lessons_from_topics_by_user_id($user_id);
+
+        return new WP_REST_Response( $lessons, 200 );
+        
+    }
+
+    public function get_personal_lessons_username( $request ){
 
         $username = sanitize_text_field($request["username"]);
         $lessons = Learn2Learn_Topics::get_lessons_from_topics_by_username($username);

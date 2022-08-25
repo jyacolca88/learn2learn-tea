@@ -75,6 +75,17 @@ class Learn2Learn_Topics {
         // Get User ID
         $user_id = intval($user->ID);
 
+        $lessons = self::get_lessons_from_topics_by_user_id($user_id);
+
+        return $lessons;
+
+    }
+
+    public static function get_lessons_from_topics_by_user_id($user_id){
+
+        // Get User ID
+        $user_id = intval($user_id);
+
         // Get user_meta
         $meta_key = self::$meta_key_topic_ids;
         $topic_ids = get_user_meta($user_id, $meta_key, true);
