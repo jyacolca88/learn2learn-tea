@@ -30,7 +30,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/personallessons/', array(
+        register_rest_route( $namespace, $resource_name . '/personalisedlessons' . '/(?P<username>[\w]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -76,7 +76,15 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_personal_lessons( $request ){
 
-        return new WP_REST_Response( "Personal Lessons EndPoint", 200 );
+        // Get username
+        $username = sanitize_text_field($request["username"]);
+        
+        // Find user by username
+        $user = get_user_by("login", $username);
+
+        // Get user_meta topic_ids
+
+        return new WP_REST_Response( $user, 200 );
         
     }
 
