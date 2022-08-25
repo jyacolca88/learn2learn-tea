@@ -99,7 +99,9 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
         */
 
         $lessons = get_posts( array(
-            'numberposts' => -1
+            'numberposts' => -1,
+            'post_type'  => 'content-item',
+            'tag_id' => 20
         ) );
 
         return new WP_REST_Response( $lessons, 200 );
