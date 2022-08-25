@@ -148,11 +148,9 @@ class Learn2Learn_Topics {
 
         }
 
-        $testing = $lesson_array;
+        $lessons = $new_lessons_array;
 
-        return $testing;
-
-        // return $lessons;
+        return $lessons;
 
     }
 
