@@ -62,7 +62,51 @@ class Learn2Learn_Topics {
 
     }
 
-    // Private function to convert to array?
+    public static function get_lessons_from_topics_by_username($username){
+
+        // Get username
+        $username = sanitize_text_field($username);
+        if (!$username) return new WP_Error('no_username_error', 'No username provided', array('status' => 400));
+
+        // Find user by username
+        $user = get_user_by("login", $username);
+        if (!$user) return new WP_Error('no_user_exists', 'No user exists with that username', array('status' => 400));
+
+        // Get User ID
+        $user_id = intval($user->ID);
+
+        // Get user_meta
+        $meta_key = self::$meta_key_topic_ids;
+        $topic_ids = get_user_meta($user_id, $meta_key, true);
+        if (!$topic_ids) return;
+
+        // Convert to array (terms_array)
+        $terms_array = self::convert_comma_separated_to_array($topic_ids);
+
+        // Set up parameters for get_posts function
+        $tagged_lessons_args = array (
+            'numberposts' => -1,
+            'post_type'  => 'content-item',
+            'post_status' => 'publish',
+            'orderby'    => 'menu_order',
+            'sort_order' => 'ASC',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'topic',
+                    'field'    => 'term_id',
+                    'terms'    => $terms_array
+                ),
+            )
+        );
+
+        // Get lessons by tags/terms (topics)
+        $lessons = get_posts($tagged_lessons_args);
+
+        return $lessons;
+
+    }
+
+    
     private static function convert_comma_separated_to_array($comma_separated){
 
         if( strpos($comma_separated, ",") !== false ) {

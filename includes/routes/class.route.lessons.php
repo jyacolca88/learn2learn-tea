@@ -76,42 +76,8 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_personal_lessons( $request ){
 
-        // Get username
         $username = sanitize_text_field($request["username"]);
-
-        if (!$username) return new WP_REST_Response( "No username provided", 200 );
-        
-        // Find user by username
-        $user = get_user_by("login", $username);
-        if (!$user) return new WP_REST_Response( "No user found with that username", 200 );
-
-        // Get user_meta topic_ids
-        $user_id = intval($user->ID);
-        $topic_ids = get_user_meta($user_id, "topic_ids", true);
-
-        //"24,25,21,22,23,31,29,30,34,27"
-
-        /*
-            'post_type'  => 'content-item',
-            'post_status' => 'publish',
-            'orderby'    => 'menu_order',
-            'sort_order' => 'ASC',
-        */
-
-        $lessons = get_posts( array(
-            'numberposts' => -1,
-            'post_type'  => 'content-item',
-            'post_status' => 'publish',
-            'orderby'    => 'menu_order',
-            'sort_order' => 'ASC',
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'topic',
-                    'field'    => 'term_id',
-                    'terms'    => array(24, 26),
-                ),
-            ),
-        ) );
+        $lessons = Learn2Learn_Topics::get_lessons_from_topics_by_username($username);
 
         return new WP_REST_Response( $lessons, 200 );
         
