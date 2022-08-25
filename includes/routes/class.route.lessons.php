@@ -92,9 +92,11 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
         //"24,25,21,22,23,31,29,30,34,27"
 
         $lessons = get_posts( array(
+            'numberposts' => -1,
             'post_type'  => 'content-item',
+            'post_status' => 'publish',
             'orderby'    => 'menu_order',
-            'sort_order' => 'asc'
+            'sort_order' => 'ASC'
         ) );
 
         return new WP_REST_Response( $lessons, 200 );
