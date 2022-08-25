@@ -105,7 +105,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
                 array(
                     'taxonomy' => 'topic',
                     'field'    => 'term_id',
-                    'terms'    => array(24),
+                    'terms'    => array(26),
                 ),
             ),
         ) );
