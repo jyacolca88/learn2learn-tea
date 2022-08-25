@@ -132,7 +132,7 @@ class Learn2Learn_Topics {
         foreach($lessons as $lesson){
 
             $lesson_completion_record = $db_user_progress->select_user_progress_record(null, $lesson->ID, $user_id);
-            $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : null);
+            $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : 0);
             $lesson_interactive = self::get_lesson_interactive($lesson->ID);
 
             $lesson_array = array(
