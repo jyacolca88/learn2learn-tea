@@ -144,7 +144,7 @@ class Learn2Learn_Topics {
 
         }
 
-        $user_progress_records = $db_user_progress->select_user_progress_records_in($user_id, $lesson_ids);
+        $user_progress_records = $db_user_progress->select_user_progress_records_in(null, $lesson_ids, $user_id);
 
         $testing = array(
             "lessons_array" => $new_lessons_array,

@@ -166,7 +166,13 @@ class Learn2Learn_Database {
     }
 
     /******************** SELECT USER PROGRESS RECORDS IN (ARRAY) [BEGIN] ********************/
-    public function select_user_progress_records_in($user_id, $content_ids){
+    public function select_user_progress_records_in($username, $content_ids, $user_id = null){
+
+        // if user_id is passed
+        if ($user_id){
+            $user = get_user_by('ID', $user_id);
+            $username = $user->user_login;
+        }
 
         // Add int placeholders to array depending on number of items in content_ids
         $in_str_arr = array_fill( 0, count( $content_ids ), '%d' );
@@ -177,8 +183,8 @@ class Learn2Learn_Database {
         // Store content_ids into SQL values
         $sql_values = $content_ids;
 
-        // Add user id to the beginning of the array
-        array_unshift($sql_values, $user_id);
+        // Add username to the beginning of the array
+        array_unshift($sql_values, $username);
 
         return $this->db->get_results(
 
