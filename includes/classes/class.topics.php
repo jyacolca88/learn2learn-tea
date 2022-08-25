@@ -136,7 +136,6 @@ class Learn2Learn_Topics {
                 'personalised_lesson_id' => $lesson->ID,
                 'personalised_lesson_slug' => $lesson->post_name,
                 'personalised_lesson_title' => apply_filters ( 'the_title', $lesson->post_title ),
-                'personalised_lesson_content' => apply_filters( 'the_content', $lesson->post_content ),
                 "personalised_lesson_reading_time" => esc_html(get_field( "reading_time", $lesson->ID) )
             );
 
