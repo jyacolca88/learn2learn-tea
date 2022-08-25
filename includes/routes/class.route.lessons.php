@@ -89,6 +89,12 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $user_id = intval($user->ID);
         $topic_ids = get_user_meta($user_id, "topic_ids", true);
 
+        $lessons = get_posts( array(
+            'post_type'  => 'content-item',
+            'orderby'    => 'menu_order',
+            'sort_order' => 'asc'
+        ) );
+
         return new WP_REST_Response( $topic_ids, 200 );
         
     }
