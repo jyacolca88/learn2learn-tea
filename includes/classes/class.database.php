@@ -153,13 +153,16 @@ class Learn2Learn_Database {
     }
 
     /******************** SELECT USER PROGRESS RECORD [BEGIN] ********************/
-    public function select_user_progress_record($user_id, $content_id){
+    public function select_user_progress_record($username, $content_id, $user_id = null){
+
+        // if user_id is passed, get username
+        if ($user_id){ $username = $this->get_username_by_user_id($user_id); }
 
         return $this->db->get_row(
 
             $this->db->prepare("
                 SELECT * FROM {$this->content_progress_table} WHERE user_id = %s AND content_id = %d
-                ", $user_id, $content_id )
+                ", $username, $content_id )
 
         );
 
@@ -168,11 +171,8 @@ class Learn2Learn_Database {
     /******************** SELECT USER PROGRESS RECORDS IN (ARRAY) [BEGIN] ********************/
     public function select_user_progress_records_in($username, $content_ids, $user_id = null){
 
-        // if user_id is passed
-        if ($user_id){
-            $user = get_user_by('ID', $user_id);
-            $username = $user->user_login;
-        }
+        // if user_id is passed, get username
+        if ($user_id){ $username = $this->get_username_by_user_id($user_id); }
 
         // Add int placeholders to array depending on number of items in content_ids
         $in_str_arr = array_fill( 0, count( $content_ids ), '%d' );
@@ -194,6 +194,14 @@ class Learn2Learn_Database {
                 ", $sql_values )
 
         );
+
+    }
+
+    private function get_username_by_user_id($user_id){
+
+        $user_id = intval($user_id);
+        $user = get_user_by('ID', $user_id);
+        return $user->user_login;
 
     }
 

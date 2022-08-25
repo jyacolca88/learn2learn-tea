@@ -126,35 +126,55 @@ class Learn2Learn_Topics {
         if (!is_array($lessons) || empty($lessons) || !$user_id) return;
 
         $new_lessons_array = array();
-        $lesson_ids = array();
 
         $db_user_progress = new Learn2Learn_Database();
 
         foreach($lessons as $lesson){
 
+            $lesson_completion_record = $db_user_progress->select_user_progress_record(null, $lesson->ID, $user_id);
+            $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : null);
+            $lesson_interactive = self::get_lesson_interactive($lesson->ID);
+
             $lesson_array = array(
                 'personalised_lesson_id' => $lesson->ID,
                 'personalised_lesson_slug' => $lesson->post_name,
                 'personalised_lesson_title' => apply_filters ( 'the_title', $lesson->post_title ),
-                "personalised_lesson_reading_time" => esc_html(get_field( "reading_time", $lesson->ID) )
+                "personalised_lesson_reading_time" => esc_html(get_field( "reading_time", $lesson->ID) ),
+                'personalised_lesson_completion' => $lesson_completion,
+                'personalised_lesson_interactive' => $lesson_interactive
             );
 
-            array_push($lesson_ids, $lesson->ID);
             array_push($new_lessons_array, $lesson_array);
 
         }
 
-        $user_progress_records = $db_user_progress->select_user_progress_records_in(null, $lesson_ids, $user_id);
-
-        $testing = array(
-            "lessons_array" => $new_lessons_array,
-            "lesson_ids" => $lesson_ids,
-            "user_progress_records" => $user_progress_records
-        );
+        $testing = $lesson_array;
 
         return $testing;
 
         // return $lessons;
+
+    }
+
+    private static function get_lesson_interactive($lesson_id){
+
+        $filters = get_the_terms( $lesson_id, 'filter' );
+        if (!$filters || empty($filters)) return false;
+
+        $is_interactive = false;
+        $possible_interactive_array = [];
+
+        foreach($filters as $filter){
+
+            if ($filter->slug == "interactive"){
+                $is_interactive = true;
+            } else {
+                array_push($possible_interactive_array, $filter->slug);
+            }
+
+        }
+
+        return ($is_interactive ? $possible_interactive_array[0] : false);
 
     }
 
