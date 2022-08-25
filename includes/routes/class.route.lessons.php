@@ -30,6 +30,16 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, $resource_name . '/personallessons/', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_personal_lessons'),
+                'permission_callback'  => array ( $this, 'get_personal_lessons_permissions_check' )
+            )
+
+        ));
+
     }
 
     public function get_lessons( $request ){
@@ -59,6 +69,18 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
     }
 
     public function get_lesson_permissions_check( $request ){
+
+        return '__return_true';
+
+    }
+
+    public function get_personal_lessons( $request ){
+
+        return new WP_REST_Response( "Personal Lessons EndPoint", 200 );
+        
+    }
+
+    public function get_personal_lessons_permissions_check ( $request ){
 
         return '__return_true';
 
