@@ -101,6 +101,9 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $lessons = get_posts( array(
             'numberposts' => -1,
             'post_type'  => 'content-item',
+            'post_status' => 'publish',
+            'orderby'    => 'menu_order',
+            'sort_order' => 'ASC',
             'tax_query' => array(
                 array(
                     'taxonomy' => 'topic',
