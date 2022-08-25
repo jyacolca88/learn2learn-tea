@@ -113,7 +113,44 @@ class Learn2Learn_Topics {
         // Get lessons by tags/terms (topics)
         $lessons = get_posts($tagged_lessons_args);
 
+        // Get filtered fields, additional fields and user progress for lessons
+        $lessons = self::get_required_fields_and_user_progress_from_lessons($lessons, $user_id);
+
         return $lessons;
+
+    }
+
+    private static function get_required_fields_and_user_progress_from_lessons($lessons, $user_id){
+
+        // If lessons parameter is not an array or it's an empty value, or if user ID is not set, exit
+        if (!is_array($lessons) || empty($lessons) || !$user_id) return;
+
+        $new_lessons_array = array();
+        $lesson_ids = array();
+
+        foreach($lessons as $lesson){
+
+            $lesson_array = array(
+                'personalised_lesson_id' => $lesson->ID,
+                'personalised_lesson_slug' => $lesson->post_name,
+                'personalised_lesson_title' => apply_filters ( 'the_title', $lesson->post_title ),
+                'personalised_lesson_content' => apply_filters( 'the_content', $lesson->post_content ),
+                "personalised_lesson_reading_time" => esc_html(get_field( "reading_time", $lesson->ID) )
+            );
+
+            array_push($lesson_ids, $lesson->ID);
+            array_push($new_lessons_array, $lesson_array);
+
+        }
+
+        $testing = array(
+            "lessons_array" => $new_lessons_array,
+            "lesson_ids" => $lesson_ids
+        );
+
+        return $testing;
+
+        // return $lessons;
 
     }
 
