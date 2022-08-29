@@ -135,13 +135,21 @@ class Learn2Learn_Topics {
             $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : 0);
             $lesson_interactive = self::get_lesson_interactive($lesson->ID);
 
+            if ($category_obj = get_post_parent($lesson->ID)){
+
+
+
+            }
+
+
             $lesson_array = array(
                 'personalised_lesson_id' => $lesson->ID,
                 'personalised_lesson_slug' => $lesson->post_name,
                 'personalised_lesson_title' => apply_filters ( 'the_title', $lesson->post_title ),
                 "personalised_lesson_reading_time" => esc_html(get_field( "reading_time", $lesson->ID) ),
                 'personalised_lesson_completion' => $lesson_completion,
-                'personalised_lesson_interactive' => $lesson_interactive
+                'personalised_lesson_interactive' => $lesson_interactive,
+                'personalised_lesson_category' => $category_obj
             );
 
             array_push($new_lessons_array, $lesson_array);

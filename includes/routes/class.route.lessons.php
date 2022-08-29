@@ -78,7 +78,6 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         $user_id = sanitize_text_field($request["user_id"]);
         $lessons = Learn2Learn_Topics::get_lessons_from_topics_by_user_id($user_id);
-        // TODO: Need to check if completed or not; also need to fetch reading time (custom field)
 
         return new WP_REST_Response( $lessons, 200 );
         
