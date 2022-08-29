@@ -135,12 +135,19 @@ class Learn2Learn_Topics {
             $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : 0);
             $lesson_interactive = self::get_lesson_interactive($lesson->ID);
 
-            if ($category_obj = get_post_parent($lesson->ID)){
+            if ($category_id = wp_get_post_parent_id($lesson->ID)){
 
+                $primary = get_field("primary_colour", $category_id);
+                $secondary = get_field("secondary_colour", $category_id);
+                $tertiary = get_field("tertiary_colour", $category_id);
 
+                $category_colours = array(
+                    'primary' => $primary,
+                    'secondary' => $secondary,
+                    'tertiary' => $tertiary
+                );
 
             }
-
 
             $lesson_array = array(
                 'personalised_lesson_id' => $lesson->ID,
@@ -149,7 +156,7 @@ class Learn2Learn_Topics {
                 "personalised_lesson_reading_time" => esc_html(get_field( "reading_time", $lesson->ID) ),
                 'personalised_lesson_completion' => $lesson_completion,
                 'personalised_lesson_interactive' => $lesson_interactive,
-                'personalised_lesson_category' => $category_obj
+                'personalised_lesson_colours' => (isset($category_colours) ? $category_colours : false)
             );
 
             array_push($new_lessons_array, $lesson_array);
