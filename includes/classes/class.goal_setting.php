@@ -80,7 +80,24 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         foreach($results as $record){
 
-            $goals_array[$record->goal_id] = $record;
+            $steps_array = [];  
+
+            $steps_array[$record->step_order] = array(
+                "step_id" => $record->step_id,
+                "step_title" => $record->step_title,
+                "step_completed_by" => $record->step_completed_by,
+                "step_status" => $record->step_status,
+                "step_order" => $record->step_order
+            );
+
+            $goals_array[$record->goal_id] = array(
+                "goal_id" => $record->goal_id,
+                "goal_title" => $record->goal_title,
+                "goal_completed_by" => $record->goal_completed_by,
+                "goal_status" => $record->goal_status,
+                "goal_reflection" => $record->goal_reflection,
+                "steps" => $steps_array
+            );
 
         }
 
