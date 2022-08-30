@@ -77,10 +77,9 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         if (!$results) {return;}
 
         $goals_array = [];
+        $steps_array = [];  
 
         foreach($results as $record){
-
-            $steps_array = [];  
 
             $steps_array[$record->step_order] = array(
                 "step_id" => $record->step_id,
