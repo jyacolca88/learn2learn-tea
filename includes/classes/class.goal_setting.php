@@ -7,6 +7,8 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
     function __construct($username = null){
 
+        parent::__construct();
+        
         $this->username = $username;
         $this->goals_table = $this->prefix . "lfgs_goals";
         $this->steps_table = $this->prefix . "lfgs_steps";
