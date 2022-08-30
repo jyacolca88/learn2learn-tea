@@ -1,11 +1,11 @@
 <?php
 class Learn2Learn_Database {
 
-    private $db;
-    private $prefix;
-    private $content_progress_table;
-    private $survey_answers_table;
-    private $thumbs_table;
+    protected $db;
+    protected $prefix;
+    protected $content_progress_table;
+    protected $survey_answers_table;
+    protected $thumbs_table;
 
     function __construct(){
 
