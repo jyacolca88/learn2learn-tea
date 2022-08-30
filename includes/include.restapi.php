@@ -37,7 +37,7 @@ function lf_l2l_register_rest_routes(){
     $auth_route = new Auth_Learn2Learn_Custom_Route();
     $auth_route->register_routes();
 
-    $goal_setting_route = new Auth_Learn2Learn_Custom_Route();
+    $goal_setting_route = new Goal_Setting_Learn2Learn_Custom_Route();
     $goal_setting_route->register_routes();
 
 }
