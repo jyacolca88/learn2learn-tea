@@ -113,13 +113,13 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         }
 
-        $new_goals_array = array();
-        foreach($goals_array as $goal){
-            array_push($new_goals_array, $goal);
-        }
-        $goals_array = $new_goals_array;
+        // $new_goals_array = array();
+        // foreach($goals_array as $goal){
+        //     array_push($new_goals_array, $goal);
+        // }
+        // $goals_array = $new_goals_array;
 
-        return $goals_array;
+        return array_values($goals_array);
 
     }
 
