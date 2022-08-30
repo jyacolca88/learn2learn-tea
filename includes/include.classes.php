@@ -6,3 +6,4 @@ require_once get_template_directory() . '/includes/classes/class.questionnaire.p
 require_once get_template_directory() . '/includes/classes/class.thumbs.php';
 require_once get_template_directory() . '/includes/classes/class.topics.php';
 require_once get_template_directory() . '/includes/classes/class.auth.php';
+require_once get_template_directory() . '/includes/classes/class.goal_setting.php';
