@@ -49,8 +49,11 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         $sql = $this->db->prepare("
             SELECT * 
-            FROM {$this->goals_table} 
-            WHERE user_id = %s
+            FROM {$this->goals_table} g
+            INNER JOIN {$this->steps_table} s 
+            ON g.goal_id = s.goal_id 
+            WHERE g.user_id = %s 
+            ORDER BY g.goal_id s.step_order ASC
         ", $this->username);
 
         return $this->db->get_results($sql);
