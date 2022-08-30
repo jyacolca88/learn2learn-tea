@@ -11,6 +11,7 @@ require_once get_template_directory() . '/includes/routes/class.route.questionna
 require_once get_template_directory() . '/includes/routes/class.route.thumbs.php';
 require_once get_template_directory() . '/includes/routes/class.route.userprogress.php';
 require_once get_template_directory() . '/includes/routes/class.route.auth.php';
+require_once get_template_directory() . '/includes/routes/class.route.goal_setting.php';
 
 
 function lf_l2l_register_rest_routes(){
