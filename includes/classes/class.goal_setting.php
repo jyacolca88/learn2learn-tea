@@ -83,8 +83,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
             if (isset($record->step_id) && !empty($record->step_id)){
 
-                $step_title = $this->encrypt_decrypt_string($record->step_title, true);
-                $goal_title = $this->encrypt_decrypt_string($record->goal_title, true);
+                $step_title = stripslashes($this->encrypt_decrypt_string($record->step_title, true));
 
                 $steps_array[$record->goal_id][$record->step_order] = array(
                     "step_id" => $record->step_id,
@@ -100,7 +99,8 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
             }
             
-            $goal_reflection = (!empty($record->goal_reflection) ? $this->encrypt_decrypt_string($record->goal_reflection, true) : null);
+            $goal_title = stripslashes($this->encrypt_decrypt_string($record->goal_title, true));
+            $goal_reflection = (!empty($record->goal_reflection) ? stripslashes($this->encrypt_decrypt_string($record->goal_reflection, true)) : null);
 
             $goals_array[$record->goal_id] = array(
                 "goal_id" => $record->goal_id,
@@ -112,12 +112,6 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
             );
 
         }
-
-        // $new_goals_array = array();
-        // foreach($goals_array as $goal){
-        //     array_push($new_goals_array, $goal);
-        // }
-        // $goals_array = $new_goals_array;
 
         return array_values($goals_array);
 
