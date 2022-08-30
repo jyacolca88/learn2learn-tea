@@ -56,7 +56,35 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
             ORDER BY g.goal_id ASC, s.step_order ASC
         ", $this->username);
 
-        return $this->db->get_results($sql);
+        /*
+        Select *, 
+        FROM goal_table g
+        WHERE g.user_id = username
+        
+
+        SELECT * 
+        FROM steps_table s
+        WHERE 
+        */
+
+        $results = $this->db->get_results($sql);
+
+        return $this->optimise_raw_results_into_associative_array($results);
+
+    }
+    private function optimise_raw_results_into_associative_array($results){
+
+        if (!$results) {return;}
+
+        $goals_array = [];
+
+        foreach($results as $record){
+
+            $goals_array[$record->goal_id] = $record;
+
+        }
+
+        return $goals_array;
 
     }
 
