@@ -201,17 +201,19 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
             if (is_array($value)){
 
-                $nested_array = array();
-                $nested_index = 0;
+                // $value is array
+                // $k = index of array
+                // $v = array of assoc
 
-                foreach($value as $k => $v){
+                foreach($value as $index => $array){
 
-                    $nested_array[$nested_index][$k] = sanitize_text_field(trim($v));
-                    $nested_index++;
+                    foreach($array as $arr_key => $arr_value){
+
+                        $safe_input[$key][$index][$arr_key] = sanitize_text_field(trim($arr_value));
+
+                    }
 
                 }
-
-                $safe_input[$key] = $nested_array;
 
             } else {
 
