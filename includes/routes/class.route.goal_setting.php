@@ -26,7 +26,7 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         $username = sanitize_text_field($request["username"]);
         $L2l_Goal_Setting = new Learn2Learn_Goal_Setting($username);
-        // $goals = $L2l_Goal_Setting->get_goals();
+        $goals = $L2l_Goal_Setting->get_goals();
 
         // TESTING ADD goal
         $new_goal = array(
@@ -51,7 +51,7 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
             )
         );
 
-        $goals = $L2l_Goal_Setting->add_new_goal($new_goal);
+        // $goals = $L2l_Goal_Setting->add_new_goal($new_goal);
 
         return new WP_REST_Response( $goals, 200 );
 
