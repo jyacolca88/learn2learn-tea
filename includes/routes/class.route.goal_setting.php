@@ -9,7 +9,7 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $resource_name = 'goalsetting';
 
 
-        register_rest_route( $namespace, '/' . $resource_name . '/(?P<username>[\w]+)', array(
+        register_rest_route( $namespace, '/' . $resource_name . '/goals/(?P<username>[\w]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
