@@ -37,8 +37,6 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         $goal_data = $goal_and_steps_data["goal"];
         $steps_data = $goal_and_steps_data["steps"];
 
-        return $goal_and_steps_data;
-
         // Insert Goal to DB, return Goal ID
         $success_steps_insert = array();
         $success_steps_expected = count($steps_data);
