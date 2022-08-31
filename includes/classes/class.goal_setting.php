@@ -116,7 +116,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
             ON g.goal_id = s.goal_id 
             WHERE g.goal_id = %d 
             ORDER BY g.goal_id ASC, s.step_order ASC
-        ", $this->$goal_id);
+        ", $goal_id);
 
         $results = $this->db->get_results($sql);
 
