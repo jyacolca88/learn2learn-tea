@@ -62,7 +62,16 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         }
 
-        return $goal_id;
+        $return_data = array();
+
+        if (count($success_steps_insert) == $success_steps_expected && isset($goal_id)){
+            $return_data["success"] = true;
+            $return_data["goal"] = $this->get_goal_by_goal_id($goal_id);
+        } else {
+            $return_data["success"] = false;
+        }
+
+        return $return_data;
 
     }
 
@@ -90,6 +99,26 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
             WHERE g.user_id = %s 
             ORDER BY g.goal_id ASC, s.step_order ASC
         ", $this->username);
+
+        $results = $this->db->get_results($sql);
+
+        return $this->optimise_raw_results_into_associative_array($results);
+
+    }
+
+    private function get_goal_by_goal_id($goal_id){
+
+        $goal_id = intval($goal_id);
+        if ($goal_id < 1){ return; }
+
+        $sql = $this->db->prepare("
+            SELECT * 
+            FROM {$this->goals_table} g
+            INNER JOIN {$this->steps_table} s 
+            ON g.goal_id = s.goal_id 
+            WHERE g.goal_id = %d 
+            ORDER BY g.goal_id ASC, s.step_order ASC
+        ", $this->$goal_id);
 
         $results = $this->db->get_results($sql);
 
