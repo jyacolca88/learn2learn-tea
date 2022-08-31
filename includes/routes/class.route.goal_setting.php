@@ -59,27 +59,29 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $L2l_Goal_Setting = new Learn2Learn_Goal_Setting($username);
 
         // TESTING ADD goal
-        $new_goal = array(
-            "goal_title" => "New Goal HERE!",
-            "goal_completed_by" => "2022-08-31",
-            "steps" => array(
-                array(
-                    "step_title" => "New Step Here, Step 1",
-                    "step_completed_by" => "2022-08-31",
-                    "step_order" => 0
-                ),
-                array(
-                    "step_title" => "New Step Here, Step 2",
-                    "step_completed_by" => "2022-08-31",
-                    "step_order" => 1
-                ),
-                array(
-                    "step_title" => "New Step Here, Step 3",
-                    "step_completed_by" => "2022-08-31",
-                    "step_order" => 2
-                )
-            )
-        );
+        // $new_goal = array(
+        //     "goal_title" => "New Goal HERE!",
+        //     "goal_completed_by" => "2022-08-31",
+        //     "steps" => array(
+        //         array(
+        //             "step_title" => "New Step Here, Step 1",
+        //             "step_completed_by" => "2022-08-31",
+        //             "step_order" => 0
+        //         ),
+        //         array(
+        //             "step_title" => "New Step Here, Step 2",
+        //             "step_completed_by" => "2022-08-31",
+        //             "step_order" => 1
+        //         ),
+        //         array(
+        //             "step_title" => "New Step Here, Step 3",
+        //             "step_completed_by" => "2022-08-31",
+        //             "step_order" => 2
+        //         )
+        //     )
+        // );
+
+        $new_goal = $post_data["goal"];
 
         $goal = $L2l_Goal_Setting->add_new_goal($new_goal);
 
