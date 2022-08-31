@@ -120,7 +120,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         $results = $this->db->get_results($sql);
 
-        return $this->optimise_raw_results_into_associative_array($results);
+        return reset($this->optimise_raw_results_into_associative_array($results));
 
     }
 
