@@ -13,6 +13,8 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         $this->goals_table = $this->prefix . "lfgs_goals";
         $this->steps_table = $this->prefix . "lfgs_steps";
 
+        date_default_timezone_set('Australia/Sydney');
+
     }
 
     // Get Goals 
@@ -30,11 +32,35 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         // Format and Sanitize User Input
         $sanitized_user_data = $this->format_and_sanitize_user_input($goal_data);
 
-        // Split Steps from Goals (if applicable)
+        // Split Steps from Goals
         $goal_and_steps_data = $this->split_goal_and_steps($sanitized_user_data);
-        return $goal_and_steps_data;
+        $goal_data = $goal_and_steps_data["goal"];
+        $steps_data = $goal_and_steps_data["steps"];
 
         // Insert Goal to DB, return Goal ID
+        $success_steps_insert = array();
+        $success_steps_expected = count($steps_data);
+
+        if ($goal_id = $this->db_insert_goal($goal_data)){
+
+            foreach($steps_data as $step_data){
+
+                if (empty($step_data["step_title"]))
+                    continue;
+
+                if (empty($step_data["step_completed_by"]) || $step_data["step_completed_by"] == "0000-00-00")
+                    $step_data["step_completed_by"] = date("Y-m-d");
+
+                $step_data["goal_id"] = $goal_id;
+
+                if ($step_id = $this->db_insert_step($step_data))
+                    array_push($success_steps_insert, $step_id);
+
+            }
+
+        }
+
+        return $goal_id;
 
     }
 
