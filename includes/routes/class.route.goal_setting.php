@@ -85,6 +85,14 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function put_goal ( $request ){
 
+        $post_data = $request->get_params();
+
+        $username = sanitize_text_field($post_data["username"]);
+
+        $L2l_Goal_Setting = new Learn2Learn_Goal_Setting($username);
+
+        $updated_goal = "";
+
         return new WP_REST_Response( "PUT ROUTE", 200 );
 
     }

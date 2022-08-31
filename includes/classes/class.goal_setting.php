@@ -27,10 +27,10 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
 
     // Add new Goal
-    public function add_new_goal($goal_data){
+    public function add_new_goal($submitted_data){
 
         // Format and Sanitize User Input
-        $sanitized_user_data = $this->format_and_sanitize_user_input($goal_data);
+        $sanitized_user_data = $this->format_and_sanitize_user_input($submitted_data);
 
         // Split Steps from Goals
         $goal_and_steps_data = $this->split_goal_and_steps($sanitized_user_data);
@@ -74,9 +74,56 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
     }
 
     // Update Goal
-    public function update_goal($goal_id, $goal_data){
+    public function update_goal($submitted_data){
 
+        // Format and Sanitize User Input
+        $sanitized_user_data = $this->format_and_sanitize_user_input($submitted_data);
 
+        // Split Steps from Goals
+        $goal_and_steps_data = $this->split_goal_and_steps($sanitized_user_data);
+
+        // Goal Data
+        $goal_data = $goal_and_steps_data["goal"];
+
+        if (!isset($goal_data["goal_id"]))
+            return;
+
+        // Get Goal ID from Goal Data
+        $goal_id = intval($goal_data["goal_id"]);
+
+        $steps_data = (isset($goal_and_steps_data["steps"]) && is_array($goal_and_steps_data["steps"]) ? $goal_and_steps_data["steps"] : array());
+
+        $goal_update_success = $this->db_update_goal($goal_data);
+        $steps_update_success = false;
+
+        foreach($steps_data as $step_data){
+
+            if (empty($step_data["step_title"]))
+                continue;
+    
+            if (empty($step_data["step_completed_by"]) || $step_data["step_completed_by"] == "0000-00-00")
+                $step_data["step_completed_by"] = date("Y-m-d");
+    
+            $step_data["goal_id"] = $goal_id;
+    
+            if (!isset($step_data["step_id"]) || empty($step_data["step_id"]) || $step_data["step_id"] == "undefined"){
+                $steps_update_success = $this->db_insert_step($step_data);
+            } else {
+                $steps_update_success = $this->db_update_step($step_data);
+            }
+    
+        }
+
+        $return_data = array();
+
+        if (isset($goal_update_success) || isset($steps_update_success)){
+            $return_data["success"] = true;
+            $return_data["goal"] = $this->get_goal_by_goal_id($goal_id);
+        } else {
+            $return_data["success"] = false;
+        }
+
+        return $return_data;
 
     }
 
