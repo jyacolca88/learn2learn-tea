@@ -37,6 +37,8 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         $goal_data = $goal_and_steps_data["goal"];
         $steps_data = $goal_and_steps_data["steps"];
 
+        return $goal_and_steps_data;
+
         // Insert Goal to DB, return Goal ID
         $success_steps_insert = array();
         $success_steps_expected = count($steps_data);
@@ -183,15 +185,15 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
             }
 
-            if ($key == "username"){
-                $goal_data[$key] = $value;
-            }
-
         }
 
-        if (isset($sanitized_data["username"])){
+        if (!empty($goal_data)){
+            $goal_data["user_id"] = $this->username;
+        }
+
+        if (isset($goal_data["user_id"])){
             foreach($multiple_steps_data as $key => $value){
-                $multiple_steps_data[$key]["username"] = $sanitized_data["username"];
+                $multiple_steps_data[$key]["user_id"] = $this->username;
             }
         }
 
