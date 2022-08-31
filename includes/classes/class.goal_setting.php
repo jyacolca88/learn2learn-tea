@@ -28,11 +28,11 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
     public function add_new_goal($goal_data){
 
         // Format and Sanitize User Input
-        $user_data = $this->format_and_sanitize_user_input($goal_data);
-        return $user_data;
+        $sanitized_user_data = $this->format_and_sanitize_user_input($goal_data);
 
         // Split Steps from Goals (if applicable)
-
+        $goal_and_steps_data = $this->split_goal_and_steps($sanitized_user_data);
+        return $goal_and_steps_data;
 
         // Insert Goal to DB, return Goal ID
 
@@ -142,35 +142,30 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
             if ($key == "steps" && is_array($value)){
 
-                foreach($value as $k => $v ){
+                 foreach($value as $index => $array){
 
-                    // $value is array
-                    // $k is index of array
-                    // $v then is assoc array of key=>value
+                    foreach($array as $arr_key => $arr_value){
+
+                        if ($arr_key == "step_title")
+                            $arr_value = $this->encrypt_decrypt_string($arr_value);
+
+                        $multiple_steps_data[$index][$arr_key] = $arr_value;
+
+                    }
 
                 }
 
             }
 
-            // if (strpos($key, 'step_') !== false) {
-            //     $index = substr($key, -1);
-            //     $key = substr($key, 0, strrpos( $key, '_') );
-
-            //     if ($key == "step_title")
-            //         $value = $this->encrypt_decrypt_string($value);
-
-            //     $multiple_steps_data[$index][$key] = $value;
-            // }
-
-            if ($key == "user_id"){
+            if ($key == "username"){
                 $goal_data[$key] = $value;
             }
 
         }
 
-        if (isset($sanitized_data["user_id"])){
+        if (isset($sanitized_data["username"])){
             foreach($multiple_steps_data as $key => $value){
-                $multiple_steps_data[$key]["user_id"] = $sanitized_data["user_id"];
+                $multiple_steps_data[$key]["username"] = $sanitized_data["username"];
             }
         }
 
@@ -200,10 +195,6 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         foreach($unsafe_input as $key => $value){
 
             if (is_array($value)){
-
-                // $value is array
-                // $k = index of array
-                // $v = array of assoc
 
                 foreach($value as $index => $array){
 
