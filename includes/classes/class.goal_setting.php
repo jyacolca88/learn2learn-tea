@@ -216,6 +216,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         } else {
 
             $return = $this->select_from_table($this->goals_table, array("goal_id", "%d"), array($goal_id));
+            $return = "Inside this condition";
 
         }
 
