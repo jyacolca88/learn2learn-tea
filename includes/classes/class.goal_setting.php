@@ -208,10 +208,18 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         $results = $this->db->get_results($sql);
 
-        return $results;
+        if (!empty($results)){
 
-        $results_array = $this->optimise_raw_results_into_associative_array($results);
-        $return = reset($results_array);
+            $results_array = $this->optimise_raw_results_into_associative_array($results);
+            $return = reset($results_array);
+
+        } else {
+
+            $return = $this->select_from_table($this->goals_table, array("goal_id", "%d"), array($goal_id));
+
+        }
+
+        
 
         // TODO: check if results is null, then query again, but just get goal, no joins
 
