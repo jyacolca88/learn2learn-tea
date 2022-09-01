@@ -200,7 +200,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         $sql = $this->db->prepare("
             SELECT * 
             FROM {$this->goals_table} g
-            LEFT JOIN {$this->steps_table} s 
+            CROSS JOIN {$this->steps_table} s 
             ON g.goal_id = s.goal_id 
             WHERE g.goal_id = %d 
             ORDER BY g.goal_id ASC, s.step_order ASC
