@@ -200,18 +200,22 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         $sql = $this->db->prepare("
             SELECT * 
             FROM {$this->goals_table} g
-            CROSS JOIN {$this->steps_table} s 
+            INNER JOIN {$this->steps_table} s 
             ON g.goal_id = s.goal_id 
             WHERE g.goal_id = %d 
             ORDER BY g.goal_id ASC, s.step_order ASC
         ", $goal_id);
 
         $results = $this->db->get_results($sql);
+
+        return $results;
+
         $results_array = $this->optimise_raw_results_into_associative_array($results);
+        $return = reset($results_array);
 
         // TODO: check if results is null, then query again, but just get goal, no joins
 
-        return reset($results_array);
+        return $return;
 
     }
 
