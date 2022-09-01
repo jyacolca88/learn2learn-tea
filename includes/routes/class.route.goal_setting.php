@@ -23,7 +23,7 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
         register_rest_route( $namespace, '/' . $resource_name . '/goal/', array(
 
             array(
-                'methods'               => WP_REST_Server::CREATABLE,
+                'methods'               => 'POST',
                 'callback'              => array ( $this, 'post_goal'),
                 'permission_callback'  => array ( $this, 'post_goal_permissions_check' ),
                 'args'                  => array ()
@@ -34,7 +34,7 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
         register_rest_route( $namespace, '/' . $resource_name . '/goal/', array(
 
             array(
-                'methods'               => WP_REST_Server::EDITABLE,
+                'methods'               => 'PUT',
                 'callback'              => array ( $this, 'put_goal'),
                 'permission_callback'  => array ( $this, 'put_goal_permissions_check' ),
                 'args'                  => array ()
