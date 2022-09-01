@@ -174,6 +174,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
             INNER JOIN {$this->steps_table} s 
             ON g.goal_id = s.goal_id 
             WHERE g.user_id = %s 
+            AND (s.goal is null OR s.step_order is null)
             ORDER BY g.goal_id ASC, s.step_order ASC
         ", $this->username);
 
