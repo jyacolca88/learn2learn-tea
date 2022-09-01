@@ -28,12 +28,21 @@ class Learn2Learn_Database {
      * 
      */
 
-    public function select_columns_by_ids_from_table($table = null, $where_format = array(), $where_values = array(), $columns = null){
+    public function select_columns_by_ids_from_table($table_without_prefix = null, $where_format = array(), $where_values = array(), $columns = null){
+
+        if (is_null($table_without_prefix))
+            return;
+
+        $table = $this->prefix . $table_without_prefix;
+
+        return $this->select_from_table($table, $where_format, $where_values, $columns);
+
+    }
+
+    protected function select_from_table($table = null, $where_format = array(), $where_values = array(), $columns = null){
 
         if (is_null($table))
             return;
-
-        $table = $this->prefix . $table;
 
         $select = $this->get_sanitized_select($columns);
 
@@ -44,8 +53,6 @@ class Learn2Learn_Database {
             FROM $table 
             $where
         ";
-
-        // print_r($query);
 
         return $this->db->get_results(
 
