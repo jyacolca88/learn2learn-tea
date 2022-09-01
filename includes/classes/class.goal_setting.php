@@ -130,7 +130,31 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
     // Delete Goal
     public function delete_goal($goal_id){
 
-        
+        if(!$goal_id)
+            return;
+
+        $delete_success = false;
+
+        // Need to delete steps before attempting to delete goal (Foreign key constraint)
+
+        if ($steps = $this->get_steps_by_goal_id($goal_id)){
+
+            if (is_array($steps) && !empty($steps)){
+
+                foreach($steps as $step){
+
+                    $step_delete = $this->db_delete_step($step->step_id);
+
+                }
+
+            }
+
+        }
+
+        if ($goal_delete = $this->db_delete_goal($goal_id))
+            $delete_success = true;
+
+        return $delete_success;
 
     }
 
@@ -168,6 +192,19 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         $results = $this->db->get_results($sql);
 
         return reset($this->optimise_raw_results_into_associative_array($results));
+
+    }
+
+    private function get_steps_by_goal_id($goal_id){
+
+        $sql = $this->db->prepare("
+            SELECT * 
+            FROM $this->steps_table 
+            WHERE goal_id = %d 
+            ORDER BY step_order, step_id ASC
+        ", $goal_id);
+
+        return $this->db->get_results($sql);
 
     }
 

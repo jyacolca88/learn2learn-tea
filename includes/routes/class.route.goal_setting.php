@@ -117,13 +117,22 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function delete_goal( $request ){
 
-        return new WP_REST_Response( "delete route here", 200 );
+        $post_data = $request->get_params();
+
+        $username = sanitize_text_field($post_data["username"]);
+        $goal_id = intval($post_data["goal_id"]);
+
+        $L2l_Goal_Setting = new Learn2Learn_Goal_Setting($username);
+
+        $goal_deleted_status = $L2l_Goal_Setting->delete_goal($goal_id);
+
+        return new WP_REST_Response( $goal_deleted_status, 200 );
 
     }
 
     public function delete_goal_permissions_check(){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
