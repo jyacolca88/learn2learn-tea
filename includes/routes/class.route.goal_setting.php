@@ -20,6 +20,17 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, '/' . $resource_name . '/goal/(?P<username>[\w]+)' . '/(?P<goal_id>[\d]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_goal'),
+                'permission_callback'  => array ( $this, 'get_goal_permissions_check' ),
+                'args'                  => array ()
+            )
+
+        ));
+
         register_rest_route( $namespace, '/' . $resource_name . '/goal/', array(
 
             array(
@@ -67,6 +78,18 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
     }
 
     public function get_goals_permissions_check( $request ){
+
+        return current_user_can( 'read' );
+
+    }
+
+    public function get_goal( $request ){
+
+        return new WP_REST_Response( "This is the goal route.", 200 );
+
+    }
+
+    public function get_goal_permissions_check( $request ){
 
         return current_user_can( 'read' );
 

@@ -25,6 +25,12 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
     }
 
+    public function get_goal($goal_id){
+
+        
+
+    }
+
 
     // Add new Goal
     public function add_new_goal($submitted_data){
@@ -179,7 +185,8 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         $results = $this->db->get_results($sql);
 
-        // TODO: check if results is null, then query again, but just get goals, no joins
+        // TODO: Get Goals first, then get Steps
+        // Then join array to look like above results
 
         return $this->optimise_raw_results_into_associative_array($results);
 
@@ -200,6 +207,8 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         ", $goal_id);
 
         $results = $this->db->get_results($sql);
+
+        // TODO: check if results is null, then query again, but just get goal, no joins
 
         return reset($this->optimise_raw_results_into_associative_array($results));
 
