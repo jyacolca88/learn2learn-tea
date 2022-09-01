@@ -42,6 +42,17 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, '/' . $resource_name . '/goal/', array(
+
+            array(
+                'methods'               => WP_REST_Server::DELETABLE,
+                'callback'              => array ( $this, 'delete_goal'),
+                'permission_callback'  => array ( $this, 'delete_goal_permissions_check' ),
+                'args'                  => array ()
+            )
+
+        ));
+
     }
 
     public function get_goals( $request ){
@@ -101,6 +112,18 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
     public function put_goal_permissions_check (){
 
         return current_user_can( 'read' );
+
+    }
+
+    public function delete_goal( $request ){
+
+        return new WP_REST_Response( "delete route here", 200 );
+
+    }
+
+    public function delete_goal_permissions_check(){
+
+        return '__return_true';
 
     }
 

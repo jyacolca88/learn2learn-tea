@@ -130,7 +130,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
     // Delete Goal
     public function delete_goal($goal_id){
 
-
+        
 
     }
 
