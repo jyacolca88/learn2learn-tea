@@ -43,18 +43,22 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         if ($goal_id = $this->db_insert_goal($goal_data)){
 
-            foreach($steps_data as $step_data){
+            if (!empty($steps_data)){
 
-                if (empty($step_data["step_title"]))
-                    continue;
+                foreach($steps_data as $step_data){
 
-                if (empty($step_data["step_completed_by"]) || $step_data["step_completed_by"] == "0000-00-00")
-                    $step_data["step_completed_by"] = date("Y-m-d");
-
-                $step_data["goal_id"] = $goal_id;
-
-                if ($step_id = $this->db_insert_step($step_data))
-                    array_push($success_steps_insert, $step_id);
+                    if (empty($step_data["step_title"]))
+                        continue;
+    
+                    if (empty($step_data["step_completed_by"]) || $step_data["step_completed_by"] == "0000-00-00")
+                        $step_data["step_completed_by"] = date("Y-m-d");
+    
+                    $step_data["goal_id"] = $goal_id;
+    
+                    if ($step_id = $this->db_insert_step($step_data))
+                        array_push($success_steps_insert, $step_id);
+    
+                }
 
             }
 
