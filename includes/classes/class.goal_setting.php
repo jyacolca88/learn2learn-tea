@@ -27,7 +27,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
     public function get_goal($goal_id){
 
-        
+        return "inside get_goal method of Goal Setting class";
 
     }
 
