@@ -201,6 +201,8 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
             
             foreach($goals as $index => $goal){
 
+                $goals_array[$index] = $goal;
+
                 $goal_id = intval($goal->goal_id);
                 $steps = $this->select_from_table($this->steps_table, array("goal_id" => "%d"), array($goal_id));
 
