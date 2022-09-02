@@ -192,7 +192,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
     }
 
-    private function get_all_goals_by_user_test(){
+    public function get_all_goals_by_user_test(){
 
         $goals = $this->select_from_table($this->goals_table, array("user_id" => "%s"), array($this->username));
         return $goals;
