@@ -185,9 +185,6 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         $results = $this->db->get_results($sql);
 
-        // TODO: Get Goals first, then get Steps
-        // Then join array to look like above results
-
         return $this->optimise_raw_results_into_associative_array($results);
 
     }
@@ -220,6 +217,10 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
                 $goals_array[$index] = $goal;
                 $goals_array[$index]["steps"] = [];
+
+                // Decrypt Goal Title and Reflection
+                $goals_array[$index]["goal_title"] = stripslashes($this->encrypt_decrypt_string($goal["goal_title"], true));
+                $goals_array[$index]["goal_reflection"] = (!empty($goal["goal_reflection"]) ? stripslashes($this->encrypt_decrypt_string($goal["goal_reflection"], true)) : null);
 
                 $goal_id = intval($goal['goal_id']);
                 $steps = $this->select_from_table($this->steps_table, array("goal_id" => "%d"), array($goal_id), $step_columns, true);
