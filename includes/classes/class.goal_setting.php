@@ -226,6 +226,16 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
                 $steps = $this->select_from_table($this->steps_table, array("goal_id" => "%d"), array($goal_id), $step_columns, true);
 
                 if (is_array($steps) && !empty($steps)){
+
+                    $steps_array = array();
+
+                    foreach($steps as $key => $step){
+
+                        $steps_array[$key] = $step;
+                        $steps_array[$key]["step_title"] = stripslashes($this->encrypt_decrypt_string($step["step_title"], true));
+
+                    }
+
                     $goals_array[$index]["steps"] = $steps;
                 }
 
