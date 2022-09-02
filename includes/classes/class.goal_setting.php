@@ -236,7 +236,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
                     }
 
-                    $goals_array[$index]["steps"] = $steps;
+                    $goals_array[$index]["steps"] = $steps_array;
                 }
 
             }
