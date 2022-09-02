@@ -203,7 +203,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
                 $steps = $this->select_from_table($this->steps_table, array("goal_id" => "%d"), array($goal_id));
 
                 if (is_array($steps) && !empty($steps)){
-                    $goal["steps"] = $steps;
+                    $goal["steps"] = (array) $steps;
                 }
 
             }
