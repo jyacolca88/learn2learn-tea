@@ -196,15 +196,32 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         $goals_array = array();
 
-        $goals = $this->select_from_table($this->goals_table, array("user_id" => "%s"), array($this->username), null, true);
+        $goal_columns = array(
+            "goal_id",
+            "goal_title",
+            "goal_completed_by",
+            "goal_finish_date",
+            "goal_status",
+            "goal_reflection"
+        );
+
+        $goals = $this->select_from_table($this->goals_table, array("user_id" => "%s"), array($this->username), $goal_columns, true);
         if (is_array($goals) && !empty($goals)){
+
+            $step_columns = array(
+                "step_id",
+                "step_title",
+                "step_completed_by",
+                "step_status",
+                "step_order"
+            );
             
             foreach($goals as $index => $goal){
 
                 $goals_array[$index] = $goal;
 
                 $goal_id = intval($goal['goal_id']);
-                $steps = $this->select_from_table($this->steps_table, array("goal_id" => "%d"), array($goal_id), null, true);
+                $steps = $this->select_from_table($this->steps_table, array("goal_id" => "%d"), array($goal_id), $step_columns, true);
 
                 if (is_array($steps) && !empty($steps)){
                     $goals_array[$index]["steps"] = $steps;
