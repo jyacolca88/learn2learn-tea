@@ -195,6 +195,20 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
     public function get_all_goals_by_user_test(){
 
         $goals = $this->select_from_table($this->goals_table, array("user_id" => "%s"), array($this->username));
+        if (is_array($goals) && !empty($goals)){
+            
+            foreach($goals as $goal){
+
+                $goal_id = intval($goal->goal_id);
+                $steps = $this->select_from_table($this->steps_table, array("goal_id" => "%d"), array($goal_id));
+
+                if (is_array($steps) && !empty($steps)){
+                    $goal["steps"] = $steps;
+                }
+
+            }
+
+        }
         return $goals;
 
     }
