@@ -39,7 +39,7 @@ class Learn2Learn_Database {
 
     }
 
-    protected function select_from_table($table = null, $where_format = array(), $where_values = array(), $columns = null){
+    protected function select_from_table($table = null, $where_format = array(), $where_values = array(), $columns = null, $array_output = false){
 
         if (is_null($table))
             return;
@@ -54,11 +54,11 @@ class Learn2Learn_Database {
             $where
         ";
 
-        return $this->db->get_results(
-
-            $this->db->prepare($query, $where_values)
-
-        );
+        if ($array_output){
+            return $this->db->get_results($this->db->prepare($query, $where_values), ARRAY_A);
+        } else {
+            return $this->db->get_results($this->db->prepare($query, $where_values));
+        }
 
     }
 
