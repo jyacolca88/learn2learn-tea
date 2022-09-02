@@ -176,7 +176,7 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     }
 
-    public function get_goals_test(){
+    public function get_goals_test( $request ){
 
         $username = sanitize_text_field($request["username"]);
 
