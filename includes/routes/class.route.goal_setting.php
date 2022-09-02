@@ -64,6 +64,17 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, '/' . $resource_name . '/goals-test/(?P<username>[\w]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_goals_test'),
+                'permission_callback'  => array ( $this, 'get_goals_test_permissions_check' ),
+                'args'                  => array ()
+            )
+
+        ));
+
     }
 
     public function get_goals( $request ){
@@ -162,6 +173,23 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
     public function delete_goal_permissions_check(){
 
         return current_user_can( 'read' );
+
+    }
+
+    public function get_goals_test(){
+
+        $username = sanitize_text_field($request["username"]);
+
+        $L2l_Goal_Setting = new Learn2Learn_Goal_Setting($username);
+        $goals = $L2l_Goal_Setting->get_all_goals_by_user_test();
+
+        return new WP_REST_Response( $goals, 200 );
+
+    }
+
+    public function get_goals_test_permissions_check(){
+
+        return '__return_true';
 
     }
 

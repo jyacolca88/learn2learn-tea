@@ -192,6 +192,13 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
     }
 
+    private function get_all_goals_by_user_test(){
+
+        $goals = $this->select_from_table($this->goals_table, array("user_id" => "%s"), array($this->username));
+        return $goals;
+
+    }
+
     private function get_goal_by_goal_id($goal_id){
 
         $goal_id = intval($goal_id);
@@ -211,11 +218,9 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         if (empty($results)){
             $results = $this->select_from_table($this->goals_table, array("goal_id" => "%d"), array($goal_id));
         }
-        
+
         $results_array = $this->optimise_raw_results_into_associative_array($results);
         $return = reset($results_array);
-
-        // TODO: check if results is null, then query again, but just get goal, no joins
 
         return $return;
 
