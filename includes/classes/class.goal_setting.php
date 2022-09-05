@@ -267,7 +267,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         }
 
         $results_array = $this->optimise_raw_results_into_associative_array($results);
-        $return = reset($results_array);
+        $return = is_array($results_array) ? reset($results_array) : false;
 
         return $return;
 
