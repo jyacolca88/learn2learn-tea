@@ -309,7 +309,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
             } else {
 
-                $steps_array[$record->goal_id] = false;
+                $steps_array[$record->goal_id] = [];
 
             }
             
