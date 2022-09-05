@@ -9,7 +9,7 @@ class Contentitems_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $resource_name = 'contentitems';
 
 
-        register_rest_route( $namespace, '/' . $resource_name, array(
+        register_rest_route( $namespace, '/' . $resource_name . '/(?P<username>[\w]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -24,7 +24,9 @@ class Contentitems_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_content_items( $request ){
 
-        $L2l_Content_Items = new Learn2Learn_Content_Items("85daa4da50ba3931755b1960bf8f1083");
+        $username = sanitize_text_field($request["username"]);
+        // $L2l_Content_Items = new Learn2Learn_Content_Items("85daa4da50ba3931755b1960bf8f1083");
+        $L2l_Content_Items = new Learn2Learn_Content_Items($username);
         $content_items = $L2l_Content_Items->get_content_items();
 
         return new WP_REST_Response( $content_items, 200 );
