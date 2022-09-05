@@ -9,7 +9,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $resource_name = 'lessons';
 
 
-        register_rest_route( $namespace, '/' . $resource_name, array(
+        register_rest_route( $namespace, '/' . $resource_name . '/(?P<username>[\w]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -20,7 +20,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/(?P<id>[\d]+)', array(
+        register_rest_route( $namespace, $resource_name . '/(?P<username>[\w]+)' . '/(?P<lesson_id>[\d]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -44,7 +44,10 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_lessons( $request ){
 
-        $L2l_Content_Items = new Learn2Learn_Content_Items("85daa4da50ba3931755b1960bf8f1083");
+        $username = sanitize_text_field($request["username"]);
+
+        // $L2l_Content_Items = new Learn2Learn_Content_Items("85daa4da50ba3931755b1960bf8f1083");
+        $L2l_Content_Items = new Learn2Learn_Content_Items($username);
         $lessons = $L2l_Content_Items->get_map_items();
 
         return new WP_REST_Response( $lessons, 200 );
@@ -59,9 +62,11 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_lesson( $request ){
 
-        $lesson_id = (int) $request['id'];
+        $username = sanitize_text_field($request["username"]);
+        $lesson_id = intval($request['lesson_id']);
 
-        $L2L_Lessons = new Learn2Learn_Lessons( $lesson_id, "85daa4da50ba3931755b1960bf8f1083" );
+        // $L2L_Lessons = new Learn2Learn_Lessons( $lesson_id, "85daa4da50ba3931755b1960bf8f1083" );
+        $L2L_Lessons = new Learn2Learn_Lessons( $lesson_id, $username );
         $lesson_data = $L2L_Lessons->get_lesson_data( $lesson_id );
 
         return new WP_REST_Response( $lesson_data, 200 );
