@@ -172,7 +172,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
     }
 
-    private function get_all_goals_by_user(){
+    private function get_all_goals_by_user_with_steps_only(){
 
         $sql = $this->db->prepare("
             SELECT * 
@@ -189,7 +189,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
     }
 
-    public function get_all_goals_by_user_test(){
+    public function get_all_goals_by_user(){
 
         $goals_array = array();
 
