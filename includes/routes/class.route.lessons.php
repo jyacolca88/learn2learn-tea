@@ -81,10 +81,12 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_personal_lessons( $request ){
 
+        return new WP_REST_Response( $request, 200 );
+
         $user_id = sanitize_text_field($request["user_id"]);
         $lessons = Learn2Learn_Topics::get_lessons_from_topics_by_user_id($user_id);
 
-        return new WP_REST_Response( $user_id, 200 );
+        return new WP_REST_Response( $lessons, 200 );
         
     }
 
