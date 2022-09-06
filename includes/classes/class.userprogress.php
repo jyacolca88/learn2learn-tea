@@ -13,7 +13,8 @@ class Learn2Learn_Userprogress extends Learn2Learn_Database {
 
     public function get_user_progress_by_page_id($page_id){
 
-        return $this->select_user_progress_record($this->username, $page_id);
+        // return $this->select_user_progress_record($this->username, $page_id);
+        return $page_id;
 
     }
 
