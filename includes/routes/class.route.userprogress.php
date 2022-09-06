@@ -8,12 +8,12 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $namespace = 'learn2learn/v' . $version;
         $resource_name = 'userprogress';
 
-        register_rest_route( $namespace, $resource_name . '/(?P<id>[\d]+)', array(
+        register_rest_route( $namespace, $resource_name . '/(?P<progress_id>[\d]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
-                'callback'              => array ( $this, 'get_userprogress'),
-                'permission_callback'  => array ( $this, 'get_userprogress_permissions_check' )
+                'callback'              => array ( $this, 'get_user_progress_by_id'),
+                'permission_callback'  => array ( $this, 'get_user_progress_by_id_permissions_check' )
             )
 
         ));
@@ -40,28 +40,21 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     }
 
-    public function get_userprogress( $request ){
+    public function get_user_progress_by_id( $request ){
 
-        // $thumb_id = (int) $request['id'];
+        $username = sanitize_text_field($request["username"]);
+        $progress_id = intval($request["progress_id"]);
 
-        // $L2l_Thumbs = new Learn2Learn_Thumbs("85daa4da50ba3931755b1960bf8f1083");
-        // $thumb_data = $L2l_Thumbs->get_thumb_by_id($thumb_id);
+        $L2L_User_Progress = new Learn2Learn_Userprogress($username);
+        $user_progress = $L2L_User_Progress->get_user_progress_by_progress_id($progress_id);
 
-        // return new WP_REST_Response( $thumb_data, 200 );
-
-        // $tags = get_the_terms(838, "topic");
-
-        $locations = get_nav_menu_locations();
-        $object = wp_get_nav_menu_object( $locations["journey-map-questions"] );
-        $menu = wp_get_nav_menu_items( $object->name );
-
-        return new WP_REST_Response( $menu, 200 );
+        return new WP_REST_Response( $user_progress, 200 );
 
     }
 
-    public function get_userprogress_permissions_check( $request ){
+    public function get_user_progress_by_id_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
