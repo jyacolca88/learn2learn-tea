@@ -18,12 +18,12 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)', array(
+        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)' . '/(?P<username>[\w]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
-                'callback'              => array ( $this, 'get_userprogress_for_page'),
-                'permission_callback'  => array ( $this, 'get_userprogress_for_page_permissions_check' )
+                'callback'              => array ( $this, 'get_user_progress_for_page'),
+                'permission_callback'  => array ( $this, 'get_user_progress_for_page_permissions_check' )
             )
 
         ));
@@ -59,26 +59,27 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     }
 
-    public function get_thumb_permissions_check( $request ){
+    public function get_userprogress_permissions_check( $request ){
 
         return '__return_true';
 
     }
 
-    public function get_userprogress_for_page( $request ){
+    public function get_user_progress_for_page( $request ){
 
-        // $page_id = (int) $request['page_id'];
+        $username = sanitize_text_field($request["username"]);
+        $page_id = intval($request["page_id"]);
 
-        // $L2l_Thumbs = new Learn2Learn_Thumbs("85daa4da50ba3931755b1960bf8f1083");
-        // $thumb_data = $L2l_Thumbs->get_user_thumb_by_page_id($page_id);
+        $L2L_User_Progress = new Learn2Learn_Userprogress($username);
+        $user_progress = $L2L_User_Progress->get_user_progress_by_page_id($page_id);
 
-        // return new WP_REST_Response( $thumb_data, 200 );
+        return new WP_REST_Response( $user_progress, 200 );
 
     }
 
-    public function get_userprogress_for_page_permissions_check( $request ){
+    public function get_user_progress_for_page_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
