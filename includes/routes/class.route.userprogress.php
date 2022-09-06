@@ -18,6 +18,16 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, $resource_name . '/user/(?P<username>[\w]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_user_progress_by_username'),
+                'permission_callback'  => array ( $this, 'get_user_progress_by_username_permissions_check' )
+            )
+
+        ));
+
         register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)' . '/(?P<username>[\w]+)', array(
 
             array(
@@ -53,6 +63,18 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
     }
 
     public function get_user_progress_by_id_permissions_check( $request ){
+
+        return current_user_can( 'read' );
+
+    }
+
+    public function get_user_progress_by_username( $request ){
+
+        return new WP_REST_Response( "username progress route", 200 );
+
+    }
+
+    public function get_user_progress_by_username_permissions_check(){
 
         return current_user_can( 'read' );
 
