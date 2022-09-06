@@ -31,7 +31,7 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
         register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)', array(
 
             array(
-                'methods'               => WP_REST_Server::CREATEABLE,
+                'methods'               => WP_REST_Server::CREATABLE,
                 'callback'              => array ( $this, 'add_new_user_progress_for_page'),
                 'permission_callback'  => array ( $this, 'add_new_user_progress_for_page_permissions_check' )
             )
