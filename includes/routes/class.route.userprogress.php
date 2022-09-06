@@ -90,7 +90,7 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $page_id = intval($post_data["page_id"]);
 
         $L2L_User_Progress = new Learn2Learn_Userprogress($username);
-        $user_progress = $L2L_User_Progress->get_user_progress_by_page_id($page_id);
+        $user_progress = $L2L_User_Progress->add_new_user_progress_by_page_id($page_id);
 
         return new WP_REST_Response( $user_progress, 200 );
 
