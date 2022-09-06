@@ -28,6 +28,16 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::CREATEABLE,
+                'callback'              => array ( $this, 'add_new_user_progress_for_page'),
+                'permission_callback'  => array ( $this, 'add_new_user_progress_for_page_permissions_check' )
+            )
+
+        ));
+
     }
 
     public function get_userprogress( $request ){
@@ -69,6 +79,18 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
     public function get_userprogress_for_page_permissions_check( $request ){
 
         return '__return_true';
+
+    }
+
+    public function add_new_user_progress_for_page( $request ){
+
+        return new WP_REST_Response( "REST Route to add new user progress record", 200 );
+
+    }
+
+    public function add_new_user_progress_for_page_permissions_check(){
+
+        return current_user_can( 'read' );
 
     }
 
