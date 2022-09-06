@@ -70,7 +70,12 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_user_progress_by_username( $request ){
 
-        return new WP_REST_Response( "username progress route", 200 );
+        $username = sanitize_text_field($request["username"]);
+
+        $L2L_User_Progress = new Learn2Learn_Userprogress($username);
+        $user_progress = $L2L_User_Progress->get_user_progress();
+
+        return new WP_REST_Response( $user_progress, 200 );
 
     }
 

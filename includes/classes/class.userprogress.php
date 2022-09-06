@@ -13,6 +13,12 @@ class Learn2Learn_Userprogress extends Learn2Learn_Database {
 
     }
 
+    public function get_user_progress(){
+
+        return $this->select_from_table($this->content_progress_table, array("user_id" => "%s"), array($this->username));
+
+    }
+
     public function get_user_progress_by_progress_id($progress_id){
 
         return $this->select_from_table($this->content_progress_table, array("progress_id" => "%d"), array($progress_id));
