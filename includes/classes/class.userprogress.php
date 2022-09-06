@@ -22,6 +22,7 @@ class Learn2Learn_Userprogress extends Learn2Learn_Database {
     public function add_new_user_progress_by_page_id($content_id){
 
         $exists = $this->select_user_progress_record($this->username, $content_id);
+        return $exists;
         if($exists){ return; } 
 
         $user_id = $this->username;
