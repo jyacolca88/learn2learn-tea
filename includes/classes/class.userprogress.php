@@ -21,8 +21,28 @@ class Learn2Learn_Userprogress extends Learn2Learn_Database {
 
     public function add_new_user_progress_by_page_id($content_id){
 
-        $exists = $this->select_user_progress_record($this->username, $content_id);
-        if($exists){ return $exists; } 
+        $exists = $this->get_user_progress_by_page_id($content_id);
+
+        // If user record exists.
+        if($exists){
+
+            // If their progress is marked as incomplete, then structure where clause for a DB update
+            if ($exists->progress === 0){
+
+                $progress_id = intval($exists->progress_id);
+                $where_clause = array(
+                    "progress_id" => $progress_id
+                );
+
+            } else {
+
+                // Else, if their progress ID is set as complete, return with true
+
+                return true;
+
+            }
+            
+        }
 
         $user_id = $this->username;
         $content_id = intval($content_id);
@@ -40,7 +60,18 @@ class Learn2Learn_Userprogress extends Learn2Learn_Database {
 
         $data_format = array('%s', '%d', '%d', '%d', '%s');
 
-        $success = $this->db->insert($this->content_progress_table, $table_data, $data_format);
+        // If progress ID is set, then update the record
+        if ($progress_id){
+
+            $success = $this->db->update($this->content_progress_table, $table_data, $where_clause, $data_format);
+
+        } else {
+
+            // Else, insert new record
+
+            $success = $this->db->insert($this->content_progress_table, $table_data, $data_format);
+
+        }
 
         return ($success ? true : false);
 
