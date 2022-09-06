@@ -28,7 +28,7 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)', array(
+        register_rest_route( $namespace, $resource_name . '/page', array(
 
             array(
                 'methods'               => WP_REST_Server::CREATABLE,
@@ -84,7 +84,9 @@ class Userprogress_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function add_new_user_progress_for_page( $request ){
 
-        return new WP_REST_Response( "REST Route to add new user progress record", 200 );
+        $post_data = $request->get_params();
+
+        return new WP_REST_Response( $post_data, 200 );
 
     }
 
