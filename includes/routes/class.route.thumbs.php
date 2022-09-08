@@ -40,7 +40,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)' . '/(?P<username>[\w]+)', array(
+        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::EDITABLE,
@@ -107,10 +107,19 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function put_thumb_for_page( $request ){
 
-        $username = sanitize_text_field($request["username"]);
-        $page_id = intval($request['page_id']);
+        $post_data = $request->get_params();
 
-        return new WP_REST_Response( "This is the PUT route for Thumbs", 200 );
+        $username = sanitize_text_field($post_data["username"]);
+        $page_id = intval($post_data['page_id']);
+        $thumbs = sanitize_text_field($post_data["thumbs"]);
+
+        $array = array(
+            "username" => $username,
+            "page_id" => $page_id,
+            "thumbs" => $thumbs
+        );
+
+        return new WP_REST_Response( $array, 200 );
 
     }
 
