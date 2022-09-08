@@ -51,7 +51,7 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
 
     private function run_select_query(){
 
-        return $this->db->select_columns_by_ids_from_table(
+        return $this->select_columns_by_ids_from_table(
             $this->thumbs_table,
             $this->where_format,
             $this->where_values,
