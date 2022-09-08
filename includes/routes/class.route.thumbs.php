@@ -40,7 +40,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)', array(
+        register_rest_route( $namespace, $resource_name . '/page', array(
 
             array(
                 'methods'               => WP_REST_Server::EDITABLE,
@@ -109,12 +109,12 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         $post_data = $request->get_params();
 
-        $username = sanitize_text_field($post_data["username"]);
+        $user_id = sanitize_text_field($post_data["user_id"]);
         $page_id = intval($post_data['page_id']);
         $thumbs = sanitize_text_field($post_data["thumbs"]);
 
         $array = array(
-            "username" => $username,
+            "user_id" => $user_id,
             "page_id" => $page_id,
             "thumbs" => $thumbs
         );
