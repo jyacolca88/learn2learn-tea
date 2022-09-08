@@ -20,7 +20,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/(?P<thumb_id>[\d]+)', array(
+        register_rest_route( $namespace, $resource_name . '/(?P<thumb_id>[\d]+)' . '/(?P<username>[\w]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -30,7 +30,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)', array(
+        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)' . '/(?P<username>[\w]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -79,9 +79,10 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_thumb_for_page( $request ){
 
-        $page_id = (int) $request['page_id'];
+        $username = sanitize_text_field($request["username"]);
+        $page_id = intval($request['page_id']);
 
-        $L2l_Thumbs = new Learn2Learn_Thumbs("85daa4da50ba3931755b1960bf8f1083");
+        $L2l_Thumbs = new Learn2Learn_Thumbs($username);
         $thumb_data = $L2l_Thumbs->get_user_thumb_by_page_id($page_id);
 
         return new WP_REST_Response( $thumb_data, 200 );
