@@ -40,6 +40,16 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, $resource_name . '/page/(?P<page_id>[\d]+)' . '/(?P<username>[\w]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::EDITABLE,
+                'callback'              => array ( $this, 'put_thumb_for_page'),
+                'permission_callback'  => array ( $this, 'put_thumb_for_page_permissions_check' )
+            )
+
+        ));
+
     }
 
     public function get_thumbs( $request ){
@@ -90,6 +100,21 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
     }
 
     public function get_thumb_for_page_permissions_check( $request ){
+
+        return current_user_can( 'read' );
+
+    }
+
+    public function put_thumb_for_page( $request ){
+
+        $username = sanitize_text_field($request["username"]);
+        $page_id = intval($request['page_id']);
+
+        return new WP_REST_Response( "This is the PUT route for Thumbs", 200 );
+
+    }
+
+    public function put_thumb_for_page_permissions_check(){
 
         return current_user_can( 'read' );
 

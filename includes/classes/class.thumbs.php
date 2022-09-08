@@ -62,5 +62,36 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
 
     }
 
+    /******************** INSERT OR UPDATE USER THUMBS [BEGIN] ********************/
+
+    public function insert_or_update_user_thumbs($content_id, $thumbs){
+
+        $table_data = array (
+            'user_id' => strval(sanitize_text_field($this->user_id)),
+            'page_id' => intval(sanitize_text_field($content_id)),
+            'thumbs' => strval(sanitize_text_field($thumbs))
+        );
+
+        $data_format = array('%s', '%d', '%s');
+
+        if ($db_record = $this->get_user_thumb_by_page_id($content_id)){
+
+            $where_clause = array(
+                "thumb_id" => $db_record->thumb_id
+            );
+
+            $success = $this->db->update( $this->thumbs_table, $table_data, $where_clause, $data_format );
+
+        } else {
+
+            $success = $this->db->insert( $this->thumbs_table, $table_data, $data_format );
+
+        }
+
+        return $success;
+
+    }
+
+    /******************** INSERT OR UPDATE USER THUMBS [END] **********************/
 
 }
