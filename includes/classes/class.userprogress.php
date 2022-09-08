@@ -33,6 +33,12 @@ class Learn2Learn_Userprogress extends Learn2Learn_Database {
 
     public function add_new_user_progress_by_page_id($content_id){
 
+        /*
+        **  Add new user record
+        **  If already exists and progress is 0, then update the record. i.e. Change progress to 1
+        **  If already exists and progress is 1, then return true
+        */
+
         $exists = $this->get_user_progress_by_page_id($content_id);
 
         // If user record exists.

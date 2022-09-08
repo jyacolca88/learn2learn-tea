@@ -1,22 +1,24 @@
 <?php
-class Learn2Learn_Thumbs {
+class Learn2Learn_Thumbs extends Learn2Learn_Database {
 
     private $user_id;
-    private $db;
-    private $db_table = "user_thumbs";
 
     private $where_format = array();
     private $where_values = array();
     private $columns = null;
     
-    function __construct($user_id = null){
+    function __construct($username = null){
 
-        $this->user_id = $user_id;
-        $this->db = new Learn2Learn_Database();
+        parent::__construct();
+
+        $this->user_id = $username;
 
     }
 
-    public function get_all_thumbs(){
+    public function get_all_thumbs_by_username(){
+
+        $this->where_format = array("user_id" => "%s");
+        $this->where_values = array($this->user_id);
 
         return $this->run_select_query();
 
@@ -50,13 +52,11 @@ class Learn2Learn_Thumbs {
     private function run_select_query(){
 
         return $this->db->select_columns_by_ids_from_table(
-            $this->db_table,
+            $this->thumbs_table,
             $this->where_format,
             $this->where_values,
             $this->columns
         );
-
-        // print_r($thumbs);
 
         return $thumbs;
 

@@ -9,7 +9,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $resource_name = 'thumbs';
 
 
-        register_rest_route( $namespace, '/' . $resource_name, array(
+        register_rest_route( $namespace, '/' . $resource_name . '/user' . '/(?P<username>[\w]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
@@ -44,10 +44,10 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_thumbs( $request ){
 
-        $L2l_Thumbs = new Learn2Learn_Thumbs("85daa4da50ba3931755b1960bf8f1083");
-        $thumbs = $L2l_Thumbs->get_all_thumbs();
-        // return $L2l_Thumbs->get_thumb_by_id(5);
-        // return $L2l_Thumbs->get_user_thumb_by_page_id(31);
+        $username = sanitize_text_field($request["username"]);
+
+        $L2l_Thumbs = new Learn2Learn_Thumbs($username);
+        $thumbs = $L2l_Thumbs->get_all_thumbs_by_username();
 
         return new WP_REST_Response( $thumbs, 200 );
 
@@ -55,7 +55,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_thumbs_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -72,7 +72,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_thumb_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -89,7 +89,7 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_thumb_for_page_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
