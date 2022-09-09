@@ -72,6 +72,8 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
             'thumbs' => strval(sanitize_text_field($thumbs))
         );
 
+        return $table_data;
+
         $data_format = array('%s', '%d', '%s');
 
         if ($db_record = $this->get_user_thumb_by_page_id($content_id)){
