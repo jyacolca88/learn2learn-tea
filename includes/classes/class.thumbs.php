@@ -58,8 +58,6 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
             $this->columns
         );
 
-        return $thumbs;
-
     }
 
     /******************** INSERT OR UPDATE USER THUMBS [BEGIN] ********************/
@@ -72,11 +70,13 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
             'thumbs' => strval(sanitize_text_field($thumbs))
         );
 
-        return $this->get_user_thumb_by_page_id($content_id);
-
         $data_format = array('%s', '%d', '%s');
 
         if ($db_record = $this->get_user_thumb_by_page_id($content_id)){
+
+            if (is_array($db_record)){
+                reset($db_record);
+            }
 
             $where_clause = array(
                 "thumb_id" => $db_record->thumb_id
