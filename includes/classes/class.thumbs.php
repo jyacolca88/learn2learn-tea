@@ -78,11 +78,11 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
                 reset($db_record);
             }
 
+            return $db_record;
+
             $where_clause = array(
                 "thumb_id" => $db_record->thumb_id
             );
-
-            return $where_clause;
 
             $success = $this->db->update( $this->thumbs_table, $table_data, $where_clause, $data_format );
 
