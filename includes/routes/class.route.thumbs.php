@@ -113,6 +113,14 @@ class Thumbs_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $page_id = intval($post_data['page_id']);
         $thumbs = sanitize_text_field($post_data["thumbs"]);
 
+        $return = array(
+            "username" => $username,
+            "page_id" => $page_id,
+            "thumbs" => $thumbs
+        );
+
+        return new WP_REST_Response( $return, 200 );
+
         $L2l_Thumbs = new Learn2Learn_Thumbs($username);
         $success = $L2l_Thumbs->insert_or_update_user_thumbs($page_id, $thumbs);
 
