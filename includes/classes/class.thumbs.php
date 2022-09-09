@@ -81,9 +81,9 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
                 "thumb_id" => $db_record->thumb_id
             );
 
-            return $where_clause;
+            $where_format = "%d";
 
-            $success = $this->db->update( $this->thumbs_table, $table_data, $where_clause, $data_format );
+            $success = $this->db->update( $this->thumbs_table, $table_data, $where_clause, $data_format, $where_format );
 
         } else {
 
