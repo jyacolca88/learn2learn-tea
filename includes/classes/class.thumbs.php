@@ -45,7 +45,10 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
         $this->where_format = array ("page_id" => "%d", "user_id" => "%s");
         $this->where_values = array($page_id, $this->user_id);
 
-        return $this->run_select_query();
+        $results_array = $this->run_select_query();
+        $return = is_array($results_array) ? reset($results_array) : false;
+
+        return $return;
 
     }
 
@@ -73,10 +76,6 @@ class Learn2Learn_Thumbs extends Learn2Learn_Database {
         $data_format = array('%s', '%d', '%s');
 
         if ($db_record = $this->get_user_thumb_by_page_id($content_id)){
-
-            if (is_array($db_record)){
-                reset($db_record);
-            }
 
             return $db_record;
 
