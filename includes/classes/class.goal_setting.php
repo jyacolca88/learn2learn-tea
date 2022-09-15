@@ -138,10 +138,11 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         if (isset($goal_update_success) || isset($steps_update_success)){
 
+            $goal_array = $this->get_goal_by_goal_id($goal_id);
+
             // If Step has been deleted, re-order steps array
             if ($step_deleted){
 
-                $goal_array = $this->get_goal_by_goal_id($goal_id);
                 $current_steps_array = $goal_array->steps;
 
                 if (isset($current_steps_array) && !empty($current_steps_array)){
