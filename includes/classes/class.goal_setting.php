@@ -146,18 +146,24 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
                 $current_steps_array = $goal_array->steps;
 
                 if (isset($current_steps_array) && !empty($current_steps_array)){
+
                     $order = 0;
                     $new_ordered_steps_array = array();
+
                     foreach($current_steps_array as $key => $step){
 
                         $step_data = array("step_id" => $step->step_id, "step_order" => $order);
                         $this->db_update_step($step_data);
 
                         $step->step_order = $order;
-                        $new_ordered_steps_array[$key] = $step;
+                        array_push($new_ordered_steps_array, $step);
+
+                        $order++;
 
                     }
+
                     $goal_array->steps = $new_ordered_steps_array;
+
                 }
 
             }
