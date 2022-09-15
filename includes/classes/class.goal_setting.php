@@ -144,7 +144,7 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
             // If Step has been deleted, re-order steps array
             if ($step_deleted){
 
-                $current_steps_array = $goal_array->steps;
+                $current_steps_array = $goal_array;
 
                 if (isset($current_steps_array) && !empty($current_steps_array)){
 
