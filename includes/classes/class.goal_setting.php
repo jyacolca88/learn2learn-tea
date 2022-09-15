@@ -110,8 +110,8 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
             foreach($steps_data as $step_data){
 
-                if (empty($step_data["step_title"]))
-                    continue;
+                // if (empty($step_data["step_title"]))
+                //     continue;
         
                 if (empty($step_data["step_completed_by"]) || $step_data["step_completed_by"] == "0000-00-00")
                     $step_data["step_completed_by"] = date("Y-m-d");
