@@ -105,13 +105,19 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         $goal_update_success = $this->db_update_goal($goal_data);
         $steps_update_success = false;
+        $step_deleted = false;
 
         if (!empty($steps_data)){
 
             foreach($steps_data as $step_data){
 
-                // if (empty($step_data["step_title"]))
-                //     continue;
+                // If Step Title is empty, delete step then re-order
+                if (empty($step_data["step_title"]) && isset($step_data["step_id"])){
+                    $this->db_delete_step(intval($step_data["step_id"]));
+                    $step_deleted = true;
+                    continue;
+                }
+                    
         
                 if (empty($step_data["step_completed_by"]) || $step_data["step_completed_by"] == "0000-00-00")
                     $step_data["step_completed_by"] = date("Y-m-d");
@@ -131,8 +137,32 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         $return_data = array();
 
         if (isset($goal_update_success) || isset($steps_update_success)){
+
+            // If Step has been deleted, re-order steps array
+            if ($step_deleted){
+
+                $goal_array = $this->get_goal_by_goal_id($goal_id);
+                $current_steps_array = $goal_array->steps;
+
+                if (isset($current_steps_array) && !empty($current_steps_array)){
+                    $order = 0;
+                    $new_ordered_steps_array = array();
+                    foreach($current_steps_array as $key => $step){
+
+                        $step_data = array("step_id" => $step->step_id, "step_order" => $order);
+                        $this->db_update_step($step_data);
+
+                        $step->step_order = $order;
+                        $new_ordered_steps_array[$key] = $step;
+
+                    }
+                    $goal_array->steps = $new_ordered_steps_array;
+                }
+
+            }
+
             $return_data["success"] = true;
-            $return_data["goal"] = $this->get_goal_by_goal_id($goal_id);
+            $return_data["goal"] = $goal_array;
         } else {
             $return_data["success"] = false;
         }
