@@ -11,10 +11,10 @@ function lf_l2l_tea_options_menu(){
 		'l2l-options', // page slug
 		'lf_l2l_tea_options_menu_callback', // this function prints the page content
 		'dashicons-lightbulb', // icon (from Dashicons for example)
-		2 // menu position
+		4 // menu position
 	);
 }
  
 function lf_l2l_tea_options_menu_callback(){
-	echo 'What is up?';
+	require_once get_template_directory() . '/includes/menus/menu.options.content.php';
 }
