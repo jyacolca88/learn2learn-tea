@@ -140,46 +140,55 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         if (isset($goal_update_success) || isset($steps_update_success)){
 
-            // If Step has been deleted, re-order steps array
-            if ($step_deleted){
-
-                $current_steps_array = $goal_array["steps"];
-                $new_steps_array = array();
-
-                if (isset($current_steps_array) && !empty($current_steps_array)){
-
-                    $order = 0;
-
-                    foreach($current_steps_array as $key => $step){
-
-                        $id = intval($step["step_id"]);
-
-                        $step_data = array(
-                            "step_id" => $id, 
-                            "step_order" => $order
-                        );
-                        $this->db_update_step($step_data);
-
-                        $new_steps_array[$key] = $step;
-                        $new_steps_array[$key]["step_order"] = $order;
-
-                        $order++;
-
-                    }
-
-                    $goal_array["steps"] = array_values($new_steps_array);
-
-                }
-
-            }
+            // If step has been deleted, re-order steps array (update db and return updated steps with correct order)
+            if ($step_deleted) 
+                $goal_array["steps"] = $this->update_step_order($goal_array["steps"]);
 
             $return_data["success"] = true;
             $return_data["goal"] = $goal_array;
+
         } else {
             $return_data["success"] = false;
         }
 
         return $return_data;
+
+    }
+
+    /**
+     * 
+     * Update order of all items in array, returns array of updated order (zero index) or empty array if nothing provided
+     * 
+     * @param   array   $string        array of steps array (items must contain step_id in associative array)
+     * @return  array   $output        returns array of steps array in zero index order, or empty array is no array provided as param
+     * 
+     */
+    private function update_step_order($steps_array){
+
+        if (!isset($steps_array) || empty($steps_array))
+            return array();
+
+        $new_steps_array = array();
+        $order = 0;
+
+        foreach($steps_array as $key => $step){
+
+            $id = intval($step["step_id"]);
+
+            $step_data = array(
+                "step_id" => $id, 
+                "step_order" => $order
+            );
+            $this->db_update_step($step_data);
+
+            $new_steps_array[$key] = $step;
+            $new_steps_array[$key]["step_order"] = $order;
+
+            $order++;
+
+        }
+
+        return array_values($new_steps_array);
 
     }
 
