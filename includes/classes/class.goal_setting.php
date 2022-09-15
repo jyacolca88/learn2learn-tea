@@ -413,8 +413,11 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
         }
 
         if (isset($goal_data["user_id"])){
+            $order = 0;
             foreach($multiple_steps_data as $key => $value){
                 $multiple_steps_data[$key]["user_id"] = $this->username;
+                $multiple_steps_data[$key]["step_order"] = $order;
+                $order++;
             }
         }
 
