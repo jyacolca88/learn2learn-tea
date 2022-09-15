@@ -140,3 +140,4 @@ if (class_exists("Jwt_Auth")){
 
 require_once get_template_directory() . '/includes/include.classes.php';
 require_once get_template_directory() . '/includes/include.restapi.php';
+require_once get_template_directory() . '/includes/menu.options.php';
