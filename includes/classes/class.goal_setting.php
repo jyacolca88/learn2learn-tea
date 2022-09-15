@@ -136,21 +136,21 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
 
         $return_data = array();
 
-        if (isset($goal_update_success) || isset($steps_update_success)){
+        $goal_array = $this->get_goal_by_goal_id($goal_id);
 
-            $goal_array = $this->get_goal_by_goal_id($goal_id);
-            $current_steps_array = array();
+        if (isset($goal_update_success) || isset($steps_update_success)){
 
             // If Step has been deleted, re-order steps array
             if ($step_deleted){
 
                 $current_steps_array = $goal_array["steps"];
+                $new_steps_array = array();
 
                 if (isset($current_steps_array) && !empty($current_steps_array)){
 
                     $order = 0;
 
-                    foreach($current_steps_array as $step){
+                    foreach($current_steps_array as $key => $step){
 
                         $id = intval($step["step_id"]);
 
@@ -159,16 +159,22 @@ class Learn2Learn_Goal_Setting extends Learn2Learn_Database {
                             "step_order" => $order
                         );
                         $this->db_update_step($step_data);
+
+                        $new_steps_array[$key] = $step;
+                        $new_steps_array[$key]["step_order"] = $order;
+
                         $order++;
 
                     }
+
+                    $goal_array["steps"] = array_values($new_steps_array);
+
                 }
 
             }
 
             $return_data["success"] = true;
-            $return_data["goal"] = $this->get_goal_by_goal_id($goal_id);
-            $return_data["current_steps_array"] = $current_steps_array;
+            $return_data["goal"] = $goal_array;
         } else {
             $return_data["success"] = false;
         }
