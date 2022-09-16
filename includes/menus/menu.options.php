@@ -80,7 +80,7 @@ function rudr_number( $args ){
 function l2l_options_main_heading_textbox( $args ) {
     $name = $args['name'];
     $value = get_option($name, '');
-    printr(
+    printf(
         "<input type='text' id='%s' name='%s' value='%s' />",
         $name,
         $name,
