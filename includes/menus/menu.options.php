@@ -4,7 +4,7 @@ add_action( 'admin_menu', 'lf_l2l_tea_options_menu' );
  
 function lf_l2l_tea_options_menu(){
 
-    require_once get_template_directory() . '/includes/menus/class.options.content.php';
+    require_once get_template_directory() . '/includes/menus/class.menu.options.php';
     $L2L_Menu_Options = new Learn2Learn_Menu_Options();
     $L2L_Menu_Options->add_menu_page();
 

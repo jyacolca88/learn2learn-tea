@@ -16,15 +16,15 @@ class Learn2Learn_Menu_Options {
 
     }
 
-    private function add_menu_page(){
+    public function add_menu_page(){
 
         add_menu_page(
             $this->page_title,
             $this->page_link_text,
             $this->user_capabilities,
             $this->page_slug,
-            $this->render_page,
-            $this->$page_link_icon,
+            "render_page",
+            $this->page_link_icon,
             3
         );
 
