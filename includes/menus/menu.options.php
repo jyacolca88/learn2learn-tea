@@ -65,7 +65,7 @@ function lf_l2l_settings_fields(){
 		array(
 			'label_for' => $main_paragraph_name,
 			'name' => $main_paragraph_name, // pass any custom parameters
-            'style' => "width: 20rem; max-width:100%; height: 5rem; max-height: 5rem;"
+            'style' => "width: 20rem; max-width:100%; height: 6rem; min-height: 6rem; max-height: 6rem;"
 		)
 	);
 
