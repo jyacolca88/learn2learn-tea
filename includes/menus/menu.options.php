@@ -28,6 +28,7 @@ function lf_l2l_settings_fields(){
 	$option_group = 'l2l-options-settings';
     $section_id = 'l2l_general_section';
     $main_heading_name = 'main-heading';
+    $main_paragraph_name = 'main-paragraph';
 
 	// 1. create section
 	add_settings_section(
@@ -39,7 +40,7 @@ function lf_l2l_settings_fields(){
 
 	// 2. register fields
 	register_setting( $option_group, $main_heading_name, array("type" => "string", "sanitize_callback" => "l2l_options_main_heading_sanitize") );
-	register_setting( $option_group, 'num_of_slides', 'absint' );
+	register_setting( $option_group, $main_paragraph_name, array("type" => "string", "sanitize_callback" => "l2l_options_main_paragraph_sanitize") );
 
 	// 3. add fields
 	add_settings_field(
@@ -55,29 +56,19 @@ function lf_l2l_settings_fields(){
 	);
 
 	add_settings_field(
-		'num_of_slides',
-		'Number of slides',
-		'rudr_number',
+		$main_paragraph_name,
+		'Main Paragraph',
+		'l2l_options_main_paragraph_textarea',
 		$page_slug,
 		$section_id,
 		array(
-			'label_for' => 'num_of_slides',
-			'class' => 'hello', // for <tr> element
-			'name' => 'num_of_slides' // pass any custom parameters
+			'label_for' => $main_paragraph_name,
+			'name' => $main_paragraph_name // pass any custom parameters
 		)
 	);
 
 }
 
-// custom callback function to print field HTML
-function rudr_number( $args ){
-	printf(
-		'<input type="number" id="%s" name="%s" value="%d" />',
-		$args[ 'name' ],
-		$args[ 'name' ],
-		get_option( $args[ 'name' ], 2 ) // 2 is the default number of slides
-	);
-}
 // custom callback function to print checkbox field HTML
 function l2l_options_main_heading_textbox( $args ) {
     $name = $args['name'];
@@ -90,7 +81,22 @@ function l2l_options_main_heading_textbox( $args ) {
     );
 }
 
+function l2l_options_main_paragraph_textarea( $args ) {
+    $name = $args['name'];
+    $value = get_option($name, '');
+    printf(
+        "<textarea id='%s' name='%s'>%s</textarea>",
+        $name,
+        $name,
+        $value
+    );
+}
+
 // custom sanitization function for a checkbox field
 function l2l_options_main_heading_sanitize( $value ) {
 	return sanitize_text_field((trim($value)));
+}
+
+function l2l_options_main_paragraph_sanitize( $value ) {
+	return strval((trim($value)));
 }
