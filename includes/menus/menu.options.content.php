@@ -16,8 +16,8 @@ add_action( 'admin_init',  'rudr_settings_fields' );
 function rudr_settings_fields(){
 
 	// I created variables to make the things clearer
-	$page_slug = 'l2l-options-settings';
-	$option_group = 'l2l-options';
+	$page_slug = 'l2l-options';
+	$option_group = 'l2l-options-settings';
 
 	// 1. create section
 	add_settings_section(
