@@ -46,7 +46,10 @@ function lf_l2l_settings_fields(){
 		'Main Heading',
 		'l2l_options_main_heading_textbox', // function to print the field
 		$page_slug,
-		$section_id  // section ID
+		$section_id,  // section ID
+        array(
+            'name' => 'main-heading'
+        )
 	);
 
 	add_settings_field(
