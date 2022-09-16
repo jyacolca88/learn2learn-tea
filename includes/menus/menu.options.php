@@ -51,7 +51,8 @@ function lf_l2l_settings_fields(){
 		$section_id,  // section ID
         array(
             'label_for' => $main_heading_name, 
-            'name' => $main_heading_name
+            'name' => $main_heading_name,
+            'style' => "width:20rem; max-width:100%"
         )
 	);
 
@@ -63,7 +64,8 @@ function lf_l2l_settings_fields(){
 		$section_id,
 		array(
 			'label_for' => $main_paragraph_name,
-			'name' => $main_paragraph_name // pass any custom parameters
+			'name' => $main_paragraph_name, // pass any custom parameters
+            'style' => "width: 20rem; max-width:100%; height: 5rem; max-height: 5rem;"
 		)
 	);
 
@@ -73,21 +75,25 @@ function lf_l2l_settings_fields(){
 function l2l_options_main_heading_textbox( $args ) {
     $name = $args['name'];
     $value = get_option($name, '');
+    $style = $args['style'];
     printf(
-        "<input type='text' id='%s' name='%s' value='%s' />",
+        "<input type='text' id='%s' name='%s' value='%s' style='%s' />",
         $name,
         $name,
-        $value
+        $value,
+        $style
     );
 }
 
 function l2l_options_main_paragraph_textarea( $args ) {
     $name = $args['name'];
     $value = get_option($name, '');
+    $style = $args['style'];
     printf(
-        "<textarea id='%s' name='%s'>%s</textarea>",
+        "<textarea id='%s' name='%s' style='%s'>%s</textarea>",
         $name,
         $name,
+        $style,
         $value
     );
 }
