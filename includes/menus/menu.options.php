@@ -11,7 +11,7 @@ function lf_l2l_tea_options_menu(){
 		'l2l-options', // page slug
 		'lf_l2l_tea_options_menu_callback', // this function prints the page content
 		'dashicons-lightbulb', // icon (from Dashicons for example)
-		4 // menu position
+		3 // menu position
 	);
 }
  
