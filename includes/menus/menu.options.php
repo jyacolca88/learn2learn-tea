@@ -19,33 +19,34 @@ function lf_l2l_tea_options_menu_callback(){
 	require_once get_template_directory() . '/includes/menus/menu.options.content.php';
 }
 
-add_action( 'admin_init',  'rudr_settings_fields' );
+add_action( 'admin_init',  'lf_l2l_settings_fields' );
 
-function rudr_settings_fields(){
+function lf_l2l_settings_fields(){
 
 	// I created variables to make the things clearer
 	$page_slug = 'l2l-options';
 	$option_group = 'l2l-options-settings';
+    $section_id = 'l2l_general_section';
 
 	// 1. create section
 	add_settings_section(
-		'rudr_section_id', // section ID
-		'', // title (optional)
+		$section_id , // section ID
+		'General Settings', // title (optional)
 		'', // callback function to display the section (optional)
 		$page_slug
 	);
 
 	// 2. register fields
-	register_setting( $option_group, 'slider_on', 'rudr_sanitize_checkbox' );
+	register_setting( $option_group, 'main-heading', array("type" => "string", "sanitize_callback" => "l2l_options_main_heading_sanitize") );
 	register_setting( $option_group, 'num_of_slides', 'absint' );
 
 	// 3. add fields
 	add_settings_field(
-		'slider_on',
-		'Display slider',
-		'rudr_checkbox', // function to print the field
+		'main-heading',
+		'Main Heading',
+		'l2l_options_main_heading_textbox', // function to print the field
 		$page_slug,
-		'rudr_section_id' // section ID
+		$section_id  // section ID
 	);
 
 	add_settings_field(
@@ -53,7 +54,7 @@ function rudr_settings_fields(){
 		'Number of slides',
 		'rudr_number',
 		$page_slug,
-		'rudr_section_id',
+		$section_id,
 		array(
 			'label_for' => 'num_of_slides',
 			'class' => 'hello', // for <tr> element
@@ -73,16 +74,19 @@ function rudr_number( $args ){
 	);
 }
 // custom callback function to print checkbox field HTML
-function rudr_checkbox( $args ) {
-	$value = get_option( 'slider_on' );
-	?>
-		<label>
-			<input type="checkbox" name="slider_on" <?php checked( $value, 'yes' ) ?> /> Yes
-		</label>
-	<?php
+function l2l_options_main_heading_textbox( $args ) {
+	// $value = get_option( 'main-heading' );
+    $name = $args['name'];
+    $value = get_option($name, '');
+    printr(
+        "<input type='text' id='%s' name='%s' value='%s' />",
+        $name,
+        $name,
+        $value
+    );
 }
 
 // custom sanitization function for a checkbox field
-function rudr_sanitize_checkbox( $value ) {
-	return 'on' === $value ? 'yes' : 'no';
+function l2l_options_main_heading_sanitize( $value ) {
+	return sanitize_text_field((trim($value)));
 }
