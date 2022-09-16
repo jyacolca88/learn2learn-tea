@@ -27,6 +27,7 @@ function lf_l2l_settings_fields(){
 	$page_slug = 'l2l-options';
 	$option_group = 'l2l-options-settings';
     $section_id = 'l2l_general_section';
+    $main_heading_name = 'main-heading';
 
 	// 1. create section
 	add_settings_section(
@@ -37,18 +38,19 @@ function lf_l2l_settings_fields(){
 	);
 
 	// 2. register fields
-	register_setting( $option_group, 'main-heading', array("type" => "string", "sanitize_callback" => "l2l_options_main_heading_sanitize") );
+	register_setting( $option_group, $main_heading_name, array("type" => "string", "sanitize_callback" => "l2l_options_main_heading_sanitize") );
 	register_setting( $option_group, 'num_of_slides', 'absint' );
 
 	// 3. add fields
 	add_settings_field(
-		'main-heading',
+		$main_heading_name,
 		'Main Heading',
 		'l2l_options_main_heading_textbox', // function to print the field
 		$page_slug,
 		$section_id,  // section ID
         array(
-            'name' => 'main-heading'
+            'label_for' => $main_heading_name, 
+            'name' => $main_heading_name
         )
 	);
 
