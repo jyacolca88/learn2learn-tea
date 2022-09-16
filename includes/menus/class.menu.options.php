@@ -30,7 +30,7 @@ class Learn2Learn_Menu_Options {
 
     }
 
-    private function render_page(){
+    public function render_page(){
 
         require_once get_template_directory() . '/includes/menus/menu.options.content.php';
 
