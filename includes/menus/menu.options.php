@@ -78,16 +78,14 @@ function rudr_number( $args ){
 }
 // custom callback function to print checkbox field HTML
 function l2l_options_main_heading_textbox( $args ) {
-	// $value = get_option( 'main-heading' );
-    print_r($args);
-    // $name = $args['name'];
-    // $value = get_option($name, '');
-    // printr(
-    //     "<input type='text' id='%s' name='%s' value='%s' />",
-    //     $name,
-    //     $name,
-    //     $value
-    // );
+    $name = $args['name'];
+    $value = get_option($name, '');
+    printr(
+        "<input type='text' id='%s' name='%s' value='%s' />",
+        $name,
+        $name,
+        $value
+    );
 }
 
 // custom sanitization function for a checkbox field
