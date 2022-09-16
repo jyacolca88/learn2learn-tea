@@ -27,14 +27,14 @@ function lf_l2l_settings_fields(){
 	$page_slug = 'l2l-options';
 	$option_group = 'l2l-options-settings';
     $section_id = 'l2l_general_section';
-    $main_heading_name = 'main-heading';
-    $main_paragraph_name = 'main-paragraph';
+    $main_heading_name = 'l2l-main-heading';
+    $main_paragraph_name = 'l2l-main-paragraph';
 
 	// 1. create section
 	add_settings_section(
 		$section_id , // section ID
 		'General Settings', // title (optional)
-		'', // callback function to display the section (optional)
+		'', // callback function to display text after title but before fields (optional)
 		$page_slug
 	);
 
