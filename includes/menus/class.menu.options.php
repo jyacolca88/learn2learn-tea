@@ -23,7 +23,7 @@ class Learn2Learn_Menu_Options {
             $this->page_link_text,
             $this->user_capabilities,
             $this->page_slug,
-            "render_page",
+            "self::render_page",
             $this->page_link_icon,
             3
         );
