@@ -21,6 +21,8 @@ function lf_l2l_settings_fields(){
 
     $L2L_Settings_Fields = new Learn2Learn_Settings_Fields();
 
+	/*** GENERAL SETTINGS [BEGIN]  ***/
+
 	// Add Section
 	$L2L_Settings_Fields->add_section("l2l-generation-section", "General Settings");
 
@@ -33,11 +35,29 @@ function lf_l2l_settings_fields(){
 	// Add Maintenance Mode field
 	$L2L_Settings_Fields->register_and_add_field("l2l-maintenance-mode", "Maintenance Mode", "checkbox");
 
-	
+	/*** GENERAL SETTINGS [END]  ***/
+
+	/*** USER PROGRESS SETTINGS [BEGIN]  ***/
+
 	// Add 'User Progress' Section
 	$L2L_Settings_Fields->add_section("l2l-user-progress-section", "User Progress Settings");
 
 	// Add User Progress field
 	$L2L_Settings_Fields->register_and_add_field("l2l-user-progress-enabled", "User Progress enabled", "checkbox");
+
+	/*** USER PROGRESS SETTINGS [END]  ***/
+
+	/*** PERSONALISATION SETTINGS [BEGIN]  ***/
+
+	// Add 'Personlisation' Section
+	$L2L_Settings_Fields->add_section("l2l-personalisation-section", "Personalisation Settings");
+
+	// Add Personlisation field
+	$L2L_Settings_Fields->register_and_add_field("l2l-personalisation-enabled", "Personalisation enabled", "checkbox");
+
+	// Add Personalisation Heading
+	$L2L_Settings_Fields->register_and_add_field("l2l-personalisation-heading", "Personalisation Heading", "text", array("style" => "width:22rem; max-width:100%"));
+
+	/*** PERSONALISATION SETTINGS [END]  ***/
 
 }
