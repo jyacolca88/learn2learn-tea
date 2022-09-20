@@ -58,6 +58,9 @@ function lf_l2l_settings_fields(){
 	// Add Personalisation Heading
 	$L2L_Settings_Fields->register_and_add_field("l2l-personalisation-heading", "Personalisation Heading", "text", array("style" => "width:22rem; max-width:100%"));
 
+	// Add Personalisation Heading
+	$L2L_Settings_Fields->register_and_add_field("l2l-personalisation-image", "Personalisation Image", "image");
+
 	/*** PERSONALISATION SETTINGS [END]  ***/
 
 }

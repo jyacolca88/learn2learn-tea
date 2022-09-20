@@ -51,6 +51,11 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
                 $render_method = "render_checkbox_field";
                 break;
 
+            case "image":
+                $sanitize_method = "sanitize_image_field";
+                $render_method = "render_image_field";
+                break;
+
         }
 
 
@@ -98,6 +103,45 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     }
 
+    public function render_image_field($args){
+
+        extract($this->retrieve_values_from_args($args));
+
+        $image_id = $value;
+
+        if ($image = wp_get_attachment_image($image_id, "medium")){
+
+            printf(
+                "<a href='#' class='l2l-admin-image-upload'><img src='%s' /></a>",
+                esc_url( $image )
+            );
+
+            echo "<a href='#' class='l2l-admin-image-remove'>Remove image</a>";
+
+            printf(
+                "<input type='hidden' name='%s' value='%d'>", 
+                $name, intval($image_id)
+            );
+
+        } else {
+
+            $html = '
+                <a href="#" class="button l2l-admin-image-upload">Upload image</a>
+                <a href="#" class="l2l-admin-image-remove" style="display:none">Remove image</a>
+            ';
+
+            echo $html;
+
+            printf(
+                "<input type='hidden' name='%s' value='%d'>", 
+                $name, intval($image_id)
+            );
+
+        }
+
+
+    }
+
     private function retrieve_values_from_args($args){
 
         $name = (isset($args["name"]) ? sanitize_text_field($args["name"]) : "");
@@ -127,6 +171,12 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
     public function sanitize_checkbox_field($value){
 
         return (isset($value) ? 'yes' : 'no');
+
+    }
+
+    public function sanitize_image_field($value){
+
+        return (intval($value) > 0 ? intval($value) : "");
 
     }
 
