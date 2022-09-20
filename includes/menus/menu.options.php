@@ -64,3 +64,17 @@ function lf_l2l_settings_fields(){
 	/*** PERSONALISATION SETTINGS [END]  ***/
 
 }
+
+add_action( 'admin_enqueue_scripts', 'l2l_admin_include_image_js' );
+
+function l2l_admin_include_image_js($hook) {
+	
+	if( $hook != 'admin.php')
+		return;
+	
+	if ( ! did_action( 'wp_enqueue_media' ) ) {
+		wp_enqueue_media();
+	}
+	
+ 	wp_enqueue_script( 'admin_image_js', get_stylesheet_directory_uri() . '/admin-image.js', array( 'jquery' ));
+}
