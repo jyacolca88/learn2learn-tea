@@ -175,5 +175,12 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     }
 
+    public function add_rest_route_for_fields(){
+
+        // TODO: create class for L2L options
+        // Add all fields to array, and then create route from it, return array of field => values
+
+    }
+
 
 }
