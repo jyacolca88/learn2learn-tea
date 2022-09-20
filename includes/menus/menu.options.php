@@ -20,11 +20,15 @@ add_action( 'admin_init',  'lf_l2l_settings_fields' );
 function lf_l2l_settings_fields(){
 
     $L2L_Settings_Fields = new Learn2Learn_Settings_Fields();
+
+	// Add Section
 	$L2L_Settings_Fields->add_section("l2l-generation-section", "General Settings");
 
 	// Add Main Heading field
-	$main_heading_style = array("style" => "width:22rem; max-width:100%");
-	$L2L_Settings_Fields->register_and_add_field("l2l-main-heading", "Main Heading", "text", $main_heading_style);
+	$L2L_Settings_Fields->register_and_add_field("l2l-main-heading", "Main Heading", "text", array("style" => "width:22rem; max-width:100%"));
+
+	// Add Main Paragraph field
+	$L2L_Settings_Fields->register_and_add_field("l2l-main-paragraph", "Main Paragraph", "textarea", array("style" => "width: 22rem; max-width:100%; height: 5rem; min-height: 5rem; max-height: 5rem;"));
 
 }
 
