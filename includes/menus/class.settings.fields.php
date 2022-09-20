@@ -68,7 +68,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         // Add field
         add_settings_field($this->field_id, $this->field_title, array($this, $render_method), $this->page_slug, $this->section_id, $this->field_args);
 
-        add_to_field_array();
+        $this->add_to_field_array();
 
     }
 
