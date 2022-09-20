@@ -15,7 +15,9 @@ function lf_l2l_tea_options_menu_callback(){
 
 add_action( 'admin_init',  'lf_l2l_settings_fields' );
 
-
+function lf_l2l_settings_fields(){
+	
+}
 
 // function lf_l2l_settings_fields(){
 
