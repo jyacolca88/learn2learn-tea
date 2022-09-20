@@ -89,7 +89,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
         $name = (isset($args["name"]) ? sanitize_text_field($args["name"]) : "");
         $value = (get_option($name) !== null ? sanitize_text_field(get_option($name)) : "");
-        $style = (isset($args["name"]) ? esc_attr(($args["name"])) : "");
+        $style = (isset($args["style"]) ? esc_attr(($args["style"])) : "");
 
         return array(
             "name" => $name,
