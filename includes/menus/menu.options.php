@@ -1,10 +1,12 @@
 <?php
 
+require_once get_template_directory() . '/includes/menus/class.menu.options.php';
+require_once get_template_directory() . '/includes/menus/class.settings.fields.php';
+
 add_action( 'admin_menu', 'lf_l2l_tea_options_menu' );
  
 function lf_l2l_tea_options_menu(){
 
-    require_once get_template_directory() . '/includes/menus/class.menu.options.php';
     $L2L_Menu_Options = new Learn2Learn_Menu_Options();
     $L2L_Menu_Options->add_menu_page();
 }
@@ -17,9 +19,12 @@ add_action( 'admin_init',  'lf_l2l_settings_fields' );
 
 function lf_l2l_settings_fields(){
 
-	require_once get_template_directory() . '/includes/menus/class.settings.fields.php';
     $L2L_Settings_Fields = new Learn2Learn_Settings_Fields();
 	$L2L_Settings_Fields->add_section("l2l-generation-section", "General Settings");
+
+	// Add Main Heading field
+	$main_heading_style = array("style" => "width:22rem; max-width:100%");
+	$L2L_Settings_Fields->register_and_add_field("l2l-main-heading", "Main Heading", "text", $main_heading_style);
 
 }
 
