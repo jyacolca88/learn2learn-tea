@@ -57,8 +57,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     public function render_text_field($args){
 
-        $attributes_array = $this->retrieve_values_from_args($args);
-        extract($attributes_array);
+        extract($this->retrieve_values_from_args($args));
 
         printf(
             "<input type='text' id='%s' name='%s' value='%s' style='%s' />",
@@ -72,8 +71,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     public function render_textarea_field($args){
 
-        $attributes_array = $this->retrieve_values_from_args($args);
-        extract($attributes_array);
+        extract($this->retrieve_values_from_args($args));
 
         printf(
             "<textarea id='%s' name='%s' style='%s'>%s</textarea>",
