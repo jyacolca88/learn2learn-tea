@@ -76,5 +76,5 @@ function l2l_admin_include_image_js($hook) {
 		wp_enqueue_media();
 	}
 	
- 	wp_enqueue_script( 'admin_image_js', get_stylesheet_directory_uri() . '/admin-image.js', array( 'jquery' ));
+ 	wp_enqueue_script( 'admin_image_js', get_stylesheet_directory_uri() . '/includes/js/admin-image.js', array( 'jquery' ));
 }
