@@ -61,10 +61,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
         printf(
             "<input type='text' id='%s' name='%s' value='%s' style='%s' />",
-            $name,
-            $name,
-            $value,
-            $style
+            $name, $name, $value, $style
         );
 
     }
@@ -75,10 +72,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
         printf(
             "<textarea id='%s' name='%s' style='%s'>%s</textarea>",
-            $name,
-            $name,
-            $style,
-            $value
+            $name, $name, $style, $value
         );
 
     }
