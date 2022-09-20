@@ -112,7 +112,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         if ($image = wp_get_attachment_image($image_id, "medium")){
 
             printf(
-                "<a href='#' class='l2l-admin-image-upload'><img src='%s' /></a>",
+                "<a href='#' class='l2l-admin-image-upload'><img src='%s' style='width:10rem;max-width:100%;' /></a>",
                 esc_url( $image )
             );
 
