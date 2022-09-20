@@ -24,10 +24,10 @@ jQuery( function($){
 		})
 		
 		// already selected images
-		customUploader.on( 'open', function() {
+		custom_uploader.on( 'open', function() {
 
 			if( imageId ) {
-			  const selection = customUploader.state().get( 'selection' )
+			  const selection = custom_uploader.state().get( 'selection' )
 			  attachment = wp.media.attachment( imageId );
 			  attachment.fetch();
 			  selection.add( attachment ? [attachment] : [] );
@@ -35,7 +35,7 @@ jQuery( function($){
 			
 		})
 
-		customUploader.open()
+		custom_uploader.open()
 	
 	});
 	// on remove button click
