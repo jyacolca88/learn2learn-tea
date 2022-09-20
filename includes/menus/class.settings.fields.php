@@ -34,6 +34,9 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         if (!empty($field_args))
             array_merge($this->field_args, $field_args);
 
+        print_r($this->field_args);
+        exit;
+
         switch($field_type){
 
             case "text":
