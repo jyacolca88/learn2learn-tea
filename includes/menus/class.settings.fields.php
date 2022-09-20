@@ -7,6 +7,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
     private $field_id;
     private $field_title;
     private $field_args;
+    private $fields_array = array();
 
     function __construct() {
 
@@ -67,6 +68,15 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         // Add field
         add_settings_field($this->field_id, $this->field_title, array($this, $render_method), $this->page_slug, $this->section_id, $this->field_args);
 
+        add_to_field_array();
+
+    }
+
+    private function add_to_field_array(){
+
+        $field_value = get_option($this->field_id);
+        $this->field_array[$this->field_id] = $field_value;
+        
     }
 
     public function render_text_field($args){
@@ -185,7 +195,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
     public function get_all_fields_for_rest_route(){
 
         // return all field key => values
-        return "Testing return from Settings.Fields Class";
+        return $this->fields_array;
 
     }
 
