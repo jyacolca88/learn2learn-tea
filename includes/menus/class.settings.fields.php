@@ -113,12 +113,10 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
             $image_url = esc_url($image);
 
-            printf(
-                "<a href='#' class='l2l-admin-image-upload'><img src='%s' style='width:10rem;max-width:100%;' /></a>",
-                $image_url
-            );
-
-            echo "<a href='#' class='l2l-admin-image-remove'>Remove image</a>";
+            $html = "
+                <a href='#' class='l2l-admin-image-upload'><img src='" . $image_url . "' style='width:10rem;max-width:100%;' /></a>
+                <a href='#' class='l2l-admin-image-remove'>Remove image</a>
+            ";
 
         } else {
 
@@ -127,9 +125,9 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
                 <a href="#" class="l2l-admin-image-remove" style="display:none">Remove image</a>
             ';
 
-            echo $html;
-
         }
+
+        echo $html;
 
         printf(
             "<input type='hidden' name='%s' value='%d'>", 
