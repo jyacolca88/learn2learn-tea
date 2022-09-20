@@ -107,21 +107,18 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
         extract($this->retrieve_values_from_args($args));
 
-        $image_id = $value;
+        $image_id = intval($value);
 
         if ($image = wp_get_attachment_image($image_id, "medium")){
 
+            $image_url = esc_url($image);
+
             printf(
                 "<a href='#' class='l2l-admin-image-upload'><img src='%s' style='width:10rem;max-width:100%;' /></a>",
-                esc_url( $image )
+                $image_url
             );
 
             echo "<a href='#' class='l2l-admin-image-remove'>Remove image</a>";
-
-            printf(
-                "<input type='hidden' name='%s' value='%d'>", 
-                $name, intval($image_id)
-            );
 
         } else {
 
@@ -132,12 +129,12 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
             echo $html;
 
-            printf(
-                "<input type='hidden' name='%s' value='%d'>", 
-                $name, intval($image_id)
-            );
-
         }
+
+        printf(
+            "<input type='hidden' name='%s' value='%d'>", 
+            $name, $image_id
+        );
 
 
     }
