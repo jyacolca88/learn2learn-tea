@@ -185,6 +185,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
     public function get_all_fields_for_rest_route(){
 
         // return all field key => values
+        return "Testing return from Settings.Fields Class";
 
     }
 

@@ -24,7 +24,10 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     public function get_options( $request ){
 
-        return new WP_REST_Response( "Get L2L Options Route", 200 );
+        $L2L_Settings_Field = new Learn2Learn_Settings_Fields();
+        $fields = $L2L_Settings_Field->get_all_fields_for_rest_route();
+
+        return new WP_REST_Response( $fields, 200 );
 
     }
 
