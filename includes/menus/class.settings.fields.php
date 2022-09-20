@@ -109,7 +109,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
         $image_id = intval($value);
 
-        if ($image = wp_get_attachment_image($image_id, "medium")){
+        if ($image = wp_get_attachment_image_url($image_id, "medium")){
 
             $image_url = esc_url($image);
 
