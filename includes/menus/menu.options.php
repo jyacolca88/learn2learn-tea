@@ -33,4 +33,11 @@ function lf_l2l_settings_fields(){
 	// Add Maintenance Mode field
 	$L2L_Settings_Fields->register_and_add_field("l2l-maintenance-mode", "Maintenance Mode", "checkbox");
 
+	
+	// Add 'User Progress' Section
+	$L2L_Settings_Fields->add_section("l2l-user-progress-section", "User Progress Settings");
+
+	// Add User Progress field
+	$L2L_Settings_Fields->register_and_add_field("l2l-user-progress-enabled", "User Progress enabled", "checkbox");
+
 }
