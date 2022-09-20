@@ -30,4 +30,7 @@ function lf_l2l_settings_fields(){
 	// Add Main Paragraph field
 	$L2L_Settings_Fields->register_and_add_field("l2l-main-paragraph", "Main Paragraph", "textarea", array("style" => "width: 22rem; max-width:100%; height: 5rem; min-height: 5rem; max-height: 5rem;"));
 
+	// Add Maintenance Mode field
+	$L2L_Settings_Fields->register_and_add_field("l2l-maintenance-mode", "Maintenance Mode", "checkbox");
+
 }

@@ -46,11 +46,20 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
                 $render_method = "render_textarea_field";
                 break;
 
+            case "checkbox":
+                $sanitize_method = "sanitize_checkbox_field";
+                $render_method = "render_checkbox_field";
+                break;
+
         }
 
 
-        register_setting($this->options_group, $this->field_id, array($this, $sanitize_method));
+        if(!$sanitize_method || !$render_method)
+            return;
 
+        // Register setting
+        register_setting($this->options_group, $this->field_id, array($this, $sanitize_method));
+        // Add field
         add_settings_field($this->field_id, $this->field_title, array($this, $render_method), $this->page_slug, $this->section_id, $this->field_args);
 
     }
@@ -73,6 +82,18 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         printf(
             "<textarea id='%s' name='%s' style='%s'>%s</textarea>",
             $name, $name, $style, $value
+        );
+
+    }
+
+    public function render_checkbox_field($args){
+
+        extract($this->retrieve_values_from_args($args));
+        $checkbox_html = "<label><input type='checkbox' id='%s' name='%s' style='%s' " . checked( $value, 'yes', false )  . " /> On</label>";
+
+        printf(
+            $checkbox_html,
+            $name, $name, $style
         );
 
     }
@@ -100,6 +121,12 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
     public function sanitize_textarea_field($value){
 
         return strval((trim($value)));
+
+    }
+
+    public function sanitize_checkbox_field($value){
+
+        return (isset($value) ? 'yes' : 'no');
 
     }
 
