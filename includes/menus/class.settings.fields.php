@@ -55,7 +55,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     }
 
-    public function render_text_field($args){
+    private function render_text_field($args){
 
         $attributes_array = $this->retrieve_values_from_args($args);
         extract($attributes_array);
@@ -70,7 +70,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     }
 
-    public function render_textarea_field($args){
+    private function render_textarea_field($args){
 
         $attributes_array = $this->retrieve_values_from_args($args);
         extract($attributes_array);
@@ -99,13 +99,13 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     }
 
-    public function sanitize_text_field($value){
+    private function sanitize_text_field($value){
 
         return sanitize_text_field((trim($value)));
 
     }
 
-    public function sanitize_textarea_field($value){
+    private function sanitize_textarea_field($value){
 
         return strval((trim($value)));
 
