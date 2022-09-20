@@ -16,7 +16,11 @@ function lf_l2l_tea_options_menu_callback(){
 add_action( 'admin_init',  'lf_l2l_settings_fields' );
 
 function lf_l2l_settings_fields(){
-	
+
+	require_once get_template_directory() . '/includes/menus/class.settings.fields.php';
+    $L2L_Settings_Fields = new Learn2Learn_Settings_Fields();
+	$L2L_Settings_Fields->add_section("l2l-generation-section", "General Settings");
+
 }
 
 // function lf_l2l_settings_fields(){
