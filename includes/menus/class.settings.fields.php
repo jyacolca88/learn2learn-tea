@@ -188,8 +188,8 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
     public function add_rest_route_for_fields(){
 
         require_once get_template_directory() . '/includes/routes/class.route.l2l_options.php';
-        $l2l_options_route = new Learn2Learn_Options_Custom_Route();
-        $l2l_options_route->register_routes($this->fields_array);
+        $l2l_options_route = new Learn2Learn_Options_Custom_Route($this->fields_array);
+        $l2l_options_route->register_routes();
         // TODO: create class for L2L options
         // Add all fields to array, and then create route from it, return array of field => values
 
