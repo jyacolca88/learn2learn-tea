@@ -165,7 +165,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
     private function retrieve_values_from_args($args){
 
         $name = (isset($args["name"]) ? sanitize_text_field($args["name"]) : "");
-        $value = (get_option($name) !== null ? sanitize_text_field(get_option($name)) : "");
+        $value = (get_option($name) !== null ? get_option($name) : "");
         $style = (isset($args["style"]) ? esc_attr(($args["style"])) : "");
 
         return array(
@@ -202,8 +202,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     public function sanitize_editor_field($value){
 
-        // return wp_filter_post_kses($value);
-        return $value;
+        return wp_filter_post_kses($value);
 
     }
 
