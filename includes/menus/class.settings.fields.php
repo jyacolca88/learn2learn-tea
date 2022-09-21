@@ -78,7 +78,15 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
         extract($this->retrieve_values_from_args($args));
 
-        wp_editor($value, $name);
+        $editor_settings = array(
+            'textarea_name' => $name,
+            'teeny' => true,
+            'tinymce' => array(
+                'width' => 600
+            )
+        );
+
+        wp_editor($value, $name, $editor_settings);
 
     }
 
