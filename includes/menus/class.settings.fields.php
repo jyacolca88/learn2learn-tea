@@ -79,6 +79,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         extract($this->retrieve_values_from_args($args));
 
         $editor_settings = array(
+            'media_buttons' => false,
             'textarea_name' => $name,
             'textarea_rows' => 10,
             'teeny' => true,
