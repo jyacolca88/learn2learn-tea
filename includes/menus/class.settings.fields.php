@@ -89,7 +89,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         );
 
         echo "<div style='width: 40rem; max-width: 100%;'>";
-        wp_editor($value, $name, $editor_settings);
+        wp_editor(esc_html($value), $name, $editor_settings);
         echo "</div>";
 
     }
