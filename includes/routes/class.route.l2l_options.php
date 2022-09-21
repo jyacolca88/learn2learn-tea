@@ -32,11 +32,23 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
             LIKE %s
         ";
 
-        $fields = $wpdb->get_results(
+        $results = $wpdb->get_results(
             $wpdb->prepare(
                 $sql, "%l2l-%"
             )
         );
+
+        $fields = array();
+
+        if (isset($results) && !empty($results)){
+
+            foreach($results as $record){
+
+                $fields[$record->option_name] = $record->option_value;
+
+            }
+
+        }
 
         return new WP_REST_Response( $fields, 200 );
 
