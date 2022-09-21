@@ -80,6 +80,7 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
         $editor_settings = array(
             'textarea_name' => $name,
+            'textarea_rows' => 10,
             'teeny' => true,
             // 'tinymce' => array(
             //     'width' => 600
