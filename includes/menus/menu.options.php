@@ -63,8 +63,6 @@ function lf_l2l_settings_fields(){
 
 	/*** PERSONALISATION SETTINGS [END]  ***/
 
-	$L2L_Settings_Fields->add_rest_route_for_fields();
-
 }
 
 add_action( 'admin_enqueue_scripts', 'l2l_admin_include_image_js' );
