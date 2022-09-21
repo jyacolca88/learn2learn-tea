@@ -24,19 +24,14 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     public function get_options( $request ){
 
-        global $wpdb;
-        $sql = "
-            SELECT * 
-            FROM `wp_options` 
-            WHERE `option_name` 
-            LIKE %s
-        ";
+        $results = $this->get_results_from_options_table();
+        $fields = $this->format_options_results_into_assoc_array($results);
 
-        $results = $wpdb->get_results(
-            $wpdb->prepare(
-                $sql, "%l2l-%"
-            )
-        );
+        return new WP_REST_Response( $fields, 200 );
+
+    }
+
+    private function format_options_results_into_assoc_array($results){
 
         $fields = array();
 
@@ -50,7 +45,26 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
         }
 
-        return new WP_REST_Response( $fields, 200 );
+        return $fields;
+
+    }
+
+    private function get_results_from_options_table(){
+
+        global $wpdb;
+
+        $sql = "
+            SELECT * 
+            FROM `wp_options` 
+            WHERE `option_name` 
+            LIKE %s
+        ";
+
+        return $wpdb->get_results(
+            $wpdb->prepare(
+                $sql, "%l2l-%"
+            )
+        );
 
     }
 

@@ -56,6 +56,11 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
                 $render_method = "render_image_field";
                 break;
 
+            case "editor":
+                $sanitize_method = "sanitize_editor_field";
+                $render_method = "render_editor_field";
+                break;
+
         }
 
 
@@ -66,6 +71,14 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         register_setting($this->options_group, $this->field_id, array($this, $sanitize_method));
         // Add field
         add_settings_field($this->field_id, $this->field_title, array($this, $render_method), $this->page_slug, $this->section_id, $this->field_args);
+
+    }
+
+    public function render_editor_field($args){
+
+        extract($this->retrieve_values_from_args($args));
+
+        wp_editor($value, $name);
 
     }
 
@@ -172,6 +185,12 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
     public function sanitize_image_field($value){
 
         return (intval($value) > 0 ? intval($value) : "");
+
+    }
+
+    public function sanitize_editor_field($value){
+
+        return wp_filter_post_kses($value);
 
     }
 

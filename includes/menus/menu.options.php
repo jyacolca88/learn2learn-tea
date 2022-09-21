@@ -63,6 +63,16 @@ function lf_l2l_settings_fields(){
 
 	/*** PERSONALISATION SETTINGS [END]  ***/
 
+	/*** EMBEDDED LESSONS SETTINGS [BEGIN]  ***/
+
+	// Add Embedded Lessons Section
+	$L2L_Settings_Fields->add_section("l2l-embedded-lessons-section", "Embedded Lessons Settings");
+
+	// Add Embedded Lesson Continue text field
+	$L2L_Settings_Fields->register_and_add_field("l2l-embedded-lesson-continue-text", "Embedded Lesson Continue Text", "editor");
+
+	/*** EMBEDDED LESSONS SETTINGS [END]  ***/
+
 }
 
 add_action( 'admin_enqueue_scripts', 'l2l_admin_include_image_js' );
