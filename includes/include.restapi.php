@@ -12,7 +12,6 @@ require_once get_template_directory() . '/includes/routes/class.route.thumbs.php
 require_once get_template_directory() . '/includes/routes/class.route.userprogress.php';
 require_once get_template_directory() . '/includes/routes/class.route.auth.php';
 require_once get_template_directory() . '/includes/routes/class.route.goal_setting.php';
-require_once get_template_directory() . '/includes/routes/class.route.l2l_options.php';
 
 
 function lf_l2l_register_rest_routes(){
@@ -40,9 +39,6 @@ function lf_l2l_register_rest_routes(){
 
     $goal_setting_route = new Goal_Setting_Learn2Learn_Custom_Route();
     $goal_setting_route->register_routes();
-
-    $l2l_options_route = new Learn2Learn_Options_Custom_Route();
-    $l2l_options_route->register_routes();
 
 }
 
