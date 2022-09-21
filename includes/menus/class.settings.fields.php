@@ -81,12 +81,14 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
         $editor_settings = array(
             'textarea_name' => $name,
             'teeny' => true,
-            'tinymce' => array(
-                'width' => 600
-            )
+            // 'tinymce' => array(
+            //     'width' => 600
+            // )
         );
 
+        echo "<div style='width: 40rem; max-width: 100%;'>";
         wp_editor($value, $name, $editor_settings);
+        echo "</div>";
 
     }
 
