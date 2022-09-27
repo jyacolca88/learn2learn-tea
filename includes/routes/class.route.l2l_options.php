@@ -20,6 +20,17 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, '/' . $resource_name . "questionnaire-launched" . "/(?P<user_id>[\d]+)", array(
+
+            array(
+                'methods'               => WP_REST_Server::EDITABLE,
+                'callback'              => array ( $this, 'set_questionnaire_already_launched'),
+                'permission_callback'  => array ( $this, 'set_questionnaire_already_launched_permissions_check' ),
+                'args'                  => array ()
+            )
+
+        ));
+
     }
 
     public function get_options( $request ){
@@ -87,15 +98,25 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     }
 
-    public function set_questionnaire_already_launched($user_id){
+    public function set_questionnaire_already_launched($request){
 
-        $already_launched = $this->get_questionnaire_already_launched($user_id);
+        // $user_id = intval($request["user_id"]);
 
-        if (!$already_launched){
+        // $already_launched = $this->get_questionnaire_already_launched($user_id);
 
-            add_user_meta( $user_id, 'l2l_quesitonnaire_already_launched', true, true );
+        // if (!$already_launched){
 
-        }
+        //     add_user_meta( $user_id, 'l2l_quesitonnaire_already_launched', true, true );
+
+        // }
+
+        return new WP_REST_Response( "Already launched ENDPOINT", 200 );
+
+    }
+
+    public function set_questionnaire_already_launched_permissions_check(){
+
+        return current_user_can( 'read' );
 
     }
 
