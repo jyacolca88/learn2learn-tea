@@ -106,8 +106,14 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
         if (!$already_launched){
 
-            add_user_meta( $user_id, 'l2l_quesitonnaire_already_launched', true, true );
+            $meta_id = add_user_meta( $user_id, 'l2l_quesitonnaire_already_launched', true, true );
 
+            $already_launched = ($meta_id ? true : false);
+
+        } else {
+
+            $already_launched = true;
+            
         }
 
         return new WP_REST_Response( $already_launched , 200 );
