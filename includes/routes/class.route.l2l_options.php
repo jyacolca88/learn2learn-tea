@@ -94,7 +94,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     private function get_questionnaire_already_launched($user_id){
 
-        return get_user_meta( $user_id, 'l2l_quesitonnaire_already_launched' , true );
+        return (get_user_meta( $user_id, 'l2l_quesitonnaire_already_launched' , true ) ? true : false);
 
     }
 
@@ -113,7 +113,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
         } else {
 
             $already_launched = true;
-            
+
         }
 
         return new WP_REST_Response( $already_launched , 200 );
