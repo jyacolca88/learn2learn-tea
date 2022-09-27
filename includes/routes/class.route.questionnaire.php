@@ -80,6 +80,16 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route ( $namespace, $resource_name . '/usertopics/(?P<user_id>[\d]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_user_topics' ),
+                'permission_callback' => array ( $this, 'get_user_topics_permissions_check' )
+            )
+
+        ));
+
     }
 
     /*
@@ -213,6 +223,18 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         return '__return_true';
         // return current_user_can( 'read' );
+
+    }
+
+    public function get_user_topics($request){
+
+        return new WP_REST_Response( "GET USER TOPICS ROUTE", 200 );
+
+    }
+
+    public function get_user_topics_permissions_check(){
+
+        return current_user_can( 'read' );
 
     }
 
