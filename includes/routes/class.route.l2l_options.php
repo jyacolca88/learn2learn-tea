@@ -100,17 +100,17 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     public function set_questionnaire_already_launched($request){
 
-        // $user_id = intval($request["user_id"]);
+        $user_id = intval($request["user_id"]);
 
-        // $already_launched = $this->get_questionnaire_already_launched($user_id);
+        $already_launched = $this->get_questionnaire_already_launched($user_id);
 
-        // if (!$already_launched){
+        if (!$already_launched){
 
-        //     add_user_meta( $user_id, 'l2l_quesitonnaire_already_launched', true, true );
+            add_user_meta( $user_id, 'l2l_quesitonnaire_already_launched', true, true );
 
-        // }
+        }
 
-        return new WP_REST_Response( "Already launched ENDPOINT", 200 );
+        return new WP_REST_Response( $already_launched , 200 );
 
     }
 
