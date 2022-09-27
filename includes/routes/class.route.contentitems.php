@@ -20,6 +20,17 @@ class Contentitems_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, '/' . $resource_name . '/overallprogress/(?P<username>[\w]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_overall_progress'),
+                'permission_callback'  => array ( $this, 'get_overall_progress_permissions_check' ),
+                'args'                  => array ()
+            )
+
+        ));
+
     }
 
     public function get_content_items( $request ){
@@ -34,6 +45,18 @@ class Contentitems_Learn2Learn_Custom_Route extends WP_REST_Controller {
     }
 
     public function get_content_items_permissions_check( $request ){
+
+        return '__return_true';
+
+    }
+
+    public function get_overall_progress($request){
+
+        return new WP_REST_Response( "overall progress route", 200 );
+
+    }
+
+    public function get_overall_progress_permissions_check( $request ){
 
         return '__return_true';
 
