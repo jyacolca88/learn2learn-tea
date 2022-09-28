@@ -40,7 +40,7 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
                 $iframe_url = esc_url($iframe_url);
             }
 
-            if ($lesson_obj = get_field("lesson", $menu_item->object_id) && !is_null($lesson_obj)){
+            if ($lesson_obj = get_field("lesson", $menu_item->object_id)){
                 $lesson = array(
                     "lesson_id" => $lesson_obj->ID,
                     "lesson_title" => $lesson_obj->post_title,
