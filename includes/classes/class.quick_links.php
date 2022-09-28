@@ -3,6 +3,7 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
 
     private $quick_links_name;
     private $quick_links_menu;
+    private $quick_links;
 
     function __construct(){
 
@@ -14,11 +15,37 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
         $this->quick_links_name = $quick_links_name;
         $this->quick_links_menu = $quick_links_menu;
 
+        $this->format_quick_links();
+
     }
 
     public function get_quick_links(){
 
-        return $this->quick_links_menu;
+        return $this->quick_links;
+
+    }
+
+    private function format_quick_links(){
+
+        if (!is_array($this->quick_links_menu))
+            return;
+
+        $formatted_quick_links = array();
+
+        foreach($this->quick_links_menu as $menu_item){
+
+            $iframe_url = esc_url(get_field( "iframe_url", $menu_item->object_id));
+            $lesson = intval(get_field("lesson", $menu_item->object_id));
+
+            array_push($formatted_quick_links, array(
+                "title" => $menu_item->title,
+                "iframe_url" => $iframe_url,
+                "lesson" => $lesson
+            ));
+
+        }
+
+        $this->quick_links = $formatted_quick_links;
 
     }
 
