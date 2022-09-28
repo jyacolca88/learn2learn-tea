@@ -228,7 +228,9 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_user_topics($request){
 
-        return new WP_REST_Response( "GET USER TOPICS ROUTE", 200 );
+        $topics = Learn2Learn_Topics::get_all_topics();
+
+        return new WP_REST_Response( $topics, 200 );
 
     }
 
