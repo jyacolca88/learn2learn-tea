@@ -34,11 +34,18 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
 
         foreach($this->quick_links_menu as $menu_item){
 
-            $iframe_url = (get_field( "iframe_url", $menu_item->object_id) ? esc_url(get_field( "iframe_url", $menu_item->object_id)) : false);
-            $lesson = get_field("lesson", $menu_item->object_id);
+            $iframe_url = $lesson = false;
 
-            if (get_field("lesson", $menu_item->object_id) && is_object(get_field("lesson", $menu_item->object_id))){
-                
+            if ($iframe_url = get_field( "iframe_url", $menu_item->object_id)){
+                $iframe_url = esc_url($iframe_url);
+            }
+
+            if ($lesson_obj = get_field("lesson", $menu_item->object_id) && is_object($lesson_obj)){
+                $lesson = array(
+                    "lesson_id" => $lesson_obj->ID,
+                    "lesson_title" => $lesson_obj->post_title,
+                    "lesson_slug" => $lesson_obj->post_name
+                );
             }
 
             array_push($formatted_quick_links, array(
