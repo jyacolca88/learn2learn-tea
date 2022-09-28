@@ -16,6 +16,12 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
 
     }
 
+    public function get_quick_links(){
+
+        return $this->quick_lnks_menu;
+
+    }
+
     private function get_nav_menu_object_by_location($location){
 
         $locations = get_nav_menu_locations();
