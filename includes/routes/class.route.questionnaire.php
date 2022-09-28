@@ -233,12 +233,29 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $topics = Learn2Learn_Topics::get_all_topics();
         $saved_topic_ids = Learn2Learn_Topics::get_topic_ids_by_user_id($user_id);
 
-        $return = array(
-            "topics" => $topics,
-            "topic_ids" => $saved_topic_ids
-        );
+        $formatted_user_topics = $this->format_user_topics($saved_topic_ids, $topics);
 
-        return new WP_REST_Response( $return, 200 );
+        return new WP_REST_Response( $formatted_user_topics, 200 );
+
+    }
+
+    private function format_user_topics($topic_ids, $topics){
+
+        if (!is_array($topic_ids) || !is_array($topics))
+            return;
+
+        $formatted_user_topics = array();
+
+        foreach($topics as $key => $topic){
+
+            $formatted_user_topics[$key]["topic_id"] = $topic->term_id;
+            $formatted_user_topics[$key]["topic_name"] = $topic->name;
+            $formatted_user_topics[$key]["topic_slug"] = $topic->slug;
+            $formatted_user_topics[$key]["topic_selected"] = (in_array($topic->term_id, $topic_ids) ? true : false);
+
+        }
+
+        return $formatted_user_topics;
 
     }
 
