@@ -27,7 +27,8 @@ function lf_l2ltea_register_menus(){
             array(
                 'journey-map-questions' => 'Journey Map Questions', 
                 'journey-content-items' => 'Journey Content Items',
-                'embed-site-menu' => "Embed Site Menu Items"
+                'embed-site-menu' => "Embed Site Menu Items",
+                'quick-links-menu' => 'Quick Links Menu'
             )
         );
     }
