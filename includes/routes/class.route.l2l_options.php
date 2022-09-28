@@ -45,7 +45,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
             $fields["questionnaire_already_launched"] = $questionnaire_already_launched;
         }
 
-        $Quick_Links_Obj = new Learn2Learn_Quick_Links;
+        $Quick_Links_Obj = new Learn2Learn_Quick_Links();
         $quick_links = $Quick_Links_Obj->get_quick_links();
 
         $fields["quick_links"] = $quick_links;
