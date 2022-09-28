@@ -18,7 +18,7 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
 
     public function get_quick_links(){
 
-        return $this->quick_lnks_menu;
+        return $this->quick_links_menu;
 
     }
 
