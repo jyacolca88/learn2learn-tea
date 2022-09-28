@@ -35,7 +35,7 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
         foreach($this->quick_links_menu as $menu_item){
 
             $iframe_url = esc_url(get_field( "iframe_url", $menu_item->object_id));
-            $lesson = intval(get_field("lesson", $menu_item->object_id));
+            $lesson = get_field("lesson", $menu_item->object_id);
 
             array_push($formatted_quick_links, array(
                 "title" => $menu_item->title,
