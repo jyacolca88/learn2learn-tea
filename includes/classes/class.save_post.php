@@ -22,8 +22,8 @@ class Learn2Learn_Save_Post{
     // change the video to have a wrapper of 16:9
     public function wrap_youtube_iframe_with_16_9_responsive_ratio(){
 
-        // if (!$this->post);
-        //     return;
+        if (!$this->post);
+            return;
 
         $this->post_content = $this->post_content . "<p>hello world 123</p>";
 
