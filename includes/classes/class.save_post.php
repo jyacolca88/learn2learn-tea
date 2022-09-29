@@ -38,7 +38,7 @@ class Learn2Learn_Save_Post{
 
         wp_update_post(array(
             'ID'           => $this->post_id,
-            'post_content' => trim($this->post_content)
+            'post_content' => wpautop(trim($this->post_content))
         ));
 
         add_action('save_post', 'lf_l2l_save_post');
