@@ -11,7 +11,7 @@ class Learn2Learn_Save_Post{
         $is_autosave = wp_is_post_autosave( $post_id );
         $is_revision = wp_is_post_revision( $post_id );
 
-        if (!$is_autosave && !$is_revision && !empty($post) && $post->name == "content-item"){
+        if (!$is_autosave && !$is_revision && !empty($post) && $post->type == "content-item"){
             $this->post = $post;
             $this->post_id = $post->ID;
             $this->post_content = $post->post_content;
