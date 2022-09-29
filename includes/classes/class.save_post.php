@@ -26,7 +26,7 @@ class Learn2Learn_Save_Post{
             return;
 
             $dom = new DOMDocument();
-            $post->loadHTML( $this->post_content );
+            $dom->loadHTML( $this->post_content );
 
             $images = $dom->getElementsByTagName( 'img' );
 
