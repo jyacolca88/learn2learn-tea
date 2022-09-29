@@ -11,7 +11,7 @@ class Learn2Learn_Save_Post{
         $is_autosave = wp_is_post_autosave( $post_id );
         $is_revision = wp_is_post_revision( $post_id );
 
-        if (!$is_autosave && !$is_revision && !empty($post)){
+        if (!$is_autosave && !$is_revision && !empty($post) && $post->name == "content-item"){
             $this->post = $post;
             $this->post_id = $post->ID;
             $this->post_content = $post->post_content;
@@ -22,7 +22,7 @@ class Learn2Learn_Save_Post{
     // change the video to have a wrapper of 16:9
     public function wrap_youtube_iframe_with_16_9_responsive_ratio(){
 
-        if (!$this->post);
+        if (!$this->post_id);
             return;
 
         $this->post_content = $this->post_content . "<p>hello world 123</p>";
@@ -31,8 +31,8 @@ class Learn2Learn_Save_Post{
 
     public function update_post(){
 
-        // if (!$this->post);
-        //     return;
+        if (!$this->post_id);
+            return;
 
         remove_action('save_post', 'lf_l2l_save_post');
 
