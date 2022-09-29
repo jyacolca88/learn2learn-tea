@@ -26,7 +26,7 @@ class Learn2Learn_Save_Post{
             return;
 
             $dom = new DOMDocument();
-            $post->loadHTML( $content );
+            $post->loadHTML( $this->post_content );
 
             $images = $dom->getElementsByTagName( 'img' );
 
@@ -42,7 +42,7 @@ class Learn2Learn_Save_Post{
                 }
             }
 
-            $content = $dom->saveHTML();
+            $this->post_content = $dom->saveHTML();
         // $this->post_content = apply_filters('the_content', $this->post_content) . "<p>hello world 123</p>";
 
     }
