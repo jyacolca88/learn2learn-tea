@@ -37,7 +37,7 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
             $iframe_url = $lesson = false;
 
             if ($iframe_url = get_field( "iframe_url", $menu_item->object_id)){
-                $iframe_url = esc_url($iframe_url);
+                $iframe_url = (!empty($iframe_url) ? esc_url($iframe_url) : false);
             }
 
             if ($lesson_obj = get_field("lesson", $menu_item->object_id)){
