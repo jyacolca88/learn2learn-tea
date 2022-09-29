@@ -45,7 +45,7 @@ class Contentitems_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_content_items_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -61,7 +61,7 @@ class Contentitems_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_overall_progress_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 

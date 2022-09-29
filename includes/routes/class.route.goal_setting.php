@@ -189,7 +189,7 @@ class Goal_Setting_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_goals_test_permissions_check(){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 

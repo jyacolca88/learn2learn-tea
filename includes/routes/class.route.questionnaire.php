@@ -114,7 +114,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_questionnaires_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -133,7 +133,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_questionnaire_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -149,7 +149,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_topic_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -174,7 +174,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_topics_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -198,9 +198,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function save_topic_ids_permissions_check() {
 
-        // return '__return_true';
-        // return current_user_can( 'read' );
-        return is_user_logged_in();
+        return current_user_can( 'read' );
 
     }
 
@@ -221,8 +219,7 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_topic_ids_permissions_check() {
 
-        return '__return_true';
-        // return current_user_can( 'read' );
+        return current_user_can( 'read' );
 
     }
 

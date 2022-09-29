@@ -57,7 +57,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_lessons_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -76,7 +76,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_lesson_permissions_check( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
@@ -100,7 +100,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
     public function get_personal_lessons_permissions_check ( $request ){
 
-        return '__return_true';
+        return current_user_can( 'read' );
 
     }
 
