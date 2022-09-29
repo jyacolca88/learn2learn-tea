@@ -25,7 +25,25 @@ class Learn2Learn_Save_Post{
         if (!isset($this->post))
             return;
 
-        $this->post_content = apply_filters('the_content', $this->post_content) . "<p>hello world 123</p>";
+            $dom = new DOMDocument();
+            $post->loadHTML( $content );
+
+            $images = $dom->getElementsByTagName( 'img' );
+
+            foreach ( $images as $image ) {
+
+                if ( empty( $image->getAttribute( 'alt' ) ) ) {
+
+                    $src = $image->getAttribute( 'src' );
+                    $alt = pathinfo( $src, PATHINFO_FILENAME );
+
+                    $image->setAttribute( 'alt', $alt );
+
+                }
+            }
+
+            $content = $dom->saveHTML();
+        // $this->post_content = apply_filters('the_content', $this->post_content) . "<p>hello world 123</p>";
 
     }
 
