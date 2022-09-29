@@ -142,3 +142,42 @@ if (class_exists("Jwt_Auth")){
 require_once get_template_directory() . '/includes/include.classes.php';
 require_once get_template_directory() . '/includes/include.restapi.php';
 require_once get_template_directory() . '/includes/menus/menu.options.php';
+
+
+
+/* TESTING CODE BELOW */
+
+function lf_l2l_save_post( $post_id ) {
+    
+    $post = get_post($post_id);
+
+    if (empty($post))
+        return;
+
+    $postName = strval($post->post_name);
+
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+
+    if ( !$is_autosave && !$is_revision ){
+
+        // unhook this function so it doesn't loop infinitely
+        remove_action('save_post', 'lf_l2l_save_post');
+    
+        // update the post, which calls save_post again
+        //$pattern = '/\s*/m';
+        //$postContentHtml = preg_replace($pattern, " ", $postContentHtml); 
+        $post_content = $post->post_content . "<p>Hello World!</p>";
+
+        wp_update_post(array(
+            'ID'           => $post_id,
+            'post_content' => wpautop(trim($post_content))
+        ));
+
+        // re-hook this function
+        add_action('save_post', 'lf_l2l_save_post');
+    }
+ 
+}
+
+add_action( 'save_post', 'lf_l2l_save_post' );
