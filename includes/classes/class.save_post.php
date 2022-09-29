@@ -25,7 +25,7 @@ class Learn2Learn_Save_Post{
         if (!isset($this->post))
             return;
 
-        $this->post_content = $this->post_content . "<p>hello world 123</p>";
+        $this->post_content = apply_filters('the_content', $this->post_content) . "<p>hello world 123</p>";
 
     }
 
