@@ -147,12 +147,12 @@ require_once get_template_directory() . '/includes/menus/menu.options.php';
 
 /* TESTING CODE BELOW */
 
-function lf_l2l_save_post( $post_id ) {
+// function lf_l2l_save_post( $post_id ) {
     
-    $Save_Post = new Learn2Learn_Save_Post($post_id);
-    $Save_Post->wrap_youtube_iframe_with_16_9_responsive_ratio();
-    $Save_Post->update_post();
+//     $Save_Post = new Learn2Learn_Save_Post($post_id);
+//     $Save_Post->wrap_youtube_iframe_with_16_9_responsive_ratio();
+//     $Save_Post->update_post();
  
-}
+// }
 
-add_action( 'save_post', 'lf_l2l_save_post' );
+// add_action( 'save_post', 'lf_l2l_save_post' );

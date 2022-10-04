@@ -73,6 +73,41 @@ class Learn2Learn_Lessons {
 
     }
 
+    private function filter_page_content($page){
+
+        // Check for Notes embed
+        $page = $this->check_notes_embed($page);
+
+        // Check for Video Embed
+
+
+        return $page;
+
+    }
+
+    private function check_notes_embed($page){
+
+        $content = $page->post_content;
+
+        if (strpos($content, "[lfl2lnotestextbox]") === false)
+            return $page;
+
+        // Content constains shortcode, so render a Div with corresponding data attributes
+        // https://lf.westernsydney.edu.au/p/learn2learn/wordpress-notes/notes-input.html?l2l_user_id=85daa4da50ba3931755b1960bf8f1083&l2l_module_id=473&l2l_page_id=35&l2l_item_id=224
+        // l2l_user_id = $username, l2l_module_id = $category_id, l2l_page_id = $lesson_id, l2l_item_id = $page_id (lesson_page)
+        $page_id = $page->ID;
+        $lesson_id = $page->post_parent;
+        $category_id = wp_get_post_parent_id($lesson_id);
+
+        $div = "<div class='lfl2lnotestextbox' data-module-id='" . $category_id . "' data-l2l-page-id='" . $lesson_id . "' data-l2l-item-id='" . $page_id . "'></div>";
+        $content = str_replace("[lfl2lnotestextbox]", $div, $content);
+
+        $page->post_content = $content;
+
+        return $page;
+
+    }
+
     private function get_lesson_interactive(){
 
         $filters = get_the_terms( $this->lesson->ID, 'filter' );
@@ -101,6 +136,8 @@ class Learn2Learn_Lessons {
         $page_ids = array();
 
         foreach($this->pages as $key => $page){
+
+            $page = $this->filter_page_content($page);
 
             $lesson_page = array(
                 'page_id' => $page->ID,
