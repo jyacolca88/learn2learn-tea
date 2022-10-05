@@ -137,7 +137,7 @@ class Learn2Learn_Lessons {
 
         foreach($this->pages as $key => $page){
 
-            //$page = $this->filter_page_content($page);
+            $page = $this->filter_page_content($page);
 
             $lesson_page = array(
                 'page_id' => $page->ID,
