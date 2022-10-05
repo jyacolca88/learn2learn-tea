@@ -98,11 +98,14 @@ class Learn2Learn_Lessons {
         $page_id = $page->ID;
         $lesson_id = $page->post_parent;
         $category_id = wp_get_post_parent_id($lesson_id);
+        $iframe_url = get_site_url(null, "/wordpress-notes/notes-input.html");
 
-        $div = "<div class='lfl2lnotestextbox' data-module-id='" . $category_id . "' data-l2l-page-id='" . $lesson_id . "' data-l2l-item-id='" . $page_id . "'></div>";
+        $div = "<div class='lfl2lnotestextbox' data-module-id='" . $category_id . "' data-l2l-page-id='" . $lesson_id . "' data-l2l-item-id='" . $page_id . "' data-iframe-url='" . $iframe_url . "'></div>";
         $content = str_replace("[lfl2lnotestextbox]", $div, $content);
 
         $page->post_content = $content;
+
+        // TODO: Need to use JS to target .lfl2lnotestextbox and replace with iframe
 
         return $page;
 
