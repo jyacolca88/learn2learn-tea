@@ -41,7 +41,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
-        register_rest_route( $namespace, $resource_name . '/get_embed_item_data/(?P<lesson_id>[\d]+)', array(
+        register_rest_route( $namespace, $resource_name . '/get-embed-item-data/(?P<lesson_id>[\d]+)', array(
 
             array(
                 'methods'               => WP_REST_Server::READABLE,
