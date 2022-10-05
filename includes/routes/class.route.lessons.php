@@ -41,6 +41,16 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, $resource_name . '/get_embed_item_data/(?P<lesson_id>[\d]+)', array(
+
+            array(
+                'methods'               => WP_REST_Server::READABLE,
+                'callback'              => array ( $this, 'get_lesson_data_for_embed_code'),
+                'permission_callback'  => '__return_true'
+            )
+
+        ));
+
     }
 
     public function get_lessons( $request ){
@@ -101,6 +111,32 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
     public function get_personal_lessons_permissions_check ( $request ){
 
         return current_user_can( 'read' );
+
+    }
+
+    public function get_lesson_data_for_embed_code( $request ){
+
+        $response = false;
+
+        // Get Content ID parameter
+        $lesson_id = $request->get_param( 'lesson_id' );
+
+        //If Content ID and Category ID are set
+        if ($lesson_id && $category_id = wp_get_post_parent_id($lesson_id)){
+
+            // Get Content name and associated data for embed item
+            $response = array(
+                "title" => get_bloginfo( "name" ),
+                "lesson_name" => get_the_title($lesson_id),
+                'lesson_desc' => get_field( "description_student_perspective", $lesson_id),
+                "item_image" => get_the_post_thumbnail_url( $category_id, 'large' ),
+                "color_primary" => get_field( "primary_colour", $category_id),
+                "color_secondary" => get_field( "secondary_colour", $category_id)
+            );
+
+        }
+
+        return new WP_REST_Response( $response, 200 );
 
     }
 
