@@ -46,7 +46,7 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_lesson_data_for_embed_code'),
-                'permission_callback'  => '__return_true'
+                'permission_callback'  => array ( $this, 'get_lesson_data_for_embed_code_permissions_check' )
             )
 
         ));
@@ -137,6 +137,12 @@ class Lessons_Learn2Learn_Custom_Route extends WP_REST_Controller {
         }
 
         return new WP_REST_Response( $response, 200 );
+
+    }
+
+    public function get_lesson_data_for_embed_code_permissions_check(){
+
+        return "__return_true";
 
     }
 
