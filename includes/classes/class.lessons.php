@@ -12,7 +12,7 @@ class Learn2Learn_Lessons {
         // Initialise properties
         $this->category = get_post( wp_get_post_parent_id( $lesson_id ) );
         $this->lesson = get_post($lesson_id);
-        $this->pages = get_children(array('post_parent' => $lesson_id,'order' => 'ASC','orderby' => 'menu_order'));
+        $this->pages = get_children(array('post_parent' => $lesson_id,'order' => 'ASC','orderby' => 'menu_order', 'post_status' => 'publish', 'post-type' => 'content-item'));
         $this->user_id = $user_id;
         
         // Initialise Database connection
