@@ -96,10 +96,7 @@ class Learn2Learn_Auth{
         $first = substr($uid, 0, 2);
         $last = substr($uid, -2);
 
-        // SHA256 of learn2learn
-        // b58c8976c97a49b405b5fb666f974e7671848c4c4845364af1f874e01318cab3
-
-        $code = $first . "b58c8976c97a49b405b5fb666f974e7671848c4c4845364af1f874e01318cab3" . $last . date("j");
+        $code = $first . "b58c8976c97a49b405b5fb666f974e7671848c4c4845364af1f874e01318cab3" . $last . date("j"); // SHA256 of learn2learn: b58c8976c97a49b405b5fb666f974e7671848c4c4845364af1f874e01318cab3
         $key = md5($code);
         
         date_default_timezone_set('Australia/Sydney');
