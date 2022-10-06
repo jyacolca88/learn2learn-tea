@@ -110,7 +110,7 @@ class Learn2Learn_Lessons {
         $html .= '</div>';
         $html .= '</div>';
 
-        $page->post_content = $html;
+        $page->post_content = str_replace("[lfl2lnotestextbox]", $html, $content);
 
         // TODO: Need to use JS to target .lfl2lnotestextbox and replace with iframe
 
