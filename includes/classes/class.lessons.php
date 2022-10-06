@@ -95,15 +95,22 @@ class Learn2Learn_Lessons {
         // Content constains shortcode, so render a Div with corresponding data attributes
         // https://lf.westernsydney.edu.au/p/learn2learn/wordpress-notes/notes-input.html?l2l_user_id=85daa4da50ba3931755b1960bf8f1083&l2l_module_id=473&l2l_page_id=35&l2l_item_id=224
         // l2l_user_id = $username, l2l_module_id = $category_id, l2l_page_id = $lesson_id, l2l_item_id = $page_id (lesson_page)
-        $page_id = $page->ID;
-        $lesson_id = $page->post_parent;
-        $category_id = wp_get_post_parent_id($lesson_id);
-        $iframe_url = get_site_url(null, "/wordpress-notes/notes-input.html");
 
-        $div = "<div class='lfl2lnotestextbox' data-l2l-module-id='" . $category_id . "' data-l2l-page-id='" . $lesson_id . "' data-l2l-item-id='" . $page_id . "' data-l2l-iframe-url='" . $iframe_url . "'></div>";
-        $content = str_replace("[lfl2lnotestextbox]", $div, $content);
+        // $page_id = $page->ID;
+        // $lesson_id = $page->post_parent;
+        // $category_id = wp_get_post_parent_id($lesson_id);
+        // $iframe_url = get_site_url(null, "/wordpress-notes/notes-input.html");
 
-        $page->post_content = $content;
+        // $div = "<div class='lfl2lnotestextbox' data-l2l-module-id='" . $category_id . "' data-l2l-page-id='" . $lesson_id . "' data-l2l-item-id='" . $page_id . "' data-l2l-iframe-url='" . $iframe_url . "'></div>";
+        // $content = str_replace("[lfl2lnotestextbox]", $div, $content);
+
+        $html = '<div class="wp-block-embed">';
+        $html .= '<div class="wp-block-embed__wrapper">';
+        $html .= '<iframe class="lf-l2l-notes-iframe"></iframe>';
+        $html .= '</div>';
+        $html .= '</div>';
+
+        $page->post_content = $html;
 
         // TODO: Need to use JS to target .lfl2lnotestextbox and replace with iframe
 
