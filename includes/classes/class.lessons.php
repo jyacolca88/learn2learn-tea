@@ -104,9 +104,12 @@ class Learn2Learn_Lessons {
         // $div = "<div class='lfl2lnotestextbox' data-l2l-module-id='" . $category_id . "' data-l2l-page-id='" . $lesson_id . "' data-l2l-item-id='" . $page_id . "' data-l2l-iframe-url='" . $iframe_url . "'></div>";
         // $content = str_replace("[lfl2lnotestextbox]", $div, $content);
 
+        $iframe_url = get_site_url(null, "/wordpress-notes/notes-input.html");
+
+
         $html = '<div class="wp-block-embed">';
         $html .= '<div class="wp-block-embed__wrapper">';
-        $html .= '<iframe class="lf-l2l-notes-iframe"></iframe>';
+        $html .= '<iframe class="lf-l2l-notes-iframe" data-l2l-iframe-url="' . $iframe_url . '"></iframe>';
         $html .= '</div>';
         $html .= '</div>';
 
