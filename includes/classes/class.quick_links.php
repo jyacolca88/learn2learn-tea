@@ -50,6 +50,7 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
 
             array_push($formatted_quick_links, array(
                 "title" => $menu_item->title,
+                "menu_item" => $menu_item,
                 "iframe_url" => $iframe_url,
                 "lesson" => $lesson
             ));
