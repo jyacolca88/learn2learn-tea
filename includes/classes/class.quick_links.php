@@ -47,12 +47,12 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
 
                 $lesson_completion = false;
 
-                if (!is_null($user_id)){
+                if (!is_null($this->user_id)){
                     $db = new Learn2Learn_Database();
                     $lesson_completion_record = $db->db_user_progress->select_user_progress_record($this->user_id, $lesson_obj->ID);
                     $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : false);
                 }
-                
+
                 $lesson = array(
                     "lesson_id" => $lesson_obj->ID,
                     "lesson_title" => $lesson_obj->post_title,
