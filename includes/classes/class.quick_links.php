@@ -4,8 +4,9 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
     private $quick_links_name;
     private $quick_links_menu;
     private $quick_links;
+    private $user_id;
 
-    function __construct(){
+    function __construct($user_id = null){
 
         $menu_object = $this->get_nav_menu_object_by_location("quick-links-menu") ?? false;
 
@@ -14,6 +15,8 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
 
         $this->quick_links_name = $quick_links_name;
         $this->quick_links_menu = $quick_links_menu;
+
+        $this->user_id = $user_id;
 
         $this->format_quick_links();
 
@@ -41,10 +44,20 @@ class Learn2Learn_Quick_Links extends Learn2Learn_Database {
             }
 
             if ($lesson_obj = get_field("lesson", $menu_item->object_id)){
+
+                $lesson_completion = false;
+
+                if (!is_null($user_id)){
+                    $db = new Learn2Learn_Database();
+                    $lesson_completion_record = $db->db_user_progress->select_user_progress_record($this->user_id, $lesson_obj->ID);
+                    $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : false);
+                }
+                
                 $lesson = array(
                     "lesson_id" => $lesson_obj->ID,
                     "lesson_title" => $lesson_obj->post_title,
-                    "lesson_slug" => $lesson_obj->post_name
+                    "lesson_slug" => $lesson_obj->post_name,
+                    'lesson_completion' => $lesson_completion
                 );
             }
 
