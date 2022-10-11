@@ -61,7 +61,10 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
             foreach($results as $record){
 
-                $fields[$record->option_name] = $record->option_value;
+                $return_key = str_replace("l2l-", "", $record->option_name);
+                $return_key = str_replace("-", "_", $return_key);
+
+                $fields[$return_key] = $record->option_value;
 
             }
 
