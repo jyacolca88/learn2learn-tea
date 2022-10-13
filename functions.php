@@ -146,20 +146,20 @@ require_once get_template_directory() . '/includes/menus/menu.options.php';
 
 /******************** CORS REST API FIX [BEGIN] ********************/
 
-add_action('init', 'handle_preflight');
-function handle_preflight() {
-    $origin = get_http_origin();
-    if ($origin === 'https://lf-dev.westernsydney.edu.au') {
-        header("Access-Control-Allow-Origin: lf-dev.westernsydney.edu.au");
-        header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-        header("Access-Control-Allow-Credentials: true");
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, X-WP-Nonce, Content-Type, Accept, Authorization');
-        if ('OPTIONS' == $_SERVER['REQUEST_METHOD']) {
-            status_header(200);
-            exit();
-        }
-    }
-}
+// add_action('init', 'handle_preflight');
+// function handle_preflight() {
+//     $origin = get_http_origin();
+//     if ($origin === 'https://lf-dev.westernsydney.edu.au') {
+//         header("Access-Control-Allow-Origin: lf-dev.westernsydney.edu.au");
+//         header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
+//         header("Access-Control-Allow-Credentials: true");
+//         header('Access-Control-Allow-Headers: Origin, X-Requested-With, X-WP-Nonce, Content-Type, Accept, Authorization');
+//         if ('OPTIONS' == $_SERVER['REQUEST_METHOD']) {
+//             status_header(200);
+//             exit();
+//         }
+//     }
+// }
 // add_filter('rest_authentication_errors', 'rest_filter_incoming_connections');
 // function rest_filter_incoming_connections($errors) {
 //     $request_server = $_SERVER['REMOTE_ADDR'];
