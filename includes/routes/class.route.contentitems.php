@@ -14,8 +14,7 @@ class Contentitems_Learn2Learn_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_content_items'),
-                // 'permission_callback'  => array ( $this, 'get_content_items_permissions_check' ),
-                'permission_callback'   => '__return_true',
+                'permission_callback'  => array ( $this, 'get_content_items_permissions_check' ),
                 'args'                  => array ()
             )
 
