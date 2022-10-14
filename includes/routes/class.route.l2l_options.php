@@ -14,8 +14,8 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::READABLE,
                 'callback'              => array ( $this, 'get_options'),
-                // 'permission_callback'  => array ( $this, 'get_options_permissions_check' ),
-                'permission_callback'   => 'is_user_logged_in',
+                'permission_callback'  => array ( $this, 'get_options_permissions_check' ),
+                // 'permission_callback'   => 'is_user_logged_in',
                 'args'                  => array ()
             )
 
