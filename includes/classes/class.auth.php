@@ -54,8 +54,6 @@ class Learn2Learn_Auth{
             $uid = sanitize_title(urldecode($_GET['uid']));
         } else if (isset($_POST["uid"]) && !empty($_POST["uid"])){ 
             $uid = sanitize_title(urldecode($_POST['uid']));
-        } else if (is_user_logged_in() && current_user_can( 'edit_pages' )){
-            $uid = get_current_user_id();
         } else {
             $uid = null;
         }
