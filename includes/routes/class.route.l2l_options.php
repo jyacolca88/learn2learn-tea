@@ -42,7 +42,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
         $questionnaire_already_launched = $this->get_questionnaire_already_launched($user_id);
 
         if (is_array($fields)){
-            $fields["questionnaire_already_launched"] = $questionnaire_already_launched;
+            $fields["questionnaire_launched"] = $questionnaire_already_launched;
         }
 
         $Quick_Links_Obj = new Learn2Learn_Quick_Links($user_id);
@@ -95,8 +95,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     public function get_options_permissions_check( $request ){
 
-        // return current_user_can( 'read' );
-        return is_user_logged_in();
+        return current_user_can( 'read' );
 
     }
 
