@@ -202,7 +202,8 @@ class Learn2Learn_Settings_Fields extends Learn2Learn_Menu_Options {
 
     public function sanitize_editor_field($value){
 
-        return wp_filter_post_kses($value);
+        // return wp_filter_post_kses($value);
+        return $value;
 
     }
 
