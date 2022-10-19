@@ -68,7 +68,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
                 if ($return_key == "embedded-lesson-continue-text") { $return_value = esc_html($record->option_value); }
 
-                $fields[$return_key] = $record->option_value;
+                $fields[$return_key] = $return_value;
 
             }
 
