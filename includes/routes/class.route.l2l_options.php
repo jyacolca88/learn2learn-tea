@@ -67,6 +67,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
                 $return_value = $record->option_value;
 
                 if ($return_key == "embedded-lesson-continue-text") { $return_value = esc_html($record->option_value); }
+                if ($return_key == "personalisation_image"){ $return_value = wp_get_attachment_image_url($record->option_value, "full"); }
 
                 $fields[$return_key] = $return_value;
 
