@@ -185,9 +185,9 @@ class Questionnaire_Learn2Learn_Custom_Route extends WP_REST_Controller {
         $topic_ids = $post_data["topic_ids"];
         $user_id = intval($post_data["user_id"]);
 
-        if ($topic_ids && $user_id){
+        if ($user_id){
 
-            $topic_ids = sanitize_text_field(urldecode($topic_ids));
+            $topic_ids = $topic_ids ? sanitize_text_field(urldecode($topic_ids)) : [];
             $saved_topic_ids = Learn2Learn_Topics::save_topic_ids_by_user_id($topic_ids, $user_id);
 
             return new WP_REST_Response( $saved_topic_ids, 200 );
