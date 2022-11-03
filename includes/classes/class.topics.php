@@ -57,7 +57,7 @@ class Learn2Learn_Topics {
 
         $meta_key = self::$meta_key_topic_ids;
         $user_topics = get_user_meta( $user_id, $meta_key, true );
-        $user_topics = self::convert_comma_separated_to_array($user_topics);
+        $user_topics = $user_topics ? self::convert_comma_separated_to_array($user_topics) : false;
         return $user_topics;
 
     }
