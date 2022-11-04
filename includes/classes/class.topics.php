@@ -89,7 +89,7 @@ class Learn2Learn_Topics {
         // Get user_meta
         $meta_key = self::$meta_key_topic_ids;
         $topic_ids = get_user_meta($user_id, $meta_key, true);
-        if (!$topic_ids) return;
+        if (!$topic_ids) return array();
 
         // Convert to array (terms_array)
         $terms_array = self::convert_comma_separated_to_array($topic_ids);
