@@ -194,6 +194,8 @@ class Learn2Learn_Topics {
     
     private static function convert_comma_separated_to_array($comma_separated){
 
+        if (!$comma_separated) return array();
+
         if( strpos($comma_separated, ",") !== false ) {
 
             $array = explode(",", $comma_separated);
