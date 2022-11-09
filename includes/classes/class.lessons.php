@@ -71,7 +71,7 @@ class Learn2Learn_Lessons {
             "lesson_reading_time" => esc_html(get_field( "reading_time", $this->lesson->ID) ),
             'lesson_completion' => $lesson_completion,
             'lesson_interactive' => $lesson_interactive,
-            'lesson_thumbs' => $lesson_thumbs
+            'lesson_thumbs' => $lesson_user_thumbs_record
         );
 
     }
