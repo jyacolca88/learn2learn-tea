@@ -178,7 +178,7 @@ class Learn2Learn_Database {
     /******************** SELECT USER PROGRESS RECORDS IN (ARRAY) [BEGIN] ********************/
     public function select_user_progress_records_in($username, $content_ids, $user_id = null){
 
-        return select_user_records_in($username, $content_ids, $user_id, $this->content_progress_table);
+        return $this->select_user_records_in($username, $content_ids, $user_id, $this->content_progress_table);
 
         // if user_id is passed, get username
         if ($user_id){ $username = $this->get_username_by_user_id($user_id); }
@@ -208,7 +208,7 @@ class Learn2Learn_Database {
 
     public function select_user_thumbs_records_in($username, $content_ids, $user_id = null){
 
-        return select_user_records_in($username, $content_ids, $user_id, $this->thumbs_table);
+        return $this->select_user_records_in($username, $content_ids, $user_id, $this->thumbs_table);
 
     }
 
