@@ -178,6 +178,8 @@ class Learn2Learn_Database {
     /******************** SELECT USER PROGRESS RECORDS IN (ARRAY) [BEGIN] ********************/
     public function select_user_progress_records_in($username, $content_ids, $user_id = null){
 
+        return select_user_records_in($username, $content_ids, $user_id, $this->content_progress_table);
+
         // if user_id is passed, get username
         if ($user_id){ $username = $this->get_username_by_user_id($user_id); }
 
@@ -199,6 +201,48 @@ class Learn2Learn_Database {
                 SELECT * FROM {$this->content_progress_table} 
                 WHERE user_id = %s AND content_id IN ({$in_str})
                 ", $sql_values )
+
+        );
+
+    }
+
+    public function select_user_thumbs_records_in($username, $content_ids, $user_id = null){
+
+        return select_user_records_in($username, $content_ids, $user_id, $this->thumbs_table);
+
+    }
+
+    public function select_user_records_in($username, $content_ids, $user_id = null, $table){
+
+        // if user_id is passed, get username
+        if ($user_id){ $username = $this->get_username_by_user_id($user_id); }
+
+        // Add int placeholders to array depending on number of items in content_ids
+        $in_str_arr = array_fill( 0, count( $content_ids ), '%d' );
+
+        // Conver array to string with separating ','
+        $in_str = join( ',', $in_str_arr );
+
+        // Store content_ids into SQL values
+        $sql_values = $content_ids;
+
+        // Add username to the beginning of the array
+        array_unshift($sql_values, $username);
+
+        $sql_statement = "
+            SELECT * FROM {$table} 
+            WHERE user_id = %s AND 
+        ";
+
+        if ($table == $this->content_progress_table){
+            $sql_statement .= "content_id IN ({$in_str})";
+        } else if ($table == $this->thumbs_table){
+            $sql_statement .= "page_id IN ({$in_str})";
+        }
+
+        return $this->db->get_results(
+
+            $this->db->prepare($sql_statement, $sql_values )
 
         );
 
