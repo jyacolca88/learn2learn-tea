@@ -248,6 +248,16 @@ class Learn2Learn_Database {
 
     }
 
+    public function select_user_thumbs_for_lesson($username, $lesson_id, $user_id = null){
+
+        // if user_id is passed, get username
+        if ($user_id){ $username = $this->get_username_by_user_id($user_id); }
+
+        //$table = null, $where_format = array(), $where_values = array(), $columns = null, $array_output = false
+        return $this->select_from_table($this->thumbs_table, array("user_id" => "%s", "page_id" => "%d"), array($username, $lesson_id), "thumbs");
+
+    }
+
     private function get_username_by_user_id($user_id){
 
         $user_id = intval($user_id);
