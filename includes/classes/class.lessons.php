@@ -60,6 +60,8 @@ class Learn2Learn_Lessons {
         $lesson_completion_record = $this->db_user_progress->select_user_progress_record($this->user_id, $this->lesson->ID);
         $lesson_completion = (is_object($lesson_completion_record) ? intval($lesson_completion_record->progress) : null);
         $lesson_interactive = $this->get_lesson_interactive();
+        $lesson_user_thumbs_record = $this->db_user_progress->select_user_thumbs_for_lesson($this->user_id, $this->lesson->ID);
+        $lesson_thumbs = (is_object($lesson_user_thumbs_record) ? strval($lesson_user_thumbs_record->thumbs) : null);
 
         return array(
             'lesson_id' => $this->lesson->ID,
@@ -68,7 +70,8 @@ class Learn2Learn_Lessons {
             'lesson_content' => apply_filters( 'the_content', $this->lesson->post_content ),
             "lesson_reading_time" => esc_html(get_field( "reading_time", $this->lesson->ID) ),
             'lesson_completion' => $lesson_completion,
-            'lesson_interactive' => $lesson_interactive
+            'lesson_interactive' => $lesson_interactive,
+            'lesson_thumbs' => $lesson_thumbs
         );
 
     }
@@ -168,7 +171,6 @@ class Learn2Learn_Lessons {
         if (!empty($page_ids)) {
 
             $pages_progress_records = $this->db_user_progress->select_user_progress_records_in($this->user_id, $page_ids);
-            $pages_thumbs_records = $this->db_user_progress->select_user_thumbs_records_in($this->user_id, $page_ids);
 
             foreach($pages_array as $key => $page){
 
@@ -176,14 +178,6 @@ class Learn2Learn_Lessons {
 
                     if ($pages_progress_records[$i]->content_id == $page["page_id"]){
                         $pages_array[$key]["page_completion"] = intval($pages_progress_records[$i]->progress);
-                    }
-
-                }
-
-                for ($i=0; $i < count($pages_thumbs_records); $i++){
-
-                    if ($pages_thumbs_records[$i]->page_id == $page["page_id"]){
-                        $pages_array[$key]["page_thumb"] = strval($pages_thumbs_records[$i]->thumbs);
                     }
 
                 }
