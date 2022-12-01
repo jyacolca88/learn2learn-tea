@@ -25,7 +25,9 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
             array(
                 'methods'               => WP_REST_Server::EDITABLE,
                 'callback'              => array ( $this, 'set_questionnaire_already_launched'),
-                'permission_callback'  => array ( $this, 'set_questionnaire_already_launched_permissions_check' ),
+                'permission_callback'  => function() {
+                    return current_user_can( 'read' );
+                },
                 'args'                  => array ()
             )
 
@@ -132,9 +134,31 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     }
 
-    public function set_questionnaire_already_launched_permissions_check(){
+    public function get_onboarding_learn2learn($user_id){
 
-        return current_user_can( 'read' );
+        return (get_user_meta($user_id, "l2l_onboarding", true) ? true : false);
+
+    }
+
+    public function set_onboarding_learn2learn($request){
+
+        $user_id = intval($request["user_id"]);
+
+        $onboarding_launched = $this->get_onboarding_learn2learn($user_id);
+
+        if (!$onboarding_launched){
+
+            $meta_id = add_user_meta($user_id, 'l2l_onboarding', true, true);
+
+            $onboarding_launched = ($meta_id ? true : false);
+
+        } else {
+
+            $onboarding_launched = true;
+
+        }
+
+        return new WP_REST_Response( $onboarding_launched, 200 );
 
     }
 
