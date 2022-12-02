@@ -33,6 +33,19 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
         ));
 
+        register_rest_route( $namespace, '/' . $resource_name . "/onboarding", array(
+
+            array(
+                'methods'               => WP_REST_Server::EDITABLE,
+                'callback'              => array ( $this, 'set_onboarding_learn2learn'),
+                'permission_callback'  => function() {
+                    return current_user_can( 'read' );
+                },
+                'args'                  => array ()
+            )
+
+        ));
+
     }
 
     public function get_options( $request ){
@@ -134,21 +147,19 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     }
 
-    public function get_onboarding_learn2learn($user_id){
+    private function get_onboarding_learn2learn($user_id, $onboarding_key_name){
 
-        return (get_user_meta($user_id, "l2l_onboarding", true) ? true : false);
+        return (get_user_meta($user_id, $onboarding_key_name, true) ? true : false);
 
     }
 
-    public function set_onboarding_learn2learn($request){
+    private function update_user_meta_for_onboarding($user_id, $onboarding_key_name){
 
-        $user_id = intval($request["user_id"]);
-
-        $onboarding_launched = $this->get_onboarding_learn2learn($user_id);
+        $onboarding_launched = $this->get_onboarding_learn2learn($user_id, $onboarding_key_name);
 
         if (!$onboarding_launched){
 
-            $meta_id = add_user_meta($user_id, 'l2l_onboarding', true, true);
+            $meta_id = add_user_meta($user_id, $onboarding_key_name, true, true);
 
             $onboarding_launched = ($meta_id ? true : false);
 
@@ -157,6 +168,22 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
             $onboarding_launched = true;
 
         }
+
+        return $onboarding_launched;
+
+    }
+
+    public function set_onboarding_learn2learn($request){
+
+        $user_id = intval($request["user_id"]);
+        $onboarding_key_name = strval(sanitize_text_field($request["onboarding_key_name"]));
+
+        $valid_key_names = array("l2l_onboarding", "l2l_onboarding_gs", "l2l_onboarding_sp");
+        $is_valid_key_name = in_array($onboarding_key_name, $os);
+
+        if (!$is_valid_key_name) return false;
+
+        $onboarding_launched = $this->update_user_meta_for_onboarding($user_id, $onboarding_key_name);
 
         return new WP_REST_Response( $onboarding_launched, 200 );
 
