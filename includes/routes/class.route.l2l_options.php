@@ -176,7 +176,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
     public function set_onboarding_learn2learn($request){
 
         $user_id = intval($request["user_id"]);
-        $onboarding_key_name = strval(sanitize_text_field($request["onboarding_key_name"]));
+        $onboarding_key_name = strval(sanitize_text_field($request["onboarding_key"]));
 
         $valid_key_names = array("l2l_onboarding", "l2l_onboarding_gs", "l2l_onboarding_sp");
         $is_valid_key_name = in_array($onboarding_key_name, $os);
