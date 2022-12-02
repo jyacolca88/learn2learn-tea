@@ -55,9 +55,15 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
         $results = $this->get_results_from_options_table();
         $fields = $this->format_options_results_into_assoc_array($results);
         $questionnaire_already_launched = $this->get_questionnaire_already_launched($user_id);
+        $onboarding_l2l = $this->get_onboarding_learn2learn($user_id, "l2l_onboarding");
+        $onboarding_gs = $this->get_onboarding_learn2learn($user_id, "l2l_onboarding_gs");
+        $onboarding_sp = $this->get_onboarding_learn2learn($user_id, "l2l_onboarding_sp");
 
         if (is_array($fields)){
             $fields["questionnaire_launched"] = $questionnaire_already_launched;
+            $fields["onboarding"] = $onboarding_l2l;
+            $fields["onboarding_gs"] = $onboarding_gs;
+            $fields["onboarding_sp"] = $onboarding_sp;
         }
 
         $Quick_Links_Obj = new Learn2Learn_Quick_Links($user_id);
