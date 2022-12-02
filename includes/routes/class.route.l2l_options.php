@@ -182,12 +182,30 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
     public function set_onboarding_learn2learn($request){
 
         $user_id = intval($request["user_id"]);
-        $onboarding_key_name = strval(sanitize_text_field($request["onboarding_key"]));
+        $onboarding = strval(sanitize_text_field($request["onboarding"]));
+
+        switch($onboarding){
+
+            case "learn2learn":
+                $onboarding_key_name = "l2l_onboarding";
+                break;
+
+            case "goal-setting":
+                $onboarding_key_name = "l2l_onboarding_gs";
+                break;
+
+            case "study-planner":
+                $onboarding_key_name = "l2l_onboarding_sp";
+                break;
+
+        }
+
+        if (!$onboarding_key_name) return "INVALID Onboarding Value";
 
         $valid_key_names = array("l2l_onboarding", "l2l_onboarding_gs", "l2l_onboarding_sp");
         $is_valid_key_name = in_array($onboarding_key_name, $valid_key_names);
 
-        if (!$is_valid_key_name) return false;
+        if (!$is_valid_key_name) return "INVALID Onboarding Key";
 
         $onboarding_launched = $this->update_user_meta_for_onboarding($user_id, $onboarding_key_name);
 
