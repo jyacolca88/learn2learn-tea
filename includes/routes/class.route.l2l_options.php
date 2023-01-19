@@ -66,6 +66,8 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
             $fields["onboarding_sp"] = $onboarding_sp;
         }
 
+        $fields["site_name"] = get_bloginfo("name");
+
         $Quick_Links_Obj = new Learn2Learn_Quick_Links($user_id);
         $quick_links = $Quick_Links_Obj->get_quick_links();
         $fields["quick_links"] = $quick_links;
