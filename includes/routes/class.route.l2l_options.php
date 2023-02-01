@@ -129,7 +129,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
     private function get_questionnaire_already_launched($user_id){
 
-        return (get_user_meta( $user_id, 'l2l_quesitonnaire_launched' , true ) ? true : false);
+        return (get_user_meta( $user_id, 'l2l_questionnaire_launched' , true ) ? true : false);
 
     }
 
@@ -141,7 +141,7 @@ class Learn2Learn_Options_Custom_Route extends WP_REST_Controller {
 
         if (!$already_launched){
 
-            $meta_id = add_user_meta( $user_id, 'l2l_quesitonnaire_launched', true, true );
+            $meta_id = add_user_meta( $user_id, 'l2l_questionnaire_launched', true, true );
 
             $already_launched = ($meta_id ? true : false);
 
