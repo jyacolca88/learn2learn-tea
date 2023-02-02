@@ -43,6 +43,7 @@ class Learn2Learn_Lessons {
 
         return array(
             'catgegory_id' => $this->category->ID,
+            'category_title' => $this->category->post_title,
             'category_slug' => $this->category->post_name,
             'category_lesson_image' => $category_lesson_image,
             "category_colours" => array(
